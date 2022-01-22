@@ -20,7 +20,22 @@ public final class Constants {
         public static final int RIGHT_BACK_TALON = 1;
     }
 
+    public static final class TurretConstants {
+        public static final int TURRET_TALON = 7;
+        public static final int MAX_VELOCITY = 214;
+        public static final int MAX_ACCELERATION = 50;
+    }
+
     public static final class OIConstants {
-        public static final int DRIVER_CONTROLLER_PORT = 0;
+        public static final int DRIVER_CONTROLLER = 0;
+    }
+
+    public static final class IntakeConstants {
+        public static final int INTAKE_TALON = 5;
+        public static final int CTRE_PCM = 9;
+        public static final int LEFT_PNEUMATIC_FORWARD = 5;
+        public static final int LEFT_PNEUMATIC_REVERSE = 2;
+        public static final int RIGHT_PNEUMATIC_FORWARD = 7;
+        public static final int RIGHT_PNEUMATIC_REVERSE = 0;
     }
 }

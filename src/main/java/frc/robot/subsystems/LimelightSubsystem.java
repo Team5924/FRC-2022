@@ -22,8 +22,9 @@ public class LimelightSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run 
   }
 
-  public double getHorizontalOffset() {
-    return m_limelightTable.getEntry("tx").getDouble(0);
+  public double getHorizontalOffset(boolean inEncoderUnits) {
+    double x= m_limelightTable.getEntry("tx").getDouble(0);
+    return inEncoderUnits ? x * 4096/360 : x;
   }
 
   public double getVerticalOffset() {
