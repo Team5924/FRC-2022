@@ -26,14 +26,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putString("Left Pneumatic State", solenoidStatus(leftDoubleSolenoid));
-        SmartDashboard.putString("Right Pneumatic State", solenoidStatus(rightDoubleSolenoid));
+        SmartDashboard.putString("Left Pneumatic State", solenoidStatusAsString(leftDoubleSolenoid));
+        SmartDashboard.putString("Right Pneumatic State", solenoidStatusAsString(rightDoubleSolenoid));
         SmartDashboard.putBoolean("Compressor Status", compressor.enabled());
         SmartDashboard.putBoolean("Enough Pressure", compressor.getPressureSwitchValue());
         SmartDashboard.putBoolean("Intake Deployed", isIntakeDeployed());
     }
 
-    private String solenoidStatus(DoubleSolenoid solenoid) {
+    private String solenoidStatusAsString(DoubleSolenoid solenoid) {
         DoubleSolenoid.Value solenoidState = solenoid.get();
         if (solenoidState.equals(DoubleSolenoid.Value.kForward)) {
             return "Forward";
