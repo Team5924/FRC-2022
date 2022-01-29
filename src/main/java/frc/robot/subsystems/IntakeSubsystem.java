@@ -46,12 +46,6 @@ public class IntakeSubsystem extends SubsystemBase {
         }
     }
 
-    public void intake() {
-        // moves the motors
-        intakeTalon.set(-1);
-
-    }
-
     public void deploy() {
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
@@ -64,5 +58,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public boolean isIntakeDeployed() {
         return leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward) && rightDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward); 
+    }
+
+    public void intake() {
+        // moves the motors
+        intakeTalon.set(-1);
+
     }
 }
