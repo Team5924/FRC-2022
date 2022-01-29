@@ -13,13 +13,18 @@ import frc.robot.Constants.IntakeConstants;
 public class IntakeSubsystem extends SubsystemBase {
 
     private final Compressor compressor = new Compressor(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM);
-    
+
     private final DoubleSolenoid leftDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.LEFT_PNEUMATIC_FORWARD, IntakeConstants.LEFT_PNEUMATIC_REVERSE);
     private final DoubleSolenoid rightDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.RIGHT_PNEUMATIC_FORWARD, IntakeConstants.RIGHT_PNEUMATIC_REVERSE);
 
     private final WPI_TalonSRX intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_TALON); // Talon 5
 
     public IntakeSubsystem() {
+<<<<<<< HEAD
+=======
+        compressor.disable();
+
+>>>>>>> 8c0bcab (Disable compressor by default and toggle with B button)
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
@@ -46,18 +51,30 @@ public class IntakeSubsystem extends SubsystemBase {
         }
     }
 
-    public void deploy() {
+    public void deployIntake() {
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
-    public void retract() {
+    public void retractIntake() {
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     public boolean isIntakeDeployed() {
         return leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward) && rightDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward); 
+    }
+
+    public void enableCompressor() {
+        compressor.enableDigital();
+    }
+
+    public void disableCompressor() {
+        compressor.disable();
+    }
+
+    public boolean isCompressorOn() {
+        return compressor.enabled();
     }
 
     public void intake() {

@@ -10,10 +10,11 @@ import frc.robot.subsystems.IntakeSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ToggleIntake extends InstantCommand {
+public class ToggleCompressor extends InstantCommand {
+
   private final IntakeSubsystem m_intake;
 
-  public ToggleIntake(IntakeSubsystem subsystem) {
+  public ToggleCompressor(IntakeSubsystem subsystem) {
     m_intake = subsystem;
     addRequirements(m_intake);
   }
@@ -21,10 +22,10 @@ public class ToggleIntake extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_intake.isIntakeDeployed()) {
-      m_intake.retractIntake();
+    if (m_intake.isCompressorOn()) {
+      m_intake.disableCompressor();
     } else {
-      m_intake.deployIntake();
+      m_intake.enableCompressor();
     }
   }
 }
