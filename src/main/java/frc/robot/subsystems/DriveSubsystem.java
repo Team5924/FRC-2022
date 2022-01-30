@@ -30,16 +30,16 @@ public class DriveSubsystem extends SubsystemBase {
     configTalon(m_rightMaster);
   }
 
-  public void configTalon(WPI_TalonFX motorController) {
+  private void configTalon(WPI_TalonFX motorController) {
     		/* Factory Default all hardware to prevent unexpected behaviour */
 		motorController.configFactoryDefault();
-		
+
 		/* Config neutral deadband to be the smallest possible */
 		motorController.configNeutralDeadband(0.001);
 
 		/* Config sensor used for Primary PID [Velocity] */
     motorController.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, DriveConstants.kPIDLoopIdx, DriveConstants.TIMEOUT_MS);
-											
+
 
 		/* Config the peak and nominal outputs */
 		motorController.configNominalOutputForward(0, DriveConstants.TIMEOUT_MS);
@@ -56,7 +56,7 @@ public class DriveSubsystem extends SubsystemBase {
 		 * Talon FX does not need sensor phase set for its integrated sensor
 		 * This is because it will always be correct if the selected feedback device is integrated sensor (default value)
 		 * and the user calls getSelectedSensor* to get the sensor's position/velocity.
-		 * 
+		 *
 		 * https://phoenix-documentation.readthedocs.io/en/latest/ch14_MCSensor.html#sensor-phase
 		 */
         // _talon.setSensorPhase(true);
