@@ -12,20 +12,16 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-    Compressor compressor = new Compressor(9, PneumaticsModuleType.CTREPCM);
+    Compressor compressor = new Compressor(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM);
 
-    private final DoubleSolenoid leftDoubleSolenoid;
-    private final DoubleSolenoid rightDoubleSolenoid;
+    private final DoubleSolenoid leftDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.LEFT_PNEUMATIC_FORWARD, IntakeConstants.LEFT_PNEUMATIC_REVERSE);
+    private final DoubleSolenoid rightDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.RIGHT_PNEUMATIC_FORWARD, IntakeConstants.RIGHT_PNEUMATIC_REVERSE);
 
-    private final WPI_TalonSRX intakeTalon;
+    private final WPI_TalonSRX intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_TALON); // Talon 5
 
-    public IntakeSubsystem() {
-        leftDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.LEFT_PNEUMATIC_FORWARD, IntakeConstants.LEFT_PNEUMATIC_REVERSE);
+    public IntakeSubsystem() {  
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
-        rightDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.RIGHT_PNEUMATIC_FORWARD, IntakeConstants.RIGHT_PNEUMATIC_REVERSE);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
-
-        intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_TALON); // Talon 5
     }
 
     @Override
@@ -54,7 +50,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     }
 
-    public void extend() {
+    public void deploy() {
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
     }
