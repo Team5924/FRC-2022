@@ -20,8 +20,8 @@ public class IntakeSubsystem extends SubsystemBase {
     private final WPI_TalonSRX intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_TALON); // Talon 5
 
     public IntakeSubsystem() {
-        leftDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
-        rightDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
+        leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+        rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     @Override
@@ -29,6 +29,8 @@ public class IntakeSubsystem extends SubsystemBase {
         SmartDashboard.putString("Left Pneumatic State", solenoidStatus(leftDoubleSolenoid));
         SmartDashboard.putString("Right Pneumatic State", solenoidStatus(rightDoubleSolenoid));
         SmartDashboard.putBoolean("Compressor Status", compressor.enabled());
+        SmartDashboard.putBoolean("Enough Pressure", compressor.getPressureSwitchValue());
+        SmartDashboard.putBoolean("Intake Deployed", isIntakeDeployed());
     }
 
     private String solenoidStatus(DoubleSolenoid solenoid) {
