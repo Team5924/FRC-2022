@@ -18,10 +18,10 @@ public class DriveSubsystem extends SubsystemBase {
   private final WPI_TalonSRX m_leftBackTalon = new WPI_TalonSRX(DriveConstants.LEFT_BACK_TALON);
   private final WPI_TalonSRX m_rightBackTalon = new WPI_TalonSRX(DriveConstants.RIGHT_BACK_TALON);
 
-  private final MotorControllerGroup m_leftTalons= new MotorControllerGroup(m_leftFrontTalon, m_leftBackTalon);
-  private final MotorControllerGroup m_rightTalons= new MotorControllerGroup(m_rightFrontTalon, m_rightBackTalon);
+  private final MotorControllerGroup m_leftTalons = new MotorControllerGroup(m_leftFrontTalon, m_leftBackTalon);
+  private final MotorControllerGroup m_rightTalons = new MotorControllerGroup(m_rightFrontTalon, m_rightBackTalon);
 
-  private final DifferentialDrive m_drive= new DifferentialDrive(m_leftTalons, m_rightTalons);
+  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftTalons, m_rightTalons);
 
   /** Creates a new Drivetrain. */
   public DriveSubsystem() {

@@ -19,7 +19,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     private final WPI_TalonSRX intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_TALON); // Talon 5
 
-    public IntakeSubsystem() {  
+    public IntakeSubsystem() {
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
     }
@@ -58,5 +58,9 @@ public class IntakeSubsystem extends SubsystemBase {
     public void retract() {
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    public boolean isIntakeDeployed() {
+        return leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward) && rightDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward); 
     }
 }
