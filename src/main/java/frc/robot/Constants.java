@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.util.*;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -29,15 +27,14 @@ public final class Constants {
 
         //Degrees of Freedom
         public static double DEGREE = 1024;
-        
-        
+
         //PID CONTROL SPECIFIC CONSTANTS
         public static final int TIMEOUT_MS = 30;
         public static final int SLOT_IDX= 0;
         public static final int PIDLOOP_ID= 0;
         public static double KF = .55;
         public static final double KP= .45;
-        public static final double KI= 0;    
+        public static final double KI= 0;
         public static final double KD= 4.5;
         public static final double ALLOWABLE_ERROR= 1;
         public static final double I_ZONE= 0;

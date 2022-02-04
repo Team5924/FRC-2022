@@ -15,7 +15,7 @@ public class TurretSubsystem extends SubsystemBase {
     }
 
     public void configureTurret() {
-        
+
     /* Factory default hardware to prevent unexpected behavior */
     m_turretMotor.configFactoryDefault();
 

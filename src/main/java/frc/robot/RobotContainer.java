@@ -5,9 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TurretFindLeft;
@@ -54,8 +52,6 @@ public class RobotContainer {
     leftBump.whenPressed(new TurretFindLeft(m_turret, m_limelight));
     JoystickButton rightBump = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
     rightBump.whenPressed(new TurretFindRight(m_turret, m_limelight));
-
-    
   }
 
   /**

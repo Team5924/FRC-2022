@@ -34,7 +34,7 @@ public class TurretTrack extends CommandBase{
 
         double LeftTrigger = m_operatorController.getLeftTriggerAxis();
         double RightTrigger = m_operatorController.getRightTriggerAxis();
-        
+
         // Uses trig to get distance | Reference: https://docs.limelightvision.io/en/latest/cs_estimating_distance.html#using-area
         // measured in feet
         double distance = m_limelight.getDistance();
@@ -47,7 +47,7 @@ public class TurretTrack extends CommandBase{
             //setting rumble to be off
             m_operatorController.setRumble(RumbleType.kLeftRumble, 0);
             m_operatorController.setRumble(RumbleType.kRightRumble, 0);
-           
+
             //calling moveleft
             m_turret.moveLeft(LeftTrigger);
         }
@@ -83,9 +83,5 @@ public class TurretTrack extends CommandBase{
 
     @Override
     public void end(boolean interupted){
-    } 
-
-    
-
-    
+    }
 }
