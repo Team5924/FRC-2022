@@ -5,9 +5,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,10 +18,10 @@ import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
 
-  private final WPI_TalonFX m_leftMaster = new WPI_TalonFX(DriveConstants.LEFT_FRONT_TALON);
-  private final WPI_TalonFX m_rightMaster = new WPI_TalonFX(DriveConstants.RIGHT_FRONT_TALON);
-  private final WPI_TalonFX m_leftSlave = new WPI_TalonFX(DriveConstants.LEFT_BACK_TALON);
-  private final WPI_TalonFX m_rightSlave = new WPI_TalonFX(DriveConstants.RIGHT_BACK_TALON);
+  private final WPI_TalonSRX m_leftMaster = new WPI_TalonSRX(DriveConstants.LEFT_FRONT_TALON);
+  private final WPI_TalonSRX m_rightMaster = new WPI_TalonSRX(DriveConstants.RIGHT_FRONT_TALON);
+  private final WPI_TalonSRX m_leftSlave = new WPI_TalonSRX(DriveConstants.LEFT_BACK_TALON);
+  private final WPI_TalonSRX m_rightSlave = new WPI_TalonSRX(DriveConstants.RIGHT_BACK_TALON);
 
   /** Creates a new Drivetrain. */
   public DriveSubsystem() {
@@ -29,7 +31,7 @@ public class DriveSubsystem extends SubsystemBase {
     configRightTalon(m_rightMaster);
   }
 
-  private void configLeftTalon(WPI_TalonFX motorController) {
+  private void configLeftTalon(WPI_TalonSRX motorController) {
     		/* Factory Default all hardware to prevent unexpected behaviour */
 		motorController.configFactoryDefault();
 
@@ -37,12 +39,9 @@ public class DriveSubsystem extends SubsystemBase {
 		motorController.configNeutralDeadband(0.001, DriveConstants.TIMEOUT_MS);
 
 		/* Config sensor used for Primary PID [Velocity] */
-    motorController.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, DriveConstants.PID_LOOP_IDX, DriveConstants.TIMEOUT_MS);
+    motorController.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, DriveConstants.PID_LOOP_IDX, DriveConstants.TIMEOUT_MS);
 
     motorController.configAllowableClosedloopError(0, 1, DriveConstants.TIMEOUT_MS);
-
-    // Don't invert left side, this is default
-    motorController.setInverted(TalonFXInvertType.CounterClockwise);
 
 		/* Config the peak and nominal outputs */
 		motorController.configNominalOutputForward(0, DriveConstants.TIMEOUT_MS);
@@ -66,7 +65,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
-  private void configRightTalon(WPI_TalonFX motorController) {
+  private void configRightTalon(WPI_TalonSRX motorController) {
     /* Factory Default all hardware to prevent unexpected behaviour */
     motorController.configFactoryDefault();
 
@@ -74,12 +73,9 @@ public class DriveSubsystem extends SubsystemBase {
     motorController.configNeutralDeadband(0.001, DriveConstants.TIMEOUT_MS);
 
     /* Config sensor used for Primary PID [Velocity] */
-    motorController.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, DriveConstants.PID_LOOP_IDX, DriveConstants.TIMEOUT_MS);
+    motorController.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, DriveConstants.PID_LOOP_IDX, DriveConstants.TIMEOUT_MS);
 
     motorController.configAllowableClosedloopError(0, 1, DriveConstants.TIMEOUT_MS);
-
-    // Invert right side
-    motorController.setInverted(TalonFXInvertType.Clockwise);
 
     /* Config the peak and nominal outputs */
     motorController.configNominalOutputForward(0, DriveConstants.TIMEOUT_MS);
@@ -124,7 +120,23 @@ public class DriveSubsystem extends SubsystemBase {
     double rightSpeedWithDeadband = MathUtil.applyDeadband(rightSpeed, 0.5);
     SmartDashboard.putNumber("Left Stick Y With Deadband", leftSpeedWithDeadband);
     SmartDashboard.putNumber("Right Stick Y With Deadband", rightSpeedWithDeadband);
-    m_leftMaster.set(ControlMode.Velocity, leftSpeedWithDeadband * leftSpeedWithDeadband * DriveConstants.MAX_VELOCITY);
-    m_rightMaster.set(ControlMode.Velocity, rightSpeedWithDeadband * rightSpeedWithDeadband * DriveConstants.MAX_VELOCITY);
+    setLeftVelocityFromInput(leftSpeedWithDeadband);
+    setRightVelocityFromInput(rightSpeedWithDeadband);
+  }
+
+  private void setLeftVelocityFromInput(double input) {
+    m_leftMaster.set(ControlMode.Velocity, squareAndKeepSign(input) * DriveConstants.MAX_VELOCITY);
+  }
+
+  private void setRightVelocityFromInput(double input) {
+    m_rightMaster.set(ControlMode.Velocity, squareAndKeepSign(input) * DriveConstants.MAX_VELOCITY * -1);
+  }
+
+  private double squareAndKeepSign(double num) {
+    if (num < 0) {
+      return num * num * -1;
+    } else {
+      return num * num;
+    }
   }
 }
