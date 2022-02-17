@@ -14,8 +14,8 @@ package frc.robot;
  */
 public final class Constants {
     public static final class DriveConstants {
-        public static final int LEFT_FRONT_TALON = 2;
-        public static final int RIGHT_FRONT_TALON = 0;
+        public static final int LEFT_FRONT_TALON = 4;
+        public static final int RIGHT_FRONT_TALON = 2;
         public static final int LEFT_BACK_TALON = 3;
         public static final int RIGHT_BACK_TALON = 1;
 
@@ -23,11 +23,11 @@ public final class Constants {
         public static final double MAX_VELOCITY = 2000;
 
         public static final int TIMEOUT_MS = 30;
-        public static final int kPIDLoopIdx = 0;
-        public static final int kF = 0;
-        public static final int kP = 0;
-        public static final int kI = 0;
-        public static final int kD = 0;
+        public static final int PID_LOOP_IDX = 0;
+        public static final double F = 0;
+        public static final double P = 0.2;
+        public static final double I = 0;
+        public static final double D = 0;
     }
 
     public static final class OIConstants {

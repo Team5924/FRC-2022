@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -30,7 +31,8 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.tankSquaredDrive(m_leftSpeed.getAsDouble(), m_rightSpeed.getAsDouble());
+    m_drive.tankSquaredDrive(-m_leftSpeed.getAsDouble(), -m_rightSpeed.getAsDouble());
+    SmartDashboard.putString("Hi", "Hi");
   }
 
   // Called once the command ends or is interrupted.
