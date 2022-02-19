@@ -32,7 +32,6 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     m_drive.tankSquaredDrive(-m_leftSpeed.getAsDouble(), -m_rightSpeed.getAsDouble());
-    SmartDashboard.putString("Hi", "Hi");
   }
 
   // Called once the command ends or is interrupted.

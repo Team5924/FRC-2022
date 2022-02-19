@@ -14,13 +14,14 @@ package frc.robot;
  */
 public final class Constants {
     public static final class DriveConstants {
-        public static final int LEFT_FRONT_TALON = 3;
-        public static final int RIGHT_FRONT_TALON = 1;
-        public static final int LEFT_BACK_TALON = 2;
-        public static final int RIGHT_BACK_TALON = 0;
+        public static final int LEFT_FRONT_TALON = 4;
+        public static final int RIGHT_FRONT_TALON = 2;
+        public static final int LEFT_BACK_TALON = 3;
+        public static final int RIGHT_BACK_TALON = 1;
 
         //Max velocity in RPM
-        public static final double MAX_VELOCITY = 2000;
+        public static final double MAX_VELOCITY = 17300;
+        //17421
 
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;
