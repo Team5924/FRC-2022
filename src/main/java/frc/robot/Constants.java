@@ -25,10 +25,10 @@ public final class Constants {
 
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;
-        public static final double F = 0;
-        public static final double P = 0.2;
-        public static final double I = 0;
-        public static final double D = 0;
+        public static final double F = 1023.0/20660.0;
+        public static final double P = 0.1;
+        public static final double I = 0.001;
+        public static final double D = 5.0;
     }
 
     public static final class OIConstants {
