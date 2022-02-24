@@ -6,21 +6,22 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class TankDrive extends CommandBase {
 
   private final DriveSubsystem m_drive;
-  private final DoubleSupplier m_leftSpeed;
-  private final DoubleSupplier m_rightSpeed;
+  private final DoubleSupplier m_leftJoystickY;
+  private final DoubleSupplier m_rightJoystickY;
 
   /** Creates a new TankDrive. */
-  public TankDrive(DriveSubsystem subsystem, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
+  public TankDrive(DriveSubsystem subsystem, DoubleSupplier leftJoystickY, DoubleSupplier rightJoystickY) {
     m_drive = subsystem;
-    m_leftSpeed = leftSpeed;
-    m_rightSpeed = rightSpeed;
+    // Method to get left joystick Y (-1 for fully forward, 1 for fully backward)
+    m_leftJoystickY = leftJoystickY;
+    // Method to get right joystick Y (-1 for fully forward, 1 for fully backward)
+    m_rightJoystickY = rightJoystickY;
     addRequirements(m_drive);
   }
 
@@ -31,7 +32,8 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.tankSquaredDrive(-m_leftSpeed.getAsDouble(), -m_rightSpeed.getAsDouble());
+    // Negative signs to flip from negative for forward and positive for backward to positive for forward and negative for backward
+    m_drive.tankSquaredDrive(-m_leftJoystickY.getAsDouble(), -m_rightJoystickY.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
