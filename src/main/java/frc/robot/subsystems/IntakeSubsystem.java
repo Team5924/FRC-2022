@@ -20,11 +20,8 @@ public class IntakeSubsystem extends SubsystemBase {
     private final WPI_TalonSRX intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_TALON); // Talon 5
 
     public IntakeSubsystem() {
-<<<<<<< HEAD
-=======
         compressor.disable();
 
->>>>>>> 8c0bcab (Disable compressor by default and toggle with B button)
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
