@@ -20,16 +20,16 @@ public final class Constants {
         public static final int LEFT_BACK_TALON = 3;
         public static final int RIGHT_BACK_TALON = 1;
 
-        //Max velocity in RPM
+        //Max velocity in sensor units per 100ms
         public static final double MAX_VELOCITY = 17421;
 
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;
         public static final int SLOT_IDX = 0;
-        public static final double F = 1023.0/20660.0;
+        public static final double F = 0.8 * 1023 / 17421;
         public static final double P = 0.1;
-        public static final double I = 0.001;
-        public static final double D = 5.0;
+        public static final double I = 0;
+        public static final double D = 0;
 
         // Current limit for motors in amps
         public static final double CURRENT_LIMIT = 40;
