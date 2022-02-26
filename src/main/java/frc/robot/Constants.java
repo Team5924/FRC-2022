@@ -31,7 +31,8 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int INTAKE_TALON = 5;
+        public static final int LEADER_INTAKE_SPARK = 4;
+        public static final int FOLLOWER_INTAKE_SPARK = 5;
         public static final int CTRE_PCM = 9;
         public static final int LEFT_PNEUMATIC_FORWARD = 5;
         public static final int LEFT_PNEUMATIC_REVERSE = 2;

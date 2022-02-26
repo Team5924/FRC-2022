@@ -7,9 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.ReverseIntakeMotor;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCompressor;
-import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.ToggleIntakeDeployed;
+import frc.robot.commands.ToggleIntakeMotor;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -32,6 +34,9 @@ public class RobotContainer {
 
   JoystickButton a = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   JoystickButton b = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+  JoystickButton x = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+  JoystickButton y = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -48,8 +53,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    a.whenPressed(new ToggleIntake(m_intake));
+    a.whenPressed(new ToggleIntakeDeployed(m_intake));
     b.whenPressed(new ToggleCompressor(m_intake));
+    x.whenPressed(new ToggleIntakeMotor(m_intake));
+    y.whenHeld(new ReverseIntakeMotor(m_intake));
   }
 
   /**

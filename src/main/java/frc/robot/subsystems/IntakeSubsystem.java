@@ -2,9 +2,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid; // https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj/DoubleSolenoid.html
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,13 +18,20 @@ public class IntakeSubsystem extends SubsystemBase {
     private final DoubleSolenoid leftDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.LEFT_PNEUMATIC_FORWARD, IntakeConstants.LEFT_PNEUMATIC_REVERSE);
     private final DoubleSolenoid rightDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.RIGHT_PNEUMATIC_FORWARD, IntakeConstants.RIGHT_PNEUMATIC_REVERSE);
 
-    private final WPI_TalonSRX intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_TALON); // Talon 5
+    private final CANSparkMax leaderIntakeSpark = new CANSparkMax(IntakeConstants.LEADER_INTAKE_SPARK, MotorType.kBrushless);
+    private final CANSparkMax followerIntakeSpark = new CANSparkMax(IntakeConstants.FOLLOWER_INTAKE_SPARK, MotorType.kBrushless);
 
     public IntakeSubsystem() {
         compressor.disable();
 
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+
+        leaderIntakeSpark.restoreFactoryDefaults();
+        followerIntakeSpark.restoreFactoryDefaults();
+
+        // followerIntakeSpark is inverted relative to leaderIntakeSpark
+        followerIntakeSpark.follow(leaderIntakeSpark, true);
     }
 
     @Override
@@ -59,6 +67,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public boolean isIntakeDeployed() {
+        // returns the status of the intake, used to determine whether to retract or deploy intake
         return leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward) && rightDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward); 
     }
 
@@ -74,9 +83,20 @@ public class IntakeSubsystem extends SubsystemBase {
         return compressor.enabled();
     }
 
-    public void intake() {
-        // moves the motors
-        intakeTalon.set(-1);
+    public void enableIntakeMotor() {
+        leaderIntakeSpark.set(0.3);
+    }
 
+    public void disableIntakeMotor() {
+        leaderIntakeSpark.stopMotor();
+    }
+
+    public void reverseMotor() {
+        leaderIntakeSpark.set(-0.3);
+    }
+
+    public boolean isIntakeMotorRunning() {
+        // intakeSpark.get() returns 0 when the motor is not running
+        return leaderIntakeSpark.get() != 0;
     }
 }
