@@ -5,7 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.TankDrive;
@@ -23,7 +23,7 @@ public class RobotContainer {
   public static final DriveSubsystem m_drivetrain = new DriveSubsystem();
   public static final LimelightSubsystem m_limelight = new LimelightSubsystem();
 
-  PS4Controller m_driverController = new PS4Controller(OIConstants.DRIVER_CONTROLLER_PORT);
+ XboxController m_driverController = new XboxController(OIConstants.DRIVER_CONTROLLER_PORT);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
