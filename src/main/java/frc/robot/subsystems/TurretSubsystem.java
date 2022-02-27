@@ -70,7 +70,7 @@ public class TurretSubsystem extends SubsystemBase {
     if (!isTargetDetected()) {
 
     }
-    m_pidController.setReference(degreesToSensorUnits(getVerticalOffset()), ControlType.kPosition);
+    m_pidController.setReference(degreesToSensorUnits(getHorizontalOffset()), ControlType.kPosition);
   }
 
   private double degreesToSensorUnits(double degrees) {
