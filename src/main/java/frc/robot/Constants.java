@@ -75,8 +75,8 @@ public final class Constants {
             Max Wheel RPM = 7095
             Distance = 6ft - 30ft
         */
-        public static final int SPARK_MASTER = 1;
-        public static final int SPARK_SLAVE = 2;
+        public static final int MASTER_SPARK = 1;
+        public static final int SLAVE_MASTER = 2;
         
         public static final double MAX_VELOCITY = 2000;
 

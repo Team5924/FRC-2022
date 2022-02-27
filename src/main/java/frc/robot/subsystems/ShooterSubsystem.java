@@ -18,8 +18,8 @@ public class ShooterSubsystem extends SubsystemBase {
         in the opposite dierction. The leaderSparkMax is also the
         PIDController, and the other one follows.
     */
-    private CANSparkMax m_masterSpark = new CANSparkMax(ShooterConstants.SPARK_MASTER, MotorType.kBrushless);
-    private CANSparkMax m_slaveSpark = new CANSparkMax(ShooterConstants.SPARK_SLAVE, MotorType.kBrushless);
+    private CANSparkMax m_masterSpark = new CANSparkMax(ShooterConstants.MASTER_SPARK, MotorType.kBrushless);
+    private CANSparkMax m_slaveSpark = new CANSparkMax(ShooterConstants.SLAVE_MASTER, MotorType.kBrushless);
     
     private SparkMaxPIDController m_PIDController;
 
