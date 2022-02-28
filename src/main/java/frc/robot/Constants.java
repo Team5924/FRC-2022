@@ -75,8 +75,8 @@ public final class Constants {
             Max Wheel RPM = 7095
             Distance = 6ft - 30ft
         */
-        public static final int MASTER_SPARK = 1;
-        public static final int SLAVE_MASTER = 2;
+        public static final int LEADER_SHOOTER_SPARK = 1;
+        public static final int FOLLOWER_SHOOTER_SPARK = 2;
         
         public static final double MAX_VELOCITY = 2000;
 
@@ -88,6 +88,10 @@ public final class Constants {
         public static final int kD = 0;
     }
 
+    public static final class ConveyorConstants {
+        public static final int HORIZONTAL_CONVEYOR_SPARK = -1;
+        public static final int VERTICAL_CONVEYOR_SPARK = -1;
+    }
     public static final class OIConstants {
         public static final int DRIVER_CONTROLLER_PORT = 0;
         public static final double DRIVER_CONTROLLER_DEADBAND = 0.05;
