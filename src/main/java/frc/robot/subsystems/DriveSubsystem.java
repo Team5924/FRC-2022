@@ -18,19 +18,19 @@ import frc.robot.Constants.OIConstants;
 
 public class DriveSubsystem extends SubsystemBase {
 
-  private final WPI_TalonFX m_leftMaster = new WPI_TalonFX(DriveConstants.LEFT_FRONT_TALON);
-  private final WPI_TalonFX m_rightMaster = new WPI_TalonFX(DriveConstants.RIGHT_FRONT_TALON);
-  private final WPI_TalonFX m_leftSlave = new WPI_TalonFX(DriveConstants.LEFT_BACK_TALON);
-  private final WPI_TalonFX m_rightSlave = new WPI_TalonFX(DriveConstants.RIGHT_BACK_TALON);
+  private final WPI_TalonFX m_leftDTLeader = new WPI_TalonFX(DriveConstants.LEFT_FRONT_TALON);
+  private final WPI_TalonFX m_rightDTLeader = new WPI_TalonFX(DriveConstants.RIGHT_FRONT_TALON);
+  private final WPI_TalonFX m_leftDTFollower = new WPI_TalonFX(DriveConstants.LEFT_BACK_TALON);
+  private final WPI_TalonFX m_rightDTFollower = new WPI_TalonFX(DriveConstants.RIGHT_BACK_TALON);
 
   /** Creates a new Drivetrain. */
   public DriveSubsystem() {
     // Sychronizes motors with other motors on the same side of the robot
-    m_leftSlave.follow(m_leftMaster);
-    m_rightSlave.follow(m_rightMaster);
+    m_leftDTFollower.follow(m_leftDTLeader);
+    m_rightDTFollower.follow(m_rightDTLeader);
     // Configure talon settings
-    configTalon(m_leftMaster);
-    configTalon(m_rightMaster);
+    configTalon(m_leftDTLeader);
+    configTalon(m_rightDTLeader);
   }
 
   private void configTalon(WPI_TalonFX motorController) {
@@ -83,11 +83,11 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public double getLeftVelocity() {
-    return m_leftMaster.getSelectedSensorVelocity();
+    return m_leftDTLeader.getSelectedSensorVelocity();
   }
 
   public double getRightVelocity() {
-    return m_rightMaster.getSelectedSensorVelocity();
+    return m_rightDTLeader.getSelectedSensorVelocity();
   }
 
   public void tankSquaredDrive(double leftJoystick, double rightJoystick) {
@@ -99,7 +99,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   private void setLeftVelocityFromJoystick(double input) {
     double speed = squareKeepSign(input) * DriveConstants.MAX_VELOCITY;
-    m_leftMaster.set(ControlMode.Velocity, speed);
+    m_leftDTLeader.set(ControlMode.Velocity, speed);
     SmartDashboard.putNumber("Left Velocity Intended", speed);
     SmartDashboard.putNumber("Left Difference", speed - getLeftVelocity());
   }
@@ -107,7 +107,7 @@ public class DriveSubsystem extends SubsystemBase {
   private void setRightVelocityFromJoystick(double input) {
     // Multiply by -1 to invert that side. Technically .setInverted(true) should be called on the master motor for this side but that didn't work for me
     double speed = squareKeepSign(input) * DriveConstants.MAX_VELOCITY * -1;
-    m_rightMaster.set(ControlMode.Velocity, speed);
+    m_rightDTLeader.set(ControlMode.Velocity, speed);
     SmartDashboard.putNumber("Right Velocity Intended", speed);
     SmartDashboard.putNumber("Right Difference", speed - getRightVelocity());
   }
