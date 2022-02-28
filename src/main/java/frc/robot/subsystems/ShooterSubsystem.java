@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
 
@@ -21,13 +22,12 @@ public class ShooterSubsystem extends SubsystemBase {
     private SparkMaxPIDController m_PIDController;
 
     public ShooterSubsystem() {
+        m_leaderShooterSpark.restoreFactoryDefaults();
+        m_followerShooterSpark.restoreFactoryDefaults();
 
-        m_leaderShooter.restoreFactoryDefaults();
-        m_followerShooter.restoreFactoryDefaults();
-
-        m_followerShooter.follow(m_leaderShooter); 
+        m_followerShooterSpark.follow(m_leaderShooterSpark); 
         
-        m_PIDController = m_leaderShooter.getPIDController();
+        m_PIDController = m_leaderShooterSpark.getPIDController();
 
         m_PIDController.setP(ShooterConstants.kP);
         m_PIDController.setI(ShooterConstants.kI);
@@ -36,7 +36,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void setSpeed(double speed) {
-        m_leaderShooter.set(speed);
+        m_leaderShooterSpark.set(speed);
     }
 
 }
