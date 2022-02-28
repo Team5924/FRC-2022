@@ -1,14 +1,11 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardComponent;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
 
-import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -18,19 +15,19 @@ public class ShooterSubsystem extends SubsystemBase {
         in the opposite dierction. The leaderSparkMax is also the
         PIDController, and the other one follows.
     */
-    private CANSparkMax m_masterSpark = new CANSparkMax(ShooterConstants.MASTER_SPARK, MotorType.kBrushless);
-    private CANSparkMax m_slaveSpark = new CANSparkMax(ShooterConstants.SLAVE_MASTER, MotorType.kBrushless);
-    
+    private CANSparkMax m_leaderShooter = new CANSparkMax(ShooterConstants.MASTER_SPARK, MotorType.kBrushless);
+    private CANSparkMax m_followerShooter = new CANSparkMax(ShooterConstants.SLAVE_MASTER, MotorType.kBrushless);
+
     private SparkMaxPIDController m_PIDController;
 
     public ShooterSubsystem() {
 
-        m_masterSpark.restoreFactoryDefaults();
-        m_slaveSpark.restoreFactoryDefaults();
+        m_leaderShooter.restoreFactoryDefaults();
+        m_followerShooter.restoreFactoryDefaults();
 
-        m_slaveSpark.follow(m_masterSpark); 
+        m_followerShooter.follow(m_leaderShooter); 
         
-        m_PIDController = m_masterSpark.getPIDController();
+        m_PIDController = m_leaderShooter.getPIDController();
 
         m_PIDController.setP(ShooterConstants.kP);
         m_PIDController.setI(ShooterConstants.kI);
@@ -39,7 +36,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void setSpeed(double speed) {
-        m_masterSpark.set(speed);
+        m_leaderShooter.set(speed);
     }
 
 }
