@@ -77,7 +77,7 @@ public final class Constants {
         */
         public static final int LEADER_SHOOTER_SPARK = 1;
         public static final int FOLLOWER_SHOOTER_SPARK = 2;
-        
+
         public static final double MAX_VELOCITY = 2000;
 
         public static final int TIMEOUT_MS = 30;
@@ -86,6 +86,8 @@ public final class Constants {
         public static final int kP = 0;
         public static final int kI = 0;
         public static final int kD = 0;
+
+        public static final double ACCEPTABLE_RPM_ERROR = 15;
     }
 
     public static final class ConveyorConstants {
