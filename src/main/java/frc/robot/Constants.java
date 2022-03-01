@@ -51,7 +51,7 @@ public final class Constants {
         public static final int TIMEOUT_MS = 30;
         public static final int SLOT_IDX= 0;
         public static final int PIDLOOP_ID= 0;
-        public static double KF = .55;
+        public static final double KF = .55;
         public static final double KP= .45;
         public static final double KI= 0;
         public static final double KD= 4.5;
