@@ -69,11 +69,7 @@ public final class Constants {
 
     public static final class ShooterConstants {
         /*
-            Max Motor RPM = 5676
-            Wheel Diameter = 4 in.
-            1:1.25 ratio
-            Max Wheel RPM = 7095
-            Distance = 6ft - 30ft
+            Refer to NEO spreadsheet for measurements
         */
         public static final int LEADER_SHOOTER_SPARK = 1;
         public static final int FOLLOWER_SHOOTER_SPARK = 2;
