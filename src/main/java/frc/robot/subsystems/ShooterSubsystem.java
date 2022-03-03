@@ -41,7 +41,7 @@ public class ShooterSubsystem extends SubsystemBase {
         m_PIDController.setD(ShooterConstants.kD);
     }
 
-    public void setFeedForward() {
+    public void setFeedForward(double distance) {
         // Reference: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
         // kF = (1 X 1 RPM) / MAX_RPM
         kF = 1 / ShooterConstants.MAX_RPM;

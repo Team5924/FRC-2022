@@ -93,7 +93,20 @@ public final class Constants {
         public static final int VERTICAL_BEAM_BREAK = 1;
     }
     public static final class OIConstants {
-        public static final int DRIVER_CONTROLLER_PORT = 0;
+        public static final int DRIVER_CONTROLLER = 0;
         public static final double DRIVER_CONTROLLER_DEADBAND = 0.05;
+        public static final int TURRET_TALON = 7;
+        public static final int MAX_VELOCITY = 214;
+        public static final int MAX_ACCELERATION = 50;
+    }
+
+    public static final class IntakeConstants {
+        public static final int LEADER_INTAKE_SPARK = 5;
+        public static final int FOLLOWER_INTAKE_SPARK = 6;
+        public static final int CTRE_PCM = 9;
+        public static final int LEFT_PNEUMATIC_FORWARD = 5;
+        public static final int LEFT_PNEUMATIC_REVERSE = 2;
+        public static final int RIGHT_PNEUMATIC_FORWARD = 7;
+        public static final int RIGHT_PNEUMATIC_REVERSE = 0;
     }
 }
