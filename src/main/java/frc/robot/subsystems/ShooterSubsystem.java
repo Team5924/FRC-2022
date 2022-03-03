@@ -25,7 +25,10 @@ public class ShooterSubsystem extends SubsystemBase {
     private RelativeEncoder m_encoder;
 
     private double kF;
+    private double velocity;
+    private double rpm;
 
+    // Constructor for ShooterSubsystem class
     public ShooterSubsystem() {
         m_leaderShooterSpark.restoreFactoryDefaults();
         m_followerShooterSpark.restoreFactoryDefaults();
@@ -41,10 +44,26 @@ public class ShooterSubsystem extends SubsystemBase {
         m_PIDController.setD(ShooterConstants.kD);
     }
 
+    public double distanceToVelocity(double distance) {
+       // Velocity for Distance Away: y = 0.7125x + 17.725
+       velocity = (0.7125 * distance) + 17.725;
+       return velocity;
+    }
+
+    public double velocityToRPM(double vel) {
+        // Velocity to RPM: y = (25137/157.89)x
+        rpm = (25137/157.89) * vel;
+        return rpm;
+    }
+/*  
+    Feed forward changes based on the target rpm, which changes based
+    on the robot's distance away from the target.
+*/
     public void setFeedForward(double distance) {
         // Reference: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
-        // kF = (1 X 1 RPM) / MAX_RPM
-        kF = 1 / ShooterConstants.MAX_RPM;
+        // kF = (1 X 1 RPM) / Target RPM
+        kF = 1/rpm;
+        m_PIDController.setFF(kF);
     }
 
 /*

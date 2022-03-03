@@ -14,8 +14,11 @@ import frc.robot.commands.ToggleCompressor;
 import frc.robot.commands.ToggleIntakeDeployed;
 import frc.robot.commands.ToggleIntakeMotor;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.HorizontalConveyorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.VerticalConveyorSubsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -29,6 +32,9 @@ public class RobotContainer {
   public static final DriveSubsystem m_drivetrain = new DriveSubsystem();
   public static final LimelightSubsystem m_limelight = new LimelightSubsystem();
   public static final IntakeSubsystem m_intake = new IntakeSubsystem();
+  public static final HorizontalConveyorSubsystem m_horizontalConveyor = new HorizontalConveyorSubsystem();
+  public static final VerticalConveyorSubsystem m_verticalConveyor = new VerticalConveyorSubsystem();
+  public static final ShooterSubsystem m_shooter = new ShooterSubsystem();
 
   XboxController m_driverController = new XboxController(OIConstants.DRIVER_CONTROLLER);
 
@@ -42,6 +48,9 @@ public class RobotContainer {
     // Configure the button bindings
     m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
     m_intake.register();
+    m_horizontalConveyor.register();
+    m_verticalConveyor.register();
+    m_shooter.register();
     configureButtonBindings();
   }
 

@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.subsystems.HorizontalConveyorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class Shoot extends CommandBase {
-  private final ConveyorSubsystem m_conveyor;
+  private final HorizontalConveyorSubsystem m_conveyor;
   private final LimelightSubsystem m_limelight;
   private final ShooterSubsystem m_shooter;
 
   /** Creates a new Shoot. */
-  public Shoot(ConveyorSubsystem conveyorSubsystem, LimelightSubsystem limelightSubsystem, ShooterSubsystem shooterSubsystem) {
+  public Shoot(HorizontalConveyorSubsystem conveyorSubsystem, LimelightSubsystem limelightSubsystem, ShooterSubsystem shooterSubsystem) {
     m_conveyor = conveyorSubsystem;
     m_limelight = limelightSubsystem;
     m_shooter = shooterSubsystem;

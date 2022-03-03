@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.util.Color;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -108,5 +110,10 @@ public final class Constants {
         public static final int LEFT_PNEUMATIC_REVERSE = 2;
         public static final int RIGHT_PNEUMATIC_FORWARD = 7;
         public static final int RIGHT_PNEUMATIC_REVERSE = 0;
+    }
+
+    public static final class ColorConstants {
+        public static final Color BLUE_TARGET = new Color(0.143, 0.427, 0.429);
+        public static final Color RED_TARGET = new Color(0.561, 0.232, 0.114);
     }
 }
