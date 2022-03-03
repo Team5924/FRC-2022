@@ -24,6 +24,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     private RelativeEncoder m_encoder;
 
+    private double kF;
+
     public ShooterSubsystem() {
         m_leaderShooterSpark.restoreFactoryDefaults();
         m_followerShooterSpark.restoreFactoryDefaults();
@@ -37,8 +39,18 @@ public class ShooterSubsystem extends SubsystemBase {
         m_PIDController.setP(ShooterConstants.kP);
         m_PIDController.setI(ShooterConstants.kI);
         m_PIDController.setD(ShooterConstants.kD);
-        m_PIDController.setFF(ShooterConstants.kF);
     }
+
+    public void setFeedForward() {
+        // Reference: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
+        // kF = (1 X 1 RPM) / MAX_RPM
+        kF = 1 / ShooterConstants.MAX_RPM;
+    }
+
+/*
+
+    Useless code for the time being
+
 
     private double distanceToSpeed(double distance) {
         // Write a converstion method for distance to speed
@@ -55,4 +67,5 @@ public class ShooterSubsystem extends SubsystemBase {
         double speed = distanceToSpeed(distance);
         return Math.abs(m_encoder.getVelocity() - speed) <= ShooterConstants.ACCEPTABLE_RPM_ERROR;
     }
+*/
 }

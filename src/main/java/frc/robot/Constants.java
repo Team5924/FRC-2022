@@ -26,6 +26,7 @@ public final class Constants {
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;
         public static final int SLOT_IDX = 0;
+        // Reference: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
         public static final double F = 0.8 * 1023 / 17421;
         public static final double P = 0.2;
         public static final double I = 0;
@@ -74,11 +75,10 @@ public final class Constants {
         public static final int LEADER_SHOOTER_SPARK = 1;
         public static final int FOLLOWER_SHOOTER_SPARK = 2;
 
-        public static final double MAX_VELOCITY = 2000;
+        public static final int MAX_RPM = 4410;
 
         public static final int TIMEOUT_MS = 30;
         public static final int kPIDLoopIdx = 0;
-        public static final int kF = 0;
         public static final int kP = 0;
         public static final int kI = 0;
         public static final int kD = 0;
@@ -89,6 +89,8 @@ public final class Constants {
     public static final class ConveyorConstants {
         public static final int HORIZONTAL_CONVEYOR_SPARK = -1;
         public static final int VERTICAL_CONVEYOR_SPARK = -1;
+        public static final int HORIZONTAL_BEAM_BREAK = 0;
+        public static final int VERTICAL_BEAM_BREAK = 1;
     }
     public static final class OIConstants {
         public static final int DRIVER_CONTROLLER_PORT = 0;

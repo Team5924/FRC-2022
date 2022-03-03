@@ -26,15 +26,21 @@ public class Shoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.setSpeedForDistance(m_limelight.getDistance());
+    
+    
+    // m_shooter.setSpeedForDistance(m_limelight.getDistance());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+
+  /*
     if (m_shooter.isAtSpeedForDistance(m_limelight.getDistance())) {
       m_conveyor.runVerticalConveyor();
     }
+  */
   }
 
   // Called once the command ends or is interrupted.
