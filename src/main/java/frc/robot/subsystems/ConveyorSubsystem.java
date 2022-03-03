@@ -37,4 +37,12 @@ public class ConveyorSubsystem extends SubsystemBase {
   public void disableVerticalConveyor() {
     m_horizontalConveyorSpark.stopMotor();;
   }
+
+  public void runHorizontalConveyor() {
+
+  }
+
+  public void runVerticalConveyor() {
+    
+  }
 }

@@ -43,8 +43,7 @@ public class LimelightSubsystem extends SubsystemBase {
   // Reference: https://docs.limelightvision.io/en/latest/cs_estimating_distance.html#using-area
   public double getDistance() {
     // Unit: Meters
-    double distance = (TurretConstants.HEIGHT_2 - TurretConstants.HEIGHT_1) / Math.toRadians(Math.tan(TurretConstants.ANGLE_1 + getVerticalOffset()));
-    return distance;
+    return (TurretConstants.HEIGHT_2 - TurretConstants.HEIGHT_1) / Math.toRadians(Math.tan(TurretConstants.ANGLE_1 + getVerticalOffset()));
   }
 
 }
