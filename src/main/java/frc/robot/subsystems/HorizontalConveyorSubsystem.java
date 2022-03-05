@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -23,7 +22,7 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
   private CANSparkMax m_conveyorSpark = new CANSparkMax(ConveyorConstants.HORIZONTAL_CONVEYOR_SPARK, MotorType.kBrushless);
   private DigitalInput m_beamBreak = new DigitalInput(ConveyorConstants.HORIZONTAL_BEAM_BREAK);
 
-  private ColorSensorV3 m_colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
+  private ColorSensorV3 m_colorSensor = new ColorSensorV3(I2C.Port.kMXP);
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
   private SendableChooser<String> teamColor = new SendableChooser<>();

@@ -1,12 +1,12 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMax.ControlType;
 
 import frc.robot.Constants.ShooterConstants;
 
@@ -27,6 +27,7 @@ public class ShooterSubsystem extends SubsystemBase {
     private double kF;
     private double velocity;
     private double rpm;
+    private double speed;
 
     // Constructor for ShooterSubsystem class
     public ShooterSubsystem() {
@@ -50,20 +51,34 @@ public class ShooterSubsystem extends SubsystemBase {
        return velocity;
     }
 
-    public double velocityToRPM(double vel) {
+    public double velocityToRPM() {
         // Velocity to RPM: y = (25137/157.89)x
-        rpm = (25137/157.89) * vel;
+        rpm = (25137/157.89) * velocity;
         return rpm;
     }
-/*  
-    Feed forward changes based on the target rpm, which changes based
-    on the robot's distance away from the target.
-*/
+
+    public double RPMToSpeed() {
+        // RPM to Speed: y = (24015211.1/1.0102949748 * 10^11)(x-4410) + 1
+        speed = 24015211.1 / (1.0102949748 * Math.pow(10, 11)) * (rpm - 4410) + 1;
+        return speed;
+    }
+
+    /*
+        Feed forward changes based on the target rpm, which changes based
+        on the robot's distance away from the target.
+    */
     public void setFeedForward(double distance) {
         // Reference: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
         // kF = (1 X 1 RPM) / Target RPM
         kF = 1/rpm;
         m_PIDController.setFF(kF);
+    }
+
+    @Override
+    public void periodic() {
+        // temp - for troubleshooting
+        SmartDashboard.putNumber("Shooter Velocity", velocity);
+        SmartDashboard.putNumber("Shooter kF", kF);
     }
 
 /*

@@ -9,6 +9,8 @@ import frc.robot.subsystems.HorizontalConveyorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
+import frc.robot.Constants.ShooterConstants;
+
 public class Shoot extends CommandBase {
   private final HorizontalConveyorSubsystem m_conveyor;
   private final LimelightSubsystem m_limelight;
@@ -21,6 +23,10 @@ public class Shoot extends CommandBase {
     m_shooter = shooterSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(conveyorSubsystem, shooterSubsystem);
+  }
+
+  public double minSpeed() {
+    m_shooter.m_leaderShooterSpark.set(ShooterConstants.MIN_SPEED);
   }
 
   // Called when the command is initially scheduled.

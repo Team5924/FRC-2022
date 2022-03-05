@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.ReverseIntakeMotor;
+import frc.robot.commands.RunHorizontalConveyor;
+import frc.robot.commands.RunVerticalConveyor;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCompressor;
 import frc.robot.commands.ToggleIntakeDeployed;
@@ -42,11 +44,14 @@ public class RobotContainer {
   JoystickButton b = new JoystickButton(m_driverController, XboxController.Button.kB.value);
   JoystickButton x = new JoystickButton(m_driverController, XboxController.Button.kX.value);
   JoystickButton y = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+  JoystickButton rightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
+    m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
+    m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_verticalConveyor, m_intake));
     m_intake.register();
     m_horizontalConveyor.register();
     m_verticalConveyor.register();

@@ -5,23 +5,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.HorizontalConveyorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.VerticalConveyorSubsystem;
 
-public class RunConveyor extends CommandBase {
-  private final HorizontalConveyorSubsystem m_horizontalConveyor;
+public class RunVerticalConveyor extends CommandBase {
   private final VerticalConveyorSubsystem m_verticalConveyor;
   private final IntakeSubsystem m_intake;
   private boolean lastBallSameColor = false;
 
-  /** Creates a new RunConveyor. */
-  public RunConveyor(HorizontalConveyorSubsystem horizontalConveyorSubsystem, VerticalConveyorSubsystem verticalConveyorSubsystem, IntakeSubsystem intakeSubsystem) {
-    m_horizontalConveyor = horizontalConveyorSubsystem;
+  /** Creates a new RunVerticalConveyor. */
+  public RunVerticalConveyor(VerticalConveyorSubsystem verticalConveyorSubsystem, IntakeSubsystem intakeSubsystem) {
     m_verticalConveyor = verticalConveyorSubsystem;
     m_intake = intakeSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_horizontalConveyor, m_intake);
+    addRequirements(m_verticalConveyor);
   }
 
   // Called when the command is initially scheduled.
@@ -37,17 +34,10 @@ public class RunConveyor extends CommandBase {
       } else {
         m_verticalConveyor.enableConveyor();
       }
-
-      if (!m_horizontalConveyor.isBeamCompleted() && !m_verticalConveyor.isBeamCompleted() && lastBallSameColor) {
-        m_horizontalConveyor.disableConveyor();
-      } else {
-        m_horizontalConveyor.enableConveyor();
-      }
     } else {
-      m_horizontalConveyor.disableConveyor();
       m_verticalConveyor.disableConveyor();
-    }
   }
+}
 
   // Called once the command ends or is interrupted.
   @Override
