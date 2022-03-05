@@ -25,10 +25,6 @@ public class Shoot extends CommandBase {
     addRequirements(conveyorSubsystem, shooterSubsystem);
   }
 
-  public double minSpeed() {
-    m_shooter.m_leaderShooterSpark.set(ShooterConstants.MIN_SPEED);
-  }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -40,14 +36,14 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-
+    
+  }
   /*
     if (m_shooter.isAtSpeedForDistance(m_limelight.getDistance())) {
       m_conveyor.runVerticalConveyor();
     }
   */
-  }
+
 
   // Called once the command ends or is interrupted.
   @Override

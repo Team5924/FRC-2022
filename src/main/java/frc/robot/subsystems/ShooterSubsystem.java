@@ -8,6 +8,8 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
 
+import frc.robot.subsystems.LimelightSubsystem;
+
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -17,6 +19,9 @@ public class ShooterSubsystem extends SubsystemBase {
         in the opposite dierction. The leaderSparkMax is also the
         PIDController, and the other one follows.
     */
+
+    private LimelightSubsystem m_limelight;
+
     private CANSparkMax m_leaderShooterSpark = new CANSparkMax(ShooterConstants.LEADER_SHOOTER_SPARK, MotorType.kBrushless);
     private CANSparkMax m_followerShooterSpark = new CANSparkMax(ShooterConstants.FOLLOWER_SHOOTER_SPARK, MotorType.kBrushless);
 
@@ -45,9 +50,10 @@ public class ShooterSubsystem extends SubsystemBase {
         m_PIDController.setD(ShooterConstants.kD);
     }
 
-    public double distanceToVelocity(double distance) {
+    // Freedom Units
+    public double distanceToVelocity() {
        // Velocity for Distance Away: y = 0.7125x + 17.725
-       velocity = (0.7125 * distance) + 17.725;
+       velocity = (0.7125 * m_limelight.getDistance()) + 17.725;
        return velocity;
     }
 
@@ -72,6 +78,11 @@ public class ShooterSubsystem extends SubsystemBase {
         // kF = (1 X 1 RPM) / Target RPM
         kF = 1/rpm;
         m_PIDController.setFF(kF);
+    }
+
+    public void setSpeed(double speed) {
+        // "speed" should be in RPM
+        m_PIDController.setReference(speed, CANSparkMax.ControlType.kVelocity);
     }
 
     @Override

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.MaintainShooterSpeed;
 import frc.robot.commands.ReverseIntakeMotor;
 import frc.robot.commands.RunHorizontalConveyor;
 import frc.robot.commands.RunVerticalConveyor;
@@ -52,6 +53,8 @@ public class RobotContainer {
     m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
     m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
     m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_verticalConveyor, m_intake));
+    m_shooter.setDefaultCommand(new MaintainShooterSpeed(m_shooter));
+    
     m_intake.register();
     m_horizontalConveyor.register();
     m_verticalConveyor.register();
