@@ -53,7 +53,7 @@ public final class Constants {
         // PID CONTROL SPECIFIC CONSTANTS
         public static final int TIMEOUT_MS = 30;
         public static final int SLOT_IDX= 0;
-        public static final int PIDLOOP_ID= 0;
+        public static final int PID_LOOP_IDX= 0;
         public static final double KF = .55;
         public static final double KP= .45;
         public static final double KI= 0;
@@ -77,14 +77,14 @@ public final class Constants {
         public static final int LEADER_SHOOTER_SPARK = 1;
         public static final int FOLLOWER_SHOOTER_SPARK = 2;
 
-        public static final int MAX_RPM = 4410;
-        public static final double MIN_SPEED = 0.7843;
+        public static final int MAX_SPEED = 4410;
+        public static final int MIN_SPEED = -1; // Set later
 
         public static final int TIMEOUT_MS = 30;
-        public static final int kPIDLoopIdx = 0;
-        public static final int kP = 0;
-        public static final int kI = 0;
-        public static final int kD = 0;
+        public static final int PID_LOOP_IDX = 0;
+        public static final double P = 0.1;
+        public static final double I = 0;
+        public static final double D = 0;
 
         public static final double ACCEPTABLE_RPM_ERROR = 15;
     }

@@ -10,9 +10,8 @@ import frc.robot.Constants.ShooterConstants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class MaintainShooterSpeed extends CommandBase {
-
   private final ShooterSubsystem m_shooter;
-  
+
   /** Creates a new MaintainShooterSpeed. */
   public MaintainShooterSpeed(ShooterSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.

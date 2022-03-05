@@ -21,7 +21,7 @@ public class RunHorizontalConveyor extends CommandBase {
     m_verticalConveyor = verticalConveyorSubsystem;
     m_intake = intakeSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_horizontalConveyor, m_intake);
+    addRequirements(m_horizontalConveyor);
   }
 
   // Called when the command is initially scheduled.

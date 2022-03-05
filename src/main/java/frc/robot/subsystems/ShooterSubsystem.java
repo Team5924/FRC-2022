@@ -8,8 +8,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
 
-import frc.robot.subsystems.LimelightSubsystem;
-
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -29,7 +27,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     private RelativeEncoder m_encoder;
 
-    private double kF;
+    private double F;
     private double velocity;
     private double rpm;
     private double speed;
@@ -45,9 +43,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
         m_encoder = m_leaderShooterSpark.getEncoder();
 
-        m_PIDController.setP(ShooterConstants.kP);
-        m_PIDController.setI(ShooterConstants.kI);
-        m_PIDController.setD(ShooterConstants.kD);
+        m_PIDController.setP(ShooterConstants.P);
+        m_PIDController.setI(ShooterConstants.I);
+        m_PIDController.setD(ShooterConstants.D);
     }
 
     // Freedom Units
@@ -76,8 +74,8 @@ public class ShooterSubsystem extends SubsystemBase {
     public void setFeedForward(double distance) {
         // Reference: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
         // kF = (1 X 1 RPM) / Target RPM
-        kF = 1/rpm;
-        m_PIDController.setFF(kF);
+        F = 1/rpm;
+        m_PIDController.setFF(F);
     }
 
     public void setSpeed(double speed) {
@@ -89,7 +87,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public void periodic() {
         // temp - for troubleshooting
         SmartDashboard.putNumber("Shooter Velocity", velocity);
-        SmartDashboard.putNumber("Shooter kF", kF);
+        SmartDashboard.putNumber("Shooter kF", F);
     }
 
 /*
