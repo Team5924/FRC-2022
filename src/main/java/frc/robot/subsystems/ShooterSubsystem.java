@@ -30,7 +30,6 @@ public class ShooterSubsystem extends SubsystemBase {
     private double F;
     private double velocity;
     private double rpm;
-    private double speed;
 
     // Constructor for ShooterSubsystem class
     public ShooterSubsystem() {
@@ -48,23 +47,21 @@ public class ShooterSubsystem extends SubsystemBase {
         m_PIDController.setD(ShooterConstants.D);
     }
 
-    // Freedom Units
-    public double distanceToVelocity() {
+    /*
+        FREEDOM UNITS
+    */
+
+    // Gets distance from limelight, converts into velocity
+    public double getVelocity() {
        // Velocity for Distance Away: y = 0.7125x + 17.725
        velocity = (0.7125 * m_limelight.getDistance()) + 17.725;
        return velocity;
     }
 
-    public double velocityToRPM() {
+    public double getRPM() {
         // Velocity to RPM: y = (25137/157.89)x
-        rpm = (25137/157.89) * velocity;
+        rpm = (25137/157.89) * getVelocity();
         return rpm;
-    }
-
-    public double RPMToSpeed() {
-        // RPM to Speed: y = (24015211.1/1.0102949748 * 10^11)(x-4410) + 1
-        speed = 24015211.1 / (1.0102949748 * Math.pow(10, 11)) * (rpm - 4410) + 1;
-        return speed;
     }
 
     /*

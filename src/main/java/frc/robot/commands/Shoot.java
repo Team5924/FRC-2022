@@ -15,6 +15,8 @@ public class Shoot extends CommandBase {
   private final LimelightSubsystem m_limelight;
   private final ShooterSubsystem m_shooter;
 
+  private double RPM;
+
   /** Creates a new Shoot. */
   public Shoot(VerticalConveyorSubsystem verticalConveyorSubsystem, LimelightSubsystem limelightSubsystem, ShooterSubsystem shooterSubsystem) {
     m_verticalConveyor = verticalConveyorSubsystem;
@@ -33,7 +35,8 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    RPM = m_shooter.getRPM();
+    m_shooter.setSpeed(RPM);
   }
   /*
     if (m_shooter.isAtSpeedForDistance(m_limelight.getDistance())) {

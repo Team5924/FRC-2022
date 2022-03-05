@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -14,6 +12,7 @@ import frc.robot.commands.MaintainShooterSpeed;
 import frc.robot.commands.ReverseIntakeMotor;
 import frc.robot.commands.RunHorizontalConveyor;
 import frc.robot.commands.RunVerticalConveyor;
+import frc.robot.commands.Shoot;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCompressor;
 import frc.robot.commands.ToggleIntakeDeployed;
@@ -53,9 +52,9 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
-    /* m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
+    m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
     m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_verticalConveyor, m_intake));
-    m_shooter.setDefaultCommand(new MaintainShooterSpeed(m_shooter)); */
+    m_shooter.setDefaultCommand(new MaintainShooterSpeed(m_shooter));
     
     m_intake.register();
     m_horizontalConveyor.register();
@@ -75,6 +74,8 @@ public class RobotContainer {
     b.whenPressed(new ToggleCompressor(m_intake));
     x.whenPressed(new ToggleIntakeMotor(m_intake));
     y.whenHeld(new ReverseIntakeMotor(m_intake));
+
+    rightBumper.whenHeld(new Shoot(m_verticalConveyor, m_limelight, m_shooter));
   }
 
   /**
@@ -85,9 +86,5 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return null;
-  }
-
-  public boolean isRedAlliance() {
-    return NetworkTableInstance.getDefault().getTable("FMSInfo").getEntry("IsRedAlliance").getBoolean(false);
   }
 }
