@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VerticalConveyorSubsystem;
-import frc.robot.Constants.ShooterConstants;
 
 public class Shoot extends CommandBase {
   private final VerticalConveyorSubsystem m_verticalConveyor;
@@ -35,8 +34,18 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RPM = m_shooter.getRPM();
+    // Runs the shooter at specific speed
+    RPM = m_shooter.getRPM(); 
+    // Sets the kF value in relation to distance from target
+    m_shooter.setFeedForward();
     m_shooter.setSpeed(RPM);
+
+    if (m_shooter.isEncoderAtSpeed() == true) {
+      // The vertical conveyor feeds a ball into the shooter, when shooter is ready to fire
+      m_verticalConveyor.enableConveyor();
+    } else {
+      m_verticalConveyor.disableConveyor();
+    }
   }
   /*
     if (m_shooter.isAtSpeedForDistance(m_limelight.getDistance())) {

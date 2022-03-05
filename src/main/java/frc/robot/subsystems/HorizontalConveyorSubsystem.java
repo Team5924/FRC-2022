@@ -6,30 +6,28 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ColorMatchResult;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ColorConstants;
 import frc.robot.Constants.ConveyorConstants;
 
 public class HorizontalConveyorSubsystem extends SubsystemBase {
   private CANSparkMax m_conveyorSpark = new CANSparkMax(ConveyorConstants.HORIZONTAL_CONVEYOR_SPARK, MotorType.kBrushless);
   private DigitalInput m_beamBreak = new DigitalInput(ConveyorConstants.HORIZONTAL_BEAM_BREAK);
 
-  /* private ColorSensorV3 m_colorSensor = new ColorSensorV3(I2C.Port.kMXP);
-  private final ColorMatch m_colorMatcher = new ColorMatch(); */
+  private final Color blueTarget = new Color(0.143, 0.427, 0.429);
+  private final Color redTarget = new Color(0.561, 0.232, 0.114);
+  private final ColorMatch m_colorMatcher = new ColorMatch();
 
   /** Creates a new ConveyorSubsystem. */
   public HorizontalConveyorSubsystem() {
-  /*  m_colorMatcher.setConfidenceThreshold(80);
-    m_colorMatcher.addColorMatch(ColorConstants.BLUE_TARGET);
-    m_colorMatcher.addColorMatch(ColorConstants.RED_TARGET); */
+    m_colorMatcher.setConfidenceThreshold(80);
+    m_colorMatcher.addColorMatch(blueTarget);
+    m_colorMatcher.addColorMatch(redTarget);
   }
 
   @Override
@@ -49,14 +47,20 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
     return m_beamBreak.get();
   }
 
-  /* public Color getBallColor() {
-    Color color = m_colorMatcher.matchColor(m_colorSensor.getColor()).color;
-    if (color == ColorConstants.RED_TARGET) {
-      return ColorConstants.RED_TARGET;
-    } else if (color == ColorConstants.BLUE_TARGET) {
-      return ColorConstants.BLUE_TARGET;
+  public String getColorFromSensor() {
+    double[] rawColor = NetworkTableInstance.getDefault().getEntry("rawcolor1").getDoubleArray(new double[]{0, 0, 0, 0});
+    double r = rawColor[0];
+    double g = rawColor[1];
+    double b = rawColor[2];
+    double mag = r + g + b;
+    Color detectedColor = new Color(r / mag, g / mag, b / mag);
+    ColorMatchResult matchResult = m_colorMatcher.matchClosestColor(detectedColor);
+    if (matchResult.color == blueTarget) {
+      return "Blue";
+    } else if (matchResult.color == redTarget) {
+      return "Red";
     } else {
-      return null;
+      return "Unknown";
     }
-  } */
+  }
 }

@@ -26,6 +26,7 @@ public class MaintainShooterSpeed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // The minimum speed to score a ball at 6 ft
     m_shooter.setSpeed(ShooterConstants.MIN_SPEED);
   }
 

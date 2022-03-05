@@ -28,8 +28,6 @@ public class ShooterSubsystem extends SubsystemBase {
     private RelativeEncoder m_encoder;
 
     private double F;
-    private double velocity;
-    private double rpm;
 
     // Constructor for ShooterSubsystem class
     public ShooterSubsystem() {
@@ -54,24 +52,32 @@ public class ShooterSubsystem extends SubsystemBase {
     // Gets distance from limelight, converts into velocity
     public double getVelocity() {
        // Velocity for Distance Away: y = 0.7125x + 17.725
-       velocity = (0.7125 * m_limelight.getDistance()) + 17.725;
-       return velocity;
+       return (0.7125 * m_limelight.getDistance()) + 17.725;
     }
 
+    // Converts velocity into RPM
     public double getRPM() {
         // Velocity to RPM: y = (25137/157.89)x
-        rpm = (25137/157.89) * getVelocity();
-        return rpm;
+        return (25137/157.89) * getVelocity();
+    }
+
+    // Checks to see if Shooter is ready to fire
+    public boolean isEncoderAtSpeed() {
+        if (m_encoder.getVelocity() == (getRPM() - ShooterConstants.ACCEPTABLE_RPM_ERROR)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*
         Feed forward changes based on the target rpm, which changes based
         on the robot's distance away from the target.
     */
-    public void setFeedForward(double distance) {
+    public void setFeedForward() {
         // Reference: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
         // kF = (1 X 1 RPM) / Target RPM
-        F = 1/rpm;
+        F = 1/getRPM();
         m_PIDController.setFF(F);
     }
 
@@ -83,7 +89,7 @@ public class ShooterSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // temp - for troubleshooting
-        SmartDashboard.putNumber("Shooter Velocity", velocity);
+        SmartDashboard.putNumber("Shooter Velocity", getVelocity());
         SmartDashboard.putNumber("Shooter kF", F);
     }
 

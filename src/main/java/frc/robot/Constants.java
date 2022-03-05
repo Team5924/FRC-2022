@@ -78,7 +78,7 @@ public final class Constants {
         public static final int FOLLOWER_SHOOTER_SPARK = 2;
 
         public static final int MAX_SPEED = 4410;
-        public static final int MIN_SPEED = -1; // Set later
+        public static final double  MIN_SPEED = (25137/157.89) * 22;
 
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;
