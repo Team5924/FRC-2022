@@ -13,24 +13,22 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.TurretConstants;
 
 public class TurretSubsystem extends SubsystemBase {
-  private final NetworkTable m_limelightTable;
   private final CANSparkMax m_turretSpark = new CANSparkMax(TurretConstants.TURRET_SPARK, MotorType.kBrushless);
   private SparkMaxPIDController m_pidController;
   private RelativeEncoder m_encoder;
 
   /** Creates a new TurretSubsystem. */
   public TurretSubsystem() {
-    m_limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
-
     m_turretSpark.restoreFactoryDefaults();
     m_turretSpark.enableSoftLimit(SoftLimitDirection.kForward, true);
     m_turretSpark.enableSoftLimit(SoftLimitDirection.kReverse, true);
-    m_turretSpark.setSoftLimit(SoftLimitDirection.kForward, 110/360);
-    m_turretSpark.setSoftLimit(SoftLimitDirection.kReverse, 110/360);
+    m_turretSpark.setSoftLimit(SoftLimitDirection.kForward, TurretConstants.TURRET_SOFT_LIMIT);
+    m_turretSpark.setSoftLimit(SoftLimitDirection.kReverse, TurretConstants.TURRET_SOFT_LIMIT);
 
     m_pidController = m_turretSpark.getPIDController();
 
@@ -47,33 +45,18 @@ public class TurretSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Turret Centered?", isTurretCentered());
   }
 
-  public double getHorizontalOffset() {
-    return m_limelightTable.getEntry("tx").getDouble(0);
+  public void turnTurret(double degrees) {
+    m_pidController.setReference(degrees/360, ControlType.kPosition);
   }
 
-  public double getVerticalOffset() {
-    return m_limelightTable.getEntry("ty").getDouble(0);
+  public double getPosition() {
+    return m_encoder.getPosition() * 360;
   }
 
-  public boolean isTargetDetected() {
-    return m_limelightTable.getEntry("tv").getDouble(0) == 1;
-  }
-
-  public double getDistance() {
-    // Unit: Meters
-    return (TurretConstants.HEIGHT_2 - TurretConstants.HEIGHT_1) / Math.toRadians(Math.tan(TurretConstants.ANGLE_1 + getVerticalOffset()));
-  }
-
-  public void target() {
-    if (!isTargetDetected()) {
-
-    }
-    m_pidController.setReference(degreesToSensorUnits(getHorizontalOffset()), ControlType.kPosition);
-  }
-
-  private double degreesToSensorUnits(double degrees) {
-    return degrees / 360 * 4096;
+  public boolean isTurretCentered() {
+    return Math.abs(getPosition()) <= TurretConstants.ACCEPTABLE_ERROR;
   }
 }
