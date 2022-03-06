@@ -23,6 +23,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     private SparkMaxPIDController m_PIDController;
 
+    // Subject to change
     private RelativeEncoder m_encoder;
 
     private double shooterSetpoint;
@@ -44,7 +45,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     /*
-        FREEDOM UNITS
+        ========== FREEDOM UNITS ==========
     */
     
     public void setSpeed(double speed) {
@@ -72,12 +73,11 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     /*
-        Feed forward changes based on the target rpm, which changes based
-        on the robot's distance away from the target.
+        Feed forward changes based on the shooterSetpoint
     */
     private void setFeedForward(double speed) {
         // Reference: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
-        // kF = (1 X 1 RPM) / Target RPM
+        // FF = (1 X 1 RPM) / Target RPM
         m_PIDController.setFF(1/speed);
     }
 }
