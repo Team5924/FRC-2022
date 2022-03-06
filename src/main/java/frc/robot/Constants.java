@@ -39,6 +39,10 @@ public final class Constants {
         public static final double TRIGGER_THRESHOLD_TIME = 1;
     }
 
+    public static final class ClimberConstants {
+        public static final int CLIMBER_SPARK = -1;
+    }
+
     public static final class OIConstants {
         public static final int DRIVER_CONTROLLER_PORT = 0;
         public static final double DRIVER_CONTROLLER_DEADBAND = 0.05;
