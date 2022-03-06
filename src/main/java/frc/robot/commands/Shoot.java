@@ -14,8 +14,6 @@ public class Shoot extends CommandBase {
   private final LimelightSubsystem m_limelight;
   private final ShooterSubsystem m_shooter;
 
-  private double RPM;
-
   /** Creates a new Shoot. */
   public Shoot(VerticalConveyorSubsystem verticalConveyorSubsystem, LimelightSubsystem limelightSubsystem, ShooterSubsystem shooterSubsystem) {
     m_verticalConveyor = verticalConveyorSubsystem;
@@ -28,31 +26,22 @@ public class Shoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // m_shooter.setSpeedForDistance(m_limelight.getDistance());
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Runs the shooter at specific speed
-    RPM = m_shooter.getRPM(); 
-    // Sets the kF value in relation to distance from target
-    m_shooter.setFeedForward();
-    m_shooter.setSpeed(RPM);
+    // Runs the shooter at specific speed based on the distance from the target
+    m_shooter.setSpeed(m_shooter.shotVelocityToShooterRPM(m_shooter.getShotVelocity(m_limelight.getDistance())));
 
-    if (m_shooter.isEncoderAtSpeed() == true) {
+    if (m_shooter.isShooterAtSpeed() == true) {
       // The vertical conveyor feeds a ball into the shooter, when shooter is ready to fire
       m_verticalConveyor.enableConveyor();
     } else {
       m_verticalConveyor.disableConveyor();
     }
   }
-  /*
-    if (m_shooter.isAtSpeedForDistance(m_limelight.getDistance())) {
-      m_conveyor.runVerticalConveyor();
-    }
-  */
-
 
   // Called once the command ends or is interrupted.
   @Override
