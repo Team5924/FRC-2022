@@ -27,9 +27,9 @@ public final class Constants {
         public static final int PID_LOOP_IDX = 0;
         public static final int SLOT_IDX = 0;
         public static final double F = 0.8 * 1023 / 17421;
-        public static final double P = 0.2;
+        public static final double P = 0.18;
         public static final double I = 0;
-        public static final double D = 0;
+        public static final double D = 1.8;
 
         // Current limit for motors in amps
         public static final double CURRENT_LIMIT = 40;
