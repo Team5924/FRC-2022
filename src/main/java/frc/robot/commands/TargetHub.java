@@ -32,9 +32,12 @@ public class TargetHub extends CommandBase {
   @Override
   public void execute() {
     if (targetDetected) {
-      m_turret.turnTurret(m_limelight.getHorizontalOffset() * TurretConstants.TURRET_GEARBOX_RATIO);
+      attemptsToFindTarget = 0;
+      if (!m_turret.isTurning()) {
+        m_turret.turnTurret(m_limelight.getHorizontalOffset() * TurretConstants.TURRET_GEARBOX_RATIO);
+      }
     } else {
-      if (attemptsToFindTarget < 15) {
+      if (attemptsToFindTarget < 10) {
         if (m_limelight.isTargetDetected()) {
           targetDetected = true;
         } else {
@@ -55,8 +58,8 @@ public class TargetHub extends CommandBase {
   public boolean isFinished() {
     if (endCommand) {
       return true;
-    } else if (m_limelight.isTargetDetected()) {
-      return m_limelight.getHorizontalOffset() <= TurretConstants.ACCEPTABLE_ERROR;
+    } else if (m_limelight.isTargetDetected() && m_limelight.getHorizontalOffset() <= TurretConstants.ACCEPTABLE_ERROR) {
+      return true;
     } else {
       return false;
     }
