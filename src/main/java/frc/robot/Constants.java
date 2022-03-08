@@ -21,7 +21,7 @@ public final class Constants {
         public static final int RIGHT_BACK_TALON = 1;
 
         //Max velocity in sensor units per 100ms
-        public static final double MAX_VELOCITY = 17421;
+        public static final double PERCENT_MAX_VELOCITY = 0.7;
 
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;

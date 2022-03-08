@@ -98,7 +98,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   private void setLeftVelocityFromJoystick(double input) {
-    double speed = squareKeepSign(input) * DriveConstants.MAX_VELOCITY;
+    double speed = squareKeepSign(input) * DriveConstants.PERCENT_MAX_VELOCITY;
     m_leftDTLeader.set(ControlMode.Velocity, speed);
     SmartDashboard.putNumber("Left Velocity Intended", speed);
     SmartDashboard.putNumber("Left Difference", speed - getLeftVelocity());
@@ -106,7 +106,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   private void setRightVelocityFromJoystick(double input) {
     // Multiply by -1 to invert that side. Technically .setInverted(true) should be called on the master motor for this side but that didn't work for me
-    double speed = squareKeepSign(input) * DriveConstants.MAX_VELOCITY * -1;
+    double speed = squareKeepSign(input) * DriveConstants.PERCENT_MAX_VELOCITY * 21776.25 * -1;
     m_rightDTLeader.set(ControlMode.Velocity, speed);
     SmartDashboard.putNumber("Right Velocity Intended", speed);
     SmartDashboard.putNumber("Right Difference", speed - getRightVelocity());
