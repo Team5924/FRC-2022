@@ -25,6 +25,7 @@ public class TurretSubsystem extends SubsystemBase {
   /** Creates a new TurretSubsystem. */
   public TurretSubsystem() {
     m_turretSpark.restoreFactoryDefaults();
+    m_turretSpark.setInverted(true);
     //m_turretSpark.enableSoftLimit(SoftLimitDirection.kForward, true);
     //m_turretSpark.enableSoftLimit(SoftLimitDirection.kReverse, true);
     //m_turretSpark.setSoftLimit(SoftLimitDirection.kForward, TurretConstants.TURRET_SOFT_LIMIT);

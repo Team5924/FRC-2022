@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.TurretConstants;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -26,18 +27,19 @@ public class TargetHub extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    SmartDashboard.putBoolean("TargetHub", true);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if (targetDetected) {
-      attemptsToFindTarget = 0;
       if (!m_turret.isTurning()) {
-        m_turret.turnTurret(m_limelight.getHorizontalOffset() * TurretConstants.TURRET_GEARBOX_RATIO);
+        m_turret.turnTurret(m_limelight.getHorizontalOffset());
       }
     } else {
-      if (attemptsToFindTarget < 10) {
+      if (attemptsToFindTarget < 5) {
         if (m_limelight.isTargetDetected()) {
           targetDetected = true;
         } else {
@@ -47,11 +49,15 @@ public class TargetHub extends CommandBase {
         endCommand = true;
       }
     }
+    SmartDashboard.putNumber("Attempts to Find", attemptsToFindTarget);
+    SmartDashboard.putBoolean("Target Detected?", targetDetected);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    SmartDashboard.putBoolean("TargetHub", false);
+  }
 
   // Returns true when the command should end.
   @Override
