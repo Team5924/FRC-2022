@@ -44,17 +44,22 @@ public class TurretSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Turret Centered?", isTurretCentered());
+    SmartDashboard.putNumber("Turret Encoder Value", getPosition());
   }
 
   public void turnTurret(double degrees) {
-    m_pidController.setReference(degrees/360, ControlType.kPosition);
+    m_pidController.setReference(degrees / 360 * TurretConstants.TURRET_GEARBOX_RATIO, ControlType.kPosition);
   }
 
   public double getPosition() {
-    return m_encoder.getPosition() * 360;
+    return m_encoder.getPosition() / TurretConstants.TURRET_GEARBOX_RATIO * 360;
   }
 
   public boolean isTurretCentered() {
     return Math.abs(getPosition()) <= TurretConstants.ACCEPTABLE_ERROR;
+  }
+
+  public void zeroEncoder() {
+    m_encoder.setPosition(0);
   }
 }

@@ -25,7 +25,7 @@ public class CenterTurret extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_turret.turnTurret(-m_turret.getPosition() * TurretConstants.TURRET_GEARBOX_RATIO);
+    m_turret.turnTurret(-m_turret.getPosition());
   }
 
   // Called once the command ends or is interrupted.

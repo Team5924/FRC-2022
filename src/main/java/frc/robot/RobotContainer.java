@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.CenterTurret;
@@ -32,6 +33,7 @@ public class RobotContainer {
 
   JoystickButton a = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   JoystickButton b = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+  JoystickButton x = new JoystickButton(m_driverController, XboxController.Button.kX.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -54,6 +56,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     a.whenPressed(new TargetHub(m_limelight, m_turret));
     b.whenPressed(new CenterTurret(m_turret));
+    x.whenPressed(new InstantCommand(m_turret::zeroEncoder));
   }
 
   /**
