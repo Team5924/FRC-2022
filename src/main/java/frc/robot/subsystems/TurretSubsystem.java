@@ -25,10 +25,10 @@ public class TurretSubsystem extends SubsystemBase {
   /** Creates a new TurretSubsystem. */
   public TurretSubsystem() {
     m_turretSpark.restoreFactoryDefaults();
-    m_turretSpark.enableSoftLimit(SoftLimitDirection.kForward, true);
-    m_turretSpark.enableSoftLimit(SoftLimitDirection.kReverse, true);
-    m_turretSpark.setSoftLimit(SoftLimitDirection.kForward, TurretConstants.TURRET_SOFT_LIMIT);
-    m_turretSpark.setSoftLimit(SoftLimitDirection.kReverse, TurretConstants.TURRET_SOFT_LIMIT);
+    //m_turretSpark.enableSoftLimit(SoftLimitDirection.kForward, true);
+    //m_turretSpark.enableSoftLimit(SoftLimitDirection.kReverse, true);
+    //m_turretSpark.setSoftLimit(SoftLimitDirection.kForward, TurretConstants.TURRET_SOFT_LIMIT);
+    //m_turretSpark.setSoftLimit(SoftLimitDirection.kReverse, TurretConstants.TURRET_SOFT_LIMIT);
 
     m_pidController = m_turretSpark.getPIDController();
 
@@ -41,7 +41,6 @@ public class TurretSubsystem extends SubsystemBase {
     m_pidController.setD(TurretConstants.D);
     m_pidController.setIZone(TurretConstants.I_ZONE);
     m_pidController.setFF(TurretConstants.FF);
-    m_pidController.setOutputRange(TurretConstants.MIN_OUTPUT, TurretConstants.MAX_OUTPUT);
   }
 
   @Override

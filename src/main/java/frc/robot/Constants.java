@@ -57,8 +57,6 @@ public final class Constants {
         public static final double D = 0;
         public static final double I_ZONE = 0;
         public static final double FF = 0;
-        public static final double MIN_OUTPUT = 1;
-        public static final double MAX_OUTPUT = -1;
 
         public static final float TURRET_SOFT_LIMIT = (float) (110 * 297.5 / 360);
         public static final int ACCEPTABLE_ERROR = 2;
