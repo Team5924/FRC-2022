@@ -4,8 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.TurretConstants;
 import frc.robot.subsystems.TurretSubsystem;
 
 public class CenterTurret extends CommandBase {
@@ -20,21 +20,27 @@ public class CenterTurret extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    SmartDashboard.putBoolean("CenterTurret", true);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_turret.turnTurret(-m_turret.getPosition());
+    if (!m_turret.isTurning()) {
+      m_turret.turnTurret(-m_turret.getPosition());
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    SmartDashboard.putBoolean("CenterTurret", false);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_turret.isTurretCentered();
+    return !m_turret.isTurning() && m_turret.isTurretCentered();
   }
 }

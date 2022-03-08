@@ -20,6 +20,8 @@ public class TurretSubsystem extends SubsystemBase {
   private SparkMaxPIDController m_pidController;
   private RelativeEncoder m_encoder;
 
+  private double reference;
+
   /** Creates a new TurretSubsystem. */
   public TurretSubsystem() {
     m_turretSpark.restoreFactoryDefaults();
@@ -31,6 +33,8 @@ public class TurretSubsystem extends SubsystemBase {
     m_pidController = m_turretSpark.getPIDController();
 
     m_encoder = m_turretSpark.getEncoder();
+    // Make encoder output position in degrees instead of rotations
+    m_encoder.setPositionConversionFactor(360);
 
     m_pidController.setP(TurretConstants.P);
     m_pidController.setI(TurretConstants.I);
@@ -45,14 +49,23 @@ public class TurretSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Turret Centered?", isTurretCentered());
     SmartDashboard.putNumber("Turret Encoder Value", getPosition());
+    SmartDashboard.putNumber("Position", getPosition());
+    SmartDashboard.putNumber("Velocity", m_encoder.getVelocity());
+    SmartDashboard.putBoolean("Is Turning?", isTurning());
+    SmartDashboard.putNumber("Reference", reference);
   }
 
   public void turnTurret(double degrees) {
-    m_pidController.setReference(degrees / 360 * TurretConstants.TURRET_GEARBOX_RATIO, ControlType.kPosition);
+    reference = degrees;
+    m_pidController.setReference(reference * TurretConstants.TURRET_GEARBOX_RATIO, ControlType.kPosition);
   }
 
   public double getPosition() {
-    return m_encoder.getPosition() / TurretConstants.TURRET_GEARBOX_RATIO * 360;
+    return m_encoder.getPosition() / TurretConstants.TURRET_GEARBOX_RATIO;
+  }
+
+  public boolean isTurning() {
+    return m_encoder.getVelocity() != 0;
   }
 
   public boolean isTurretCentered() {

@@ -52,7 +52,7 @@ public final class Constants {
         public static final double HEIGHT_1 = 0.686; // Unit: meters | 27 inches
         public static final double HEIGHT_2 = 2.438; // Unit: meters | 8 feet
 
-        public static final double P = 0.025;
+        public static final double P = 0.0003;
         public static final double I = 0;
         public static final double D = 0;
         public static final double I_ZONE = 0;
