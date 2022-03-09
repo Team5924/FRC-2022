@@ -27,9 +27,7 @@ public class CenterTurret extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!m_turret.isTurning()) {
-      m_turret.turnTurret(-m_turret.getPosition());
-    }
+    m_turret.setTurretPosition(0);
   }
 
   // Called once the command ends or is interrupted.
@@ -41,6 +39,6 @@ public class CenterTurret extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !m_turret.isTurning() && m_turret.isTurretCentered();
+    return m_turret.isTurretCentered();
   }
 }

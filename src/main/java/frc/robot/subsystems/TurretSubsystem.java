@@ -51,12 +51,11 @@ public class TurretSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Turret Centered?", isTurretCentered());
     SmartDashboard.putNumber("Turret Encoder Value", getPosition());
     SmartDashboard.putNumber("Position", getPosition());
-    SmartDashboard.putNumber("Velocity", m_encoder.getVelocity());
     SmartDashboard.putBoolean("Is Turning?", isTurning());
     SmartDashboard.putNumber("Reference", reference);
   }
 
-  public void turnTurret(double degrees) {
+  public void setTurretPosition(double degrees) {
     reference = degrees;
     m_pidController.setReference(reference * TurretConstants.TURRET_GEARBOX_RATIO, ControlType.kPosition);
   }
