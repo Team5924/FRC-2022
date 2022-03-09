@@ -35,9 +35,7 @@ public class TargetHub extends CommandBase {
   @Override
   public void execute() {
     if (targetDetected) {
-      if (!m_turret.isTurning()) {
-        m_turret.turnTurret(m_limelight.getHorizontalOffset());
-      }
+      m_turret.setTurretPosition(m_turret.getPosition() + m_limelight.getHorizontalOffset());
     } else {
       if (attemptsToFindTarget < 5) {
         if (m_limelight.isTargetDetected()) {
