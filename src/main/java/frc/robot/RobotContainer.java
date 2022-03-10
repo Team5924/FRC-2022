@@ -7,10 +7,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.CenterTurret;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.TargetHub;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -22,13 +27,24 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final DriveSubsystem m_drivetrain = new DriveSubsystem();
   public static final LimelightSubsystem m_limelight = new LimelightSubsystem();
+  public static final TurretSubsystem m_turret = new TurretSubsystem();
 
- XboxController m_driverController = new XboxController(OIConstants.DRIVER_CONTROLLER_PORT);
+  XboxController m_driverController = new XboxController(OIConstants.DRIVER_CONTROLLER_PORT);
+
+  JoystickButton a = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+  JoystickButton b = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+  JoystickButton x = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+  JoystickButton y = new JoystickButton(m_driverController, XboxController.Button.kY.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
+
+    m_drivetrain.register();
+    m_limelight.register();
+    m_turret.register();
+
     configureButtonBindings();
   }
 
@@ -38,7 +54,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    a.whenPressed(new TargetHub(m_limelight, m_turret));
+    b.whenPressed(new CenterTurret(m_turret));
+    x.whenPressed(new InstantCommand(m_turret::zeroEncoder));
+    y.whenPressed(new InstantCommand(m_turret::setEncoder));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

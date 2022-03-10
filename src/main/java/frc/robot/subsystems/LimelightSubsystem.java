@@ -6,20 +6,22 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.Constants.TurretConstants;
 
 public class LimelightSubsystem extends SubsystemBase {
   private final NetworkTable m_limelightTable;
-    
-  /** Creates a new LimeLight. */
+
+  /** Creates a new LimelightSubsystem. */
   public LimelightSubsystem() {
-     m_limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
+    m_limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run 
+    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Horizontal Error", getHorizontalOffset());
   }
 
   public double getHorizontalOffset() {
@@ -32,5 +34,10 @@ public class LimelightSubsystem extends SubsystemBase {
 
   public boolean isTargetDetected() {
     return m_limelightTable.getEntry("tv").getDouble(0) == 1;
+  }
+
+  public double getDistance() {
+    // Unit: Meters
+    return (TurretConstants.HEIGHT_2 - TurretConstants.HEIGHT_1) / Math.toRadians(Math.tan(TurretConstants.ANGLE_1 + getVerticalOffset()));
   }
 }
