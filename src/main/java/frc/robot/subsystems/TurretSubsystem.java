@@ -8,7 +8,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
-import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,10 +25,6 @@ public class TurretSubsystem extends SubsystemBase {
   public TurretSubsystem() {
     m_turretSpark.restoreFactoryDefaults();
     m_turretSpark.setInverted(true);
-    //m_turretSpark.enableSoftLimit(SoftLimitDirection.kForward, true);
-    //m_turretSpark.enableSoftLimit(SoftLimitDirection.kReverse, true);
-    //m_turretSpark.setSoftLimit(SoftLimitDirection.kForward, TurretConstants.TURRET_SOFT_LIMIT);
-    //m_turretSpark.setSoftLimit(SoftLimitDirection.kReverse, TurretConstants.TURRET_SOFT_LIMIT);
 
     m_pidController = m_turretSpark.getPIDController();
 
