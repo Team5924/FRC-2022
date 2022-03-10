@@ -43,7 +43,7 @@ public final class Constants {
 
     public static final class OIConstants {
         public static final int DRIVER_CONTROLLER_PORT = 0;
-        public static final double DRIVER_CONTROLLER_DEADBAND = 0.05;
+        public static final double DRIVER_CONTROLLER_DEADBAND = 0.08;
     }
 
     public static final class TurretConstants {
