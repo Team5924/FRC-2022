@@ -65,8 +65,4 @@ public class TurretSubsystem extends SubsystemBase {
   public void zeroEncoder() {
     m_encoder.setPosition(0);
   }
-
-  public void setEncoder() {
-    m_encoder.setPosition(30 * TurretConstants.TURRET_GEARBOX_RATIO);
-  }
 }
