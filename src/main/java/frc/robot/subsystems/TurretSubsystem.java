@@ -26,7 +26,6 @@ public class TurretSubsystem extends SubsystemBase {
   public TurretSubsystem() {
     m_turretSpark.restoreFactoryDefaults();
     m_turretSpark.setInverted(true);
-    m_turretSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
     //m_turretSpark.enableSoftLimit(SoftLimitDirection.kForward, true);
     //m_turretSpark.enableSoftLimit(SoftLimitDirection.kReverse, true);
     //m_turretSpark.setSoftLimit(SoftLimitDirection.kForward, TurretConstants.TURRET_SOFT_LIMIT);
@@ -74,5 +73,9 @@ public class TurretSubsystem extends SubsystemBase {
 
   public void zeroEncoder() {
     m_encoder.setPosition(0);
+  }
+
+  public void setEncoder() {
+    m_encoder.setPosition(30 * TurretConstants.TURRET_GEARBOX_RATIO);
   }
 }

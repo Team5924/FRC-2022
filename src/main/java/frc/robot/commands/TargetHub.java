@@ -62,7 +62,7 @@ public class TargetHub extends CommandBase {
   public boolean isFinished() {
     if (endCommand) {
       return true;
-    } else if (m_limelight.isTargetDetected() && m_limelight.getHorizontalOffset() <= TurretConstants.ACCEPTABLE_ERROR) {
+    } else if (!m_turret.isTurning() && m_limelight.isTargetDetected() && m_limelight.getHorizontalOffset() <= TurretConstants.ACCEPTABLE_ERROR) {
       return true;
     } else {
       return false;

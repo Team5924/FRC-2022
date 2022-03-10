@@ -34,6 +34,7 @@ public class RobotContainer {
   JoystickButton a = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   JoystickButton b = new JoystickButton(m_driverController, XboxController.Button.kB.value);
   JoystickButton x = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+  JoystickButton y = new JoystickButton(m_driverController, XboxController.Button.kY.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -57,6 +58,7 @@ public class RobotContainer {
     a.whenPressed(new TargetHub(m_limelight, m_turret));
     b.whenPressed(new CenterTurret(m_turret));
     x.whenPressed(new InstantCommand(m_turret::zeroEncoder));
+    y.whenPressed(new InstantCommand(m_turret::setEncoder));
   }
 
   /**
