@@ -33,6 +33,7 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putString("Color Detected", getColorFromSensor());
+    SmartDashboard.putBoolean("Horizontal Beam", isBeamBroken());
   }
 
   public void enableConveyor() {
@@ -43,8 +44,8 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
     //m_conveyorSpark.stopMotor();
   }
 
-  public boolean isBeamCompleted() {
-    return m_beamBreak.get();
+  public boolean isBeamBroken() {
+    return !m_beamBreak.get();
   }
 
   public String getColorFromSensor() {

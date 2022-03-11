@@ -90,8 +90,8 @@ public final class Constants {
     public static final class ConveyorConstants {
         public static final int HORIZONTAL_CONVEYOR_SPARK = -1;
         public static final int VERTICAL_CONVEYOR_SPARK = -1;
-        public static final int HORIZONTAL_BEAM_BREAK = 1;
-        public static final int VERTICAL_BEAM_BREAK = 3;
+        public static final int HORIZONTAL_BEAM_BREAK = 0;
+        public static final int VERTICAL_BEAM_BREAK = 2;
     }
     public static final class OIConstants {
         public static final int DRIVER_CONTROLLER = 0;

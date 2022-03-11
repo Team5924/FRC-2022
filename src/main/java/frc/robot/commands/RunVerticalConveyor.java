@@ -29,7 +29,7 @@ public class RunVerticalConveyor extends CommandBase {
   @Override
   public void execute() {
     if (m_intake.isIntakeMotorRunning() && m_intake.isIntakeDeployed()) {
-      if (!m_verticalConveyor.isBeamCompleted() || !lastBallSameColor) {
+      if (!m_verticalConveyor.isBeamBroken() || !lastBallSameColor) {
         m_verticalConveyor.disableConveyor();
       } else {
         m_verticalConveyor.enableConveyor();

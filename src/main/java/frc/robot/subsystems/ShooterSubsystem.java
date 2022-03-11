@@ -47,7 +47,7 @@ public class ShooterSubsystem extends SubsystemBase {
     /*
         ========== FREEDOM UNITS ==========
     */
-    
+
     public void setSpeed(double speed) {
         shooterSetpoint = speed;
         setFeedForward(shooterSetpoint);

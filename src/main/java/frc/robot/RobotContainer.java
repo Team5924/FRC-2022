@@ -37,7 +37,7 @@ public class RobotContainer {
   public static final LimelightSubsystem m_limelight = new LimelightSubsystem();
   public static final IntakeSubsystem m_intake = new IntakeSubsystem();
   public static final HorizontalConveyorSubsystem m_horizontalConveyor = new HorizontalConveyorSubsystem();
-  //public static final VerticalConveyorSubsystem m_verticalConveyor = new VerticalConveyorSubsystem();
+  public static final VerticalConveyorSubsystem m_verticalConveyor = new VerticalConveyorSubsystem();
   //public static final ShooterSubsystem m_shooter = new ShooterSubsystem();
 
   XboxController m_driverController = new XboxController(OIConstants.DRIVER_CONTROLLER);
@@ -52,7 +52,7 @@ public class RobotContainer {
   public RobotContainer() {
     m_intake.register();
     m_horizontalConveyor.register();
-    //m_verticalConveyor.register();
+    m_verticalConveyor.register();
     //m_shooter.register();
 
     //m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));

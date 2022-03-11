@@ -48,7 +48,7 @@ public class RunHorizontalConveyor extends CommandBase {
     }
 
     if (m_intake.isIntakeMotorRunning() && m_intake.isIntakeDeployed()) {
-      if (!m_horizontalConveyor.isBeamCompleted() && !m_verticalConveyor.isBeamCompleted() && lastBallSameColor) {
+      if (!m_horizontalConveyor.isBeamBroken() && !m_verticalConveyor.isBeamBroken() && lastBallSameColor) {
         m_horizontalConveyor.disableConveyor();
       } else {
         m_horizontalConveyor.enableConveyor();
