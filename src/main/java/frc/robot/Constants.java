@@ -40,6 +40,7 @@ public final class Constants {
         public static final double TRIGGER_THRESHOLD_TIME = 1;
     }
 
+    /*
     public static final class TurretConstants {
         public static final int TURRET_TALON = 4;
         public static final int MAX_VELOCITY = 375;
@@ -66,6 +67,25 @@ public final class Constants {
         public static final double ANGLE_1 = (Math.PI/5); // 36 degrees
         public static final double HEIGHT_1 = 0.686; // Unit: meters | 27 inches
         public static final double HEIGHT_2 = 2.438; // Unit: meters | 8 feet
+    }
+    */
+
+    public static final class TurretConstants {
+        public static final int TURRET_SPARK = 7;
+
+        // LIMELIGHT ANGLE | Reference: https://docs.limelightvision.io/en/latest/cs_estimating_distance.html#using-area
+        public static final double ANGLE_1 = (Math.PI/5); // 36 degrees
+        public static final double HEIGHT_1 = 0.686; // Unit: meters | 27 inches
+        public static final double HEIGHT_2 = 2.438; // Unit: meters | 8 feet
+
+        public static final double P = 0.0001;
+        public static final double I = 0;
+        public static final double D = 0.001;
+        public static final double I_ZONE = 0;
+        public static final double FF = 0;
+
+        public static final int ACCEPTABLE_ERROR = 2;
+        public static final double TURRET_GEARBOX_RATIO = 297.5;
     }
 
     public static final class ShooterConstants {
