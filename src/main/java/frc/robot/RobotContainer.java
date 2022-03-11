@@ -37,8 +37,8 @@ public class RobotContainer {
   public static final LimelightSubsystem m_limelight = new LimelightSubsystem();
   public static final IntakeSubsystem m_intake = new IntakeSubsystem();
   public static final HorizontalConveyorSubsystem m_horizontalConveyor = new HorizontalConveyorSubsystem();
-  public static final VerticalConveyorSubsystem m_verticalConveyor = new VerticalConveyorSubsystem();
-  public static final ShooterSubsystem m_shooter = new ShooterSubsystem();
+  //public static final VerticalConveyorSubsystem m_verticalConveyor = new VerticalConveyorSubsystem();
+  //public static final ShooterSubsystem m_shooter = new ShooterSubsystem();
 
   XboxController m_driverController = new XboxController(OIConstants.DRIVER_CONTROLLER);
 
@@ -50,16 +50,17 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the button bindings
-    m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
-    m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
-    m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_verticalConveyor, m_intake));
-    m_shooter.setDefaultCommand(new MaintainShooterSpeed(m_shooter));
-    
     m_intake.register();
     m_horizontalConveyor.register();
-    m_verticalConveyor.register();
-    m_shooter.register();
+    //m_verticalConveyor.register();
+    //m_shooter.register();
+
+    //m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
+    //m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
+    //m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_verticalConveyor, m_intake));
+    //m_shooter.setDefaultCommand(new MaintainShooterSpeed(m_shooter));
+
+    // Configure the button bindings
     configureButtonBindings();
   }
 
@@ -75,7 +76,7 @@ public class RobotContainer {
     x.whenPressed(new ToggleIntakeMotor(m_intake));
     y.whenHeld(new ReverseIntakeMotor(m_intake));
 
-    rightBumper.whenHeld(new Shoot(m_verticalConveyor, m_limelight, m_shooter));
+    //rightBumper.whenHeld(new Shoot(m_verticalConveyor, m_limelight, m_shooter));
   }
 
   /**
