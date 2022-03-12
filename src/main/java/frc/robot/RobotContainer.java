@@ -24,6 +24,7 @@ import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VerticalConveyorSubsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -47,6 +48,9 @@ public class RobotContainer {
   JoystickButton x = new JoystickButton(m_driverController, XboxController.Button.kX.value);
   JoystickButton y = new JoystickButton(m_driverController, XboxController.Button.kY.value);
   JoystickButton rightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+
+  // Declaring sendableObject for Autonomous here
+  SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

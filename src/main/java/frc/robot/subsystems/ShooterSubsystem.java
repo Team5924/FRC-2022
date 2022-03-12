@@ -12,10 +12,10 @@ import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-    /*
-        The shooter has two motors spinning, relative to each other,
-        in the opposite dierction. The leaderSparkMax is also the
-        PIDController, and the other one follows.
+    /**
+     * The shooter has two motors spinning, relative to each other,
+     * in the opposite dierction. The leaderSparkMax is also the
+     * PIDController, and the other one follows.
     */
 
     private CANSparkMax m_leaderShooterSpark = new CANSparkMax(ShooterConstants.LEADER_SHOOTER_SPARK, MotorType.kBrushless);
@@ -44,8 +44,8 @@ public class ShooterSubsystem extends SubsystemBase {
         m_PIDController.setD(ShooterConstants.D);
     }
 
-    /*
-        ========== FREEDOM UNITS ==========
+    /**
+     * ========== FREEDOM UNITS ==========
     */
 
     public void setSpeed(double speed) {
@@ -72,8 +72,8 @@ public class ShooterSubsystem extends SubsystemBase {
         return Math.abs(m_encoder.getVelocity() - shooterSetpoint) <= ShooterConstants.ACCEPTABLE_RPM_ERROR;
     }
 
-    /*
-        Feed forward changes based on the shooterSetpoint
+    /**
+     * Feed forward changes based on the shooterSetpoint
     */
     private void setFeedForward(double speed) {
         // Reference: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
