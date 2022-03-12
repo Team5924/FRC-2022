@@ -126,8 +126,8 @@ public class DriveSubsystem extends SubsystemBase {
      * Divide by 2048 to get rotations from sensor units
      * Multiply by 4π to get inches from rotations
      * Divide by 12 to get feet from inches
-     * Divide by 9 to account for gearbox
-    */
+     * Divide by 9 to account for gearbox ratio
+     */
     return sensor * 10 / 2048 * 4 * Math.PI / 12 / 9;
   }
 }

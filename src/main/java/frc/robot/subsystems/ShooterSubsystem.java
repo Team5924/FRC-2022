@@ -16,7 +16,7 @@ public class ShooterSubsystem extends SubsystemBase {
      * The shooter has two motors spinning, relative to each other,
      * in the opposite dierction. The leaderSparkMax is also the
      * PIDController, and the other one follows.
-    */
+     */
 
     private CANSparkMax m_leaderShooterSpark = new CANSparkMax(ShooterConstants.LEADER_SHOOTER_SPARK, MotorType.kBrushless);
     private CANSparkMax m_followerShooterSpark = new CANSparkMax(ShooterConstants.FOLLOWER_SHOOTER_SPARK, MotorType.kBrushless);
@@ -46,7 +46,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     /**
      * ========== FREEDOM UNITS ==========
-    */
+     */
 
     public void setSpeed(double speed) {
         shooterSetpoint = speed;
@@ -74,7 +74,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     /**
      * Feed forward changes based on the shooterSetpoint
-    */
+     */
     private void setFeedForward(double speed) {
         // Reference: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
         // FF = (1 X 1 RPM) / Target RPM
