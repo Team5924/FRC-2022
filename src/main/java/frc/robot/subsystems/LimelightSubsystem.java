@@ -37,7 +37,7 @@ public class LimelightSubsystem extends SubsystemBase {
   }
 
   public double getDistance() {
-    // Unit: Meters
-    return (TurretConstants.HEIGHT_2 - TurretConstants.HEIGHT_1) / Math.toRadians(Math.tan(TurretConstants.ANGLE_1 + getVerticalOffset()));
+    // Units: Feet & Radians
+    return (TurretConstants.HEIGHT_2 - TurretConstants.HEIGHT_1) / Math.tan(TurretConstants.ANGLE_1 + Math.toRadians(getVerticalOffset()));
   }
 }
