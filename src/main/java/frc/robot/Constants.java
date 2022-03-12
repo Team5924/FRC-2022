@@ -44,10 +44,10 @@ public final class Constants {
         public static final int TURRET_SPARK = 7;
 
         // LIMELIGHT ANGLE | Reference: https://docs.limelightvision.io/en/latest/cs_estimating_distance.html#using-area
-        // ~18.43 degrees | ~0.32175 radians
-        public static final double ANGLE_1 = Math.atan(1/3);
-        // 36 inches
-        public static final double HEIGHT_1 = 36;
+        // ~28.07 degrees | ~0.48995 radians
+        public static final double ANGLE_1 = Math.atan(8/15);
+        // 40 inches
+        public static final double HEIGHT_1 = 40;
         // 96 inches
         public static final double HEIGHT_2 = 96;
 

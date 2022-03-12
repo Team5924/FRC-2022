@@ -121,12 +121,12 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   private double sensorToFeetPerSecond(double sensor) {
-    /*
-    Multiply by 10 to change to per second from per 100ms
-    Divide by 2048 to get rotations from sensor units
-    Multiply by 4π to get inches from rotations
-    Divide by 12 to get feet from inches
-    Divide by 9 to account for gearbox
+    /** 
+     * Multiply by 10 to change to per second from per 100ms
+     * Divide by 2048 to get rotations from sensor units
+     * Multiply by 4π to get inches from rotations
+     * Divide by 12 to get feet from inches
+     * Divide by 9 to account for gearbox
     */
     return sensor * 10 / 2048 * 4 * Math.PI / 12 / 9;
   }
