@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.HorizontalConveyorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -15,7 +14,9 @@ public class RunHorizontalConveyor extends CommandBase {
   private final VerticalConveyorSubsystem m_verticalConveyor;
   private final IntakeSubsystem m_intake;
 
-  private boolean lastBallSameColor = false;
+  private boolean isDisablingConveyor = false;
+  private int conveyorDisableDelay = 150;
+  private long disableConveyorAt = 0;
 
   /** Creates a new RunConveyor. */
   public RunHorizontalConveyor(HorizontalConveyorSubsystem horizontalConveyorSubsystem, VerticalConveyorSubsystem verticalConveyorSubsystem, IntakeSubsystem intakeSubsystem) {
@@ -33,29 +34,25 @@ public class RunHorizontalConveyor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_horizontalConveyor.getColorFromSensor().equals("Red")) {
-      if (isRedAlliance()) {
-        lastBallSameColor = true;
+    //if (m_intake.isIntakeMotorRunning() && m_intake.isIntakeDeployed()) {
+      if (m_horizontalConveyor.isBeamBroken() && m_horizontalConveyor.isLastBallSameColor()) {
+        if (isDisablingConveyor) {
+          if (System.currentTimeMillis() >= disableConveyorAt) {
+            m_horizontalConveyor.disableConveyor();
+          }
+        } else {
+          if (m_horizontalConveyor.isConveyorRunning()) {
+            isDisablingConveyor = true;
+            disableConveyorAt = System.currentTimeMillis() + conveyorDisableDelay;
+          }
+        }
       } else {
-        lastBallSameColor = false;
-      }
-    } else if (m_horizontalConveyor.getColorFromSensor().equals("Blue")) {
-      if (isRedAlliance()) {
-        lastBallSameColor = false;
-      } else {
-        lastBallSameColor = true;
-      }
-    }
-
-    if (m_intake.isIntakeMotorRunning() && m_intake.isIntakeDeployed()) {
-      if (!m_horizontalConveyor.isBeamBroken() && !m_verticalConveyor.isBeamBroken() && lastBallSameColor) {
-        m_horizontalConveyor.disableConveyor();
-      } else {
+        isDisablingConveyor = false;
         m_horizontalConveyor.enableConveyor();
       }
-    } else {
-      m_horizontalConveyor.disableConveyor();
-    }
+    //} else {
+    //  m_horizontalConveyor.disableConveyor();
+    //}
   }
 
   // Called once the command ends or is interrupted.
@@ -66,9 +63,5 @@ public class RunHorizontalConveyor extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
-  }
-
-  private static boolean isRedAlliance() {
-    return NetworkTableInstance.getDefault().getTable("FMSInfo").getEntry("IsRedAlliance").getBoolean(false);
   }
 }

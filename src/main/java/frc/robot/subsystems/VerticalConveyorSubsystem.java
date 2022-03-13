@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -13,23 +14,31 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ConveyorConstants;
 
 public class VerticalConveyorSubsystem extends SubsystemBase {
+  private CANSparkMax m_conveyorSpark = new CANSparkMax(ConveyorConstants.VERTICAL_CONVEYOR_SPARK, MotorType.kBrushless);
+  private RelativeEncoder m_encoder;
   private DigitalInput m_beamBreak = new DigitalInput(ConveyorConstants.VERTICAL_BEAM_BREAK);
-  //private CANSparkMax m_conveyorSpark = new CANSparkMax(ConveyorConstants.VERTICAL_CONVEYOR_SPARK, MotorType.kBrushless);
 
   /** Creates a new VerticalConveyorSubsystem. */
-  public VerticalConveyorSubsystem() {}
+  public VerticalConveyorSubsystem() {
+    m_encoder = m_conveyorSpark.getEncoder();
+  }
 
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Vertical Beam", isBeamBroken());
+    SmartDashboard.putBoolean("Vertical Conveyor Running", isConveyorRunning());
   }
 
   public void enableConveyor() {
-    //m_conveyorSpark.set(0.3);
+    m_conveyorSpark.set(0.2);
   }
 
   public void disableConveyor() {
-    //m_conveyorSpark.stopMotor();
+    m_conveyorSpark.stopMotor();
+  }
+
+  public boolean isConveyorRunning() {
+    return Math.abs(m_encoder.getVelocity()) > 1;
   }
 
   public boolean isBeamBroken() {
