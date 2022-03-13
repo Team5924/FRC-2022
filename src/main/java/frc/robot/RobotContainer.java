@@ -17,14 +17,17 @@ import frc.robot.commands.TankDrive;
 import frc.robot.commands.ToggleCompressor;
 import frc.robot.commands.ToggleIntakeDeployed;
 import frc.robot.commands.ToggleIntakeMotor;
+import frc.robot.commands.auto.SingleBallAuto;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HorizontalConveyorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.VerticalConveyorSubsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -39,7 +42,8 @@ public class RobotContainer {
   public static final IntakeSubsystem m_intake = new IntakeSubsystem();
   public static final HorizontalConveyorSubsystem m_horizontalConveyor = new HorizontalConveyorSubsystem();
   public static final VerticalConveyorSubsystem m_verticalConveyor = new VerticalConveyorSubsystem();
-  //public static final ShooterSubsystem m_shooter = new ShooterSubsystem();
+  public static final ShooterSubsystem m_shooter = new ShooterSubsystem();
+  public static final TurretSubsystem m_turret = new TurretSubsystem();
 
   XboxController m_driverController = new XboxController(OIConstants.DRIVER_CONTROLLER);
 
@@ -50,6 +54,8 @@ public class RobotContainer {
   JoystickButton rightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
 
   // Declaring sendableObject for Autonomous here
+  private final Command m_singleAuto = new SingleBallAuto(m_limelight, m_shooter, m_turret, m_verticalConveyor, m_drivetrain);
+  
   SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -57,7 +63,8 @@ public class RobotContainer {
     m_intake.register();
     m_horizontalConveyor.register();
     m_verticalConveyor.register();
-    //m_shooter.register();
+    m_shooter.register();
+    m_turret.register();
 
     //m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
     //m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
@@ -66,6 +73,9 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+    
+    m_autoChooser.setDefaultOption("Single Ball Auto", m_singleAuto);
+    SmartDashboard.putData(m_autoChooser);
   }
 
   /**
@@ -90,6 +100,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return m_autoChooser.getSelected();
   }
 }
