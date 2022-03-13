@@ -23,7 +23,7 @@ public class AutoShoot extends CommandBase {
     m_limelight = limelightSubsystem;
     m_shooter = shooterSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(verticalConveyorSubsystem, shooterSubsystem);
+    addRequirements(m_verticalConveyor, m_shooter);
   }
 
   // Called when the command is initially scheduled.
