@@ -65,8 +65,8 @@ public final class Constants {
         /*
             Refer to NEO spreadsheet for measurements
         */
-        public static final int LEADER_SHOOTER_SPARK = 1;
-        public static final int FOLLOWER_SHOOTER_SPARK = 2;
+        public static final int LEADER_SHOOTER_SPARK = 13;
+        public static final int FOLLOWER_SHOOTER_SPARK = 14;
 
         public static final int MAX_SPEED = 4410;
         public static final double  MIN_SPEED = (25137/157.89) * 22;

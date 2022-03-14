@@ -15,8 +15,9 @@ public class RunVerticalConveyor extends CommandBase {
   private final IntakeSubsystem m_intake;
 
   private boolean isDisablingConveyor = false;
-  private int conveyorDisableDelay = 150;
+  private int conveyorDisableDelay = 225;
   private long disableConveyorAt = 0;
+  private boolean conveyorEnabled = false;
 
   /** Creates a new RunVerticalConveyor. */
   public RunVerticalConveyor(HorizontalConveyorSubsystem horizontalConveyorSubsystem, VerticalConveyorSubsystem verticalConveyorSubsystem, IntakeSubsystem intakeSubsystem) {
@@ -35,21 +36,26 @@ public class RunVerticalConveyor extends CommandBase {
   @Override
   public void execute() {
     //if (m_intake.isIntakeMotorRunning() && m_intake.isIntakeDeployed()) {
-      if (m_verticalConveyor.isBeamBroken()) {
+      if (conveyorEnabled) {
+        m_verticalConveyor.enableConveyor();
         if (isDisablingConveyor) {
           if (System.currentTimeMillis() >= disableConveyorAt) {
             m_verticalConveyor.disableConveyor();
+            isDisablingConveyor = false;
+            conveyorEnabled = false;
           }
         } else {
-          if (m_verticalConveyor.isConveyorRunning()) {
+          if (m_verticalConveyor.isBeamBroken()) {
             isDisablingConveyor = true;
             disableConveyorAt = System.currentTimeMillis() + conveyorDisableDelay;
           }
         }
-      } else if (!m_horizontalConveyor.isLastBallSameColor()) {
-        m_verticalConveyor.disableConveyor();
       } else {
-        m_verticalConveyor.enableConveyor();
+        if (m_horizontalConveyor.isBeamBroken() && !m_horizontalConveyor.isConveyorRunning() && m_horizontalConveyor.isLastBallSameColor()) {
+          conveyorEnabled = true;
+        } else {
+          m_verticalConveyor.disableConveyor();
+        }
       }
     //} else {
     //  m_verticalConveyor.disableConveyor();
