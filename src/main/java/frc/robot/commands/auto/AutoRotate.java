@@ -41,7 +41,13 @@ public class AutoRotate extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // AutoRotate should end once the robot has done a ~180 degree turn
-    return false;
+    /** AutoRotate should end once the robot has done a ~180 degree turn
+     * 14pi arc in. = 180 degrees
+     * 1 rotation = 4in. traveled
+     * 1 = rotation = 4096 sensor units/100ms
+     * 14pi/4 rotations
+     * 14pi/4 * 4096 = 7168 sensor units/100ms = ~180 degrees 
+    */ 
+    return Math.abs(currPos - startPos) >= 14 * (Math.PI)/4 * 4096;
   }
 }

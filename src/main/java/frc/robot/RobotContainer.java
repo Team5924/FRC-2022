@@ -63,7 +63,7 @@ public class RobotContainer {
   private final Command m_singleAuto = new SingleBallAuto(m_limelight, m_shooter, m_turret, m_verticalConveyor,
       m_drivetrain);
   private final Command m_doubleAuto = new DoubleBallAuto(m_limelight, m_shooter, m_turret, m_verticalConveyor,
-      m_drivetrain);
+      m_drivetrain, m_intake);
 
   SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
