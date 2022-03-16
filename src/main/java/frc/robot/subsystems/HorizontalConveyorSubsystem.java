@@ -59,11 +59,15 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
   }
 
   public void enableConveyor() {
-    m_conveyorSpark.set(0.4);
+    m_conveyorSpark.set(0.15);
   }
 
   public void disableConveyor() {
     m_conveyorSpark.stopMotor();
+  }
+
+  public void poopBall() {
+    m_conveyorSpark.set(0.6);
   }
 
   public boolean isConveyorRunning() {

@@ -15,8 +15,13 @@ public class RunHorizontalConveyor extends CommandBase {
   private final IntakeSubsystem m_intake;
 
   private boolean isDisablingConveyor = false;
+  private boolean isPooping = false;
+
   private int conveyorDisableDelay = 165;
+  private int poopTime = 750;
+
   private long disableConveyorAt = 0;
+  private long stopPoopingAt = 0;
 
   /** Creates a new RunConveyor. */
   public RunHorizontalConveyor(HorizontalConveyorSubsystem horizontalConveyorSubsystem, VerticalConveyorSubsystem verticalConveyorSubsystem, IntakeSubsystem intakeSubsystem) {
@@ -35,20 +40,29 @@ public class RunHorizontalConveyor extends CommandBase {
   @Override
   public void execute() {
     //if (m_intake.isIntakeMotorRunning() && m_intake.isIntakeDeployed()) {
-      if (m_horizontalConveyor.isBeamBroken() && m_horizontalConveyor.isLastBallSameColor()) {
-        if (isDisablingConveyor) {
-          if (System.currentTimeMillis() >= disableConveyorAt) {
-            m_horizontalConveyor.disableConveyor();
-          }
-        } else {
-          if (m_horizontalConveyor.isConveyorRunning()) {
-            isDisablingConveyor = true;
-            disableConveyorAt = System.currentTimeMillis() + conveyorDisableDelay;
-          }
+      if (isDisablingConveyor) {
+        if (System.currentTimeMillis() >= disableConveyorAt) {
+          m_horizontalConveyor.disableConveyor();
+        }
+        if (!m_horizontalConveyor.isBeamBroken()) {
+          isDisablingConveyor = false;
+        }
+      } else if (isPooping) {
+        m_horizontalConveyor.poopBall();
+        if (System.currentTimeMillis() >= stopPoopingAt) {
+          isPooping = false;
         }
       } else {
-        isDisablingConveyor = false;
         m_horizontalConveyor.enableConveyor();
+        if (m_horizontalConveyor.isBeamBroken()) {
+          if (m_horizontalConveyor.isLastBallSameColor()) {
+            isDisablingConveyor = true;
+            disableConveyorAt = System.currentTimeMillis() + conveyorDisableDelay;
+          } else {
+            isPooping = true;
+            stopPoopingAt = System.currentTimeMillis() + poopTime;
+          }
+        }
       }
     //} else {
     //  m_horizontalConveyor.disableConveyor();
