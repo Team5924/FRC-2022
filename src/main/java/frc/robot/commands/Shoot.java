@@ -11,13 +11,15 @@ import frc.robot.subsystems.VerticalConveyorSubsystem;
 
 public class Shoot extends CommandBase {
   private final VerticalConveyorSubsystem m_verticalConveyor;
-  private final LimelightSubsystem m_limelight;
+  //private final LimelightSubsystem m_limelight;
   private final ShooterSubsystem m_shooter;
 
+  private boolean isAtSpeed = false;
+
   /** Creates a new Shoot. */
-  public Shoot(VerticalConveyorSubsystem verticalConveyorSubsystem, LimelightSubsystem limelightSubsystem, ShooterSubsystem shooterSubsystem) {
+  public Shoot(VerticalConveyorSubsystem verticalConveyorSubsystem, /*LimelightSubsystem limelightSubsystem,*/ ShooterSubsystem shooterSubsystem) {
     m_verticalConveyor = verticalConveyorSubsystem;
-    m_limelight = limelightSubsystem;
+    //m_limelight = limelightSubsystem;
     m_shooter = shooterSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(verticalConveyorSubsystem, shooterSubsystem);
@@ -33,19 +35,19 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
     // Runs the shooter at specific speed based on the distance from the target
-    /*m_shooter.setSpeed(m_shooter.shotVelocityToShooterRPM(m_shooter.getShotVelocity(m_limelight.getDistance())));
-
-    if (m_shooter.isShooterAtSpeed() == true) {
-      // The vertical conveyor feeds a ball into the shooter, when shooter is ready to fire
-      m_verticalConveyor.enableConveyor();
-    } else {
-      m_verticalConveyor.disableConveyor();
+    //m_shooter.setSpeed(m_shooter.shotVelocityToShooterRPM(m_shooter.getShotVelocity(m_limelight.getDistance())));
+    //if (isAtSpeed) {
+      m_verticalConveyor.feedBallToShooter();
+    /*} else if (m_shooter.isShooterAtSpeed()) {
+      isAtSpeed = true;
     }*/
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_verticalConveyor.disableConveyor();
+  }
 
   // Returns true when the command should end.
   @Override

@@ -8,7 +8,7 @@ import frc.robot.commands.TargetHub;
 import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.AutoTaxi;
 import frc.robot.commands.auto.AutoRotate;
-import frc.robot.commands.ToggleIntakeDeployed;
+import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
@@ -43,7 +43,7 @@ public class DoubleBallAuto extends SequentialCommandGroup {
     addCommands(
       new TargetHub(m_limelight, m_turret),
       new AutoShoot(m_verticalConveyor, m_limelight, m_shooter),
-      new ToggleIntakeDeployed(m_intake),
+      new ToggleIntake(m_intake),
       new AutoTaxi(m_drivetrain),
       new AutoRotate(m_drivetrain),
       new TargetHub(m_limelight, m_turret),

@@ -77,7 +77,7 @@ public class RobotContainer {
 
     //m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
     //m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
-    //_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
+    //m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
     m_shooter.setDefaultCommand(new MaintainShooterSpeed(m_shooter));
 
     // Configure the button bindings
@@ -103,6 +103,7 @@ public class RobotContainer {
     //y.whenHeld(new ReverseIntakeMotor(m_intake));
     //rightBumper.whenHeld(new Shoot(m_verticalConveyor, m_limelight, m_shooter));
     a.whenHeld(new TestIntake(m_intake));
+    b.whenHeld(new Shoot(m_verticalConveyor, m_shooter));
   }
 
   /**

@@ -68,17 +68,18 @@ public final class Constants {
         public static final int LEADER_SHOOTER_SPARK = 13;
         public static final int FOLLOWER_SHOOTER_SPARK = 14;
 
-        public static final int MAX_SPEED = 4410;
-        public static final double  MIN_SPEED = (25137/157.89) * 22;
+        //public static final int MAX_SPEED = 4410;
+        //public static final double  MIN_SPEED = (25137/157.89) * 22;
 
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;
-        public static final double FF = 0.0002;
-        public static final double P = 0;
+        //public static final double FF = 0.000177;
+        public static final double FF = 0.000179;
+        public static final double P = 0/*.0001*/;
         public static final double I = 0;
         public static final double D = 0;
 
-        public static final double ACCEPTABLE_RPM_ERROR = 15;
+        public static final double ACCEPTABLE_RPM_ERROR = 25;
     }
 
     public static final class ConveyorConstants {

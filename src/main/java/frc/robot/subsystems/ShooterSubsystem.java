@@ -51,6 +51,7 @@ public class ShooterSubsystem extends SubsystemBase {
         // This method will be called once per scheduler run
         //SmartDashboard.putNumber("Shooter Setpoint", shooterSetpoint);
         SmartDashboard.putNumber("Shooter Speed", m_encoder.getVelocity());
+        SmartDashboard.putBoolean("Shooter At Speed", isShooterAtSpeed());
     }
 
     /**
@@ -77,13 +78,14 @@ public class ShooterSubsystem extends SubsystemBase {
     public double shotVelocityToShooterRPM(double velocity) {
         // Velocity to RPM: y = (25137/157.89)x
         return (25137/157.89) * velocity;
-    }
+    }*/
 
     // Checks to see if shooter is ready to fire
     public boolean isShooterAtSpeed() {
-        return Math.abs(m_encoder.getVelocity() - shooterSetpoint) <= ShooterConstants.ACCEPTABLE_RPM_ERROR;
-    }*/
+        return Math.abs(m_encoder.getVelocity() - 5500) <= ShooterConstants.ACCEPTABLE_RPM_ERROR;
+    }
 
+    /*
     /**
      * Feed forward changes based on the shooterSetpoint
      */
@@ -96,6 +98,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public void runMotor() {
         // "speed" should be in RPM
-        m_PIDController.setReference(4000, CANSparkMax.ControlType.kVelocity);
+        m_PIDController.setReference(5000, CANSparkMax.ControlType.kVelocity);
     }
 }

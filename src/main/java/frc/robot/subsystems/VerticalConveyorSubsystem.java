@@ -37,6 +37,10 @@ public class VerticalConveyorSubsystem extends SubsystemBase {
     m_conveyorSpark.stopMotor();
   }
 
+  public void feedBallToShooter() {
+    m_conveyorSpark.set(0.5);
+  }
+
   public boolean isConveyorRunning() {
     return Math.abs(m_encoder.getVelocity()) > 1;
   }
