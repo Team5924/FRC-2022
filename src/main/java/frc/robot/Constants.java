@@ -73,7 +73,8 @@ public final class Constants {
 
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;
-        public static final double P = 0.1;
+        public static final double FF = 0.0002;
+        public static final double P = 0;
         public static final double I = 0;
         public static final double D = 0;
 
@@ -95,12 +96,13 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int LEADER_INTAKE_SPARK = 5;
-        public static final int FOLLOWER_INTAKE_SPARK = 6;
+        public static final int INTAKE_SPARK = 5;
         public static final int CTRE_PCM = 9;
         public static final int LEFT_PNEUMATIC_FORWARD = 5;
         public static final int LEFT_PNEUMATIC_REVERSE = 2;
         public static final int RIGHT_PNEUMATIC_FORWARD = 7;
         public static final int RIGHT_PNEUMATIC_REVERSE = 0;
+
+        public static final double INTAKE_RUN_SPEED = 0.5;
     }
 }

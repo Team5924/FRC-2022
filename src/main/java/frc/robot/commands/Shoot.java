@@ -33,14 +33,14 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
     // Runs the shooter at specific speed based on the distance from the target
-    m_shooter.setSpeed(m_shooter.shotVelocityToShooterRPM(m_shooter.getShotVelocity(m_limelight.getDistance())));
+    /*m_shooter.setSpeed(m_shooter.shotVelocityToShooterRPM(m_shooter.getShotVelocity(m_limelight.getDistance())));
 
     if (m_shooter.isShooterAtSpeed() == true) {
       // The vertical conveyor feeds a ball into the shooter, when shooter is ready to fire
       m_verticalConveyor.enableConveyor();
     } else {
       m_verticalConveyor.disableConveyor();
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.

@@ -9,7 +9,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class ReverseIntakeMotor extends CommandBase {
   private final IntakeSubsystem m_intake;
-  private boolean wasRunning;
 
   /** Creates a new ReverseIntakeMotor. */
   public ReverseIntakeMotor(IntakeSubsystem subsystem) {
@@ -19,23 +18,21 @@ public class ReverseIntakeMotor extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    wasRunning = m_intake.isIntakeMotorRunning();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.reverseMotor();
+    if (m_intake.isIntakeDeployed()) {
+      m_intake.setIntakeMotorReverse();
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (wasRunning) {
-      m_intake.enableIntakeMotor();
-    } else {
-      m_intake.disableIntakeMotor();
+    if (m_intake.isIntakeDeployed()) {
+      m_intake.setIntakeMotorForward();
     }
   }
 

@@ -5,16 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.VerticalConveyorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class TestVerticalConveyor extends CommandBase {
-  private final VerticalConveyorSubsystem m_verticalConveyor;
+public class TestIntake extends CommandBase {
+  private final IntakeSubsystem m_intake;
 
-  /** Creates a new TestVerticalConveyor. */
-  public TestVerticalConveyor(VerticalConveyorSubsystem subsystem) {
-    m_verticalConveyor = subsystem;
+  /** Creates a new TestIntake. */
+  public TestIntake(IntakeSubsystem subsystem) {
+    m_intake = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_verticalConveyor);
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
@@ -24,13 +24,13 @@ public class TestVerticalConveyor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_verticalConveyor.enableConveyor();
+    m_intake.setIntakeMotorForward();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_verticalConveyor.disableConveyor();
+    m_intake.stopIntakeMotor();
   }
 
   // Returns true when the command should end.

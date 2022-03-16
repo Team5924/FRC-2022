@@ -15,7 +15,7 @@ public class RunHorizontalConveyor extends CommandBase {
   private final IntakeSubsystem m_intake;
 
   private boolean isDisablingConveyor = false;
-  private int conveyorDisableDelay = 125;
+  private int conveyorDisableDelay = 165;
   private long disableConveyorAt = 0;
 
   /** Creates a new RunConveyor. */

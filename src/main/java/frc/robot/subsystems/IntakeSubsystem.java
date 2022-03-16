@@ -18,8 +18,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private final DoubleSolenoid m_leftDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.LEFT_PNEUMATIC_FORWARD, IntakeConstants.LEFT_PNEUMATIC_REVERSE);
     private final DoubleSolenoid m_rightDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.RIGHT_PNEUMATIC_FORWARD, IntakeConstants.RIGHT_PNEUMATIC_REVERSE);
 
-    private final CANSparkMax m_leaderIntakeSpark = new CANSparkMax(IntakeConstants.LEADER_INTAKE_SPARK, MotorType.kBrushless);
-    private final CANSparkMax m_followerIntakeSpark = new CANSparkMax(IntakeConstants.FOLLOWER_INTAKE_SPARK, MotorType.kBrushless);
+    private final CANSparkMax m_intakeSpark = new CANSparkMax(IntakeConstants.INTAKE_SPARK, MotorType.kBrushless);
 
     public IntakeSubsystem() {
         m_compressor.disable();
@@ -27,11 +26,8 @@ public class IntakeSubsystem extends SubsystemBase {
         m_leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
         m_rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
 
-        m_leaderIntakeSpark.restoreFactoryDefaults();
-        m_followerIntakeSpark.restoreFactoryDefaults();
-
-        // followerIntakeSpark is inverted relative to leaderIntakeSpark
-        m_followerIntakeSpark.follow(m_leaderIntakeSpark, true);
+        m_intakeSpark.restoreFactoryDefaults();
+        m_intakeSpark.setInverted(true);
     }
 
     @Override
@@ -56,6 +52,18 @@ public class IntakeSubsystem extends SubsystemBase {
         }
     }
 
+    public void enableCompressor() {
+        m_compressor.enableDigital();
+    }
+
+    public void disableCompressor() {
+        m_compressor.disable();
+    }
+
+    public boolean isCompressorOn() {
+        return m_compressor.enabled();
+    }
+
     public void deployIntake() {
         m_leftDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
         m_rightDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
@@ -71,32 +79,15 @@ public class IntakeSubsystem extends SubsystemBase {
         return m_leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward) && m_rightDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward); 
     }
 
-    public void enableCompressor() {
-        m_compressor.enableDigital();
+    public void setIntakeMotorForward() {
+        m_intakeSpark.set(IntakeConstants.INTAKE_RUN_SPEED);
     }
 
-    public void disableCompressor() {
-        m_compressor.disable();
+    public void stopIntakeMotor() {
+        m_intakeSpark.stopMotor();
     }
 
-    public boolean isCompressorOn() {
-        return m_compressor.enabled();
-    }
-
-    public void enableIntakeMotor() {
-        m_leaderIntakeSpark.set(0.3);
-    }
-
-    public void disableIntakeMotor() {
-        m_leaderIntakeSpark.stopMotor();
-    }
-
-    public void reverseMotor() {
-        m_leaderIntakeSpark.set(-0.3);
-    }
-
-    public boolean isIntakeMotorRunning() {
-        // intakeSpark.get() returns 0 when the motor is not running
-        return m_leaderIntakeSpark.get() != 0;
+    public void setIntakeMotorReverse() {
+        m_intakeSpark.set(-IntakeConstants.INTAKE_RUN_SPEED);
     }
 }

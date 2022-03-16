@@ -15,7 +15,7 @@ public class RunVerticalConveyor extends CommandBase {
   private final IntakeSubsystem m_intake;
 
   private boolean isDisablingConveyor = false;
-  private int conveyorDisableDelay = 225;
+  private int conveyorDisableDelay = 240;
   private long disableConveyorAt = 0;
   private boolean conveyorEnabled = false;
 

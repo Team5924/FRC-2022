@@ -14,11 +14,9 @@ import frc.robot.commands.RunHorizontalConveyor;
 import frc.robot.commands.RunVerticalConveyor;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TankDrive;
-import frc.robot.commands.TestHorizontalConveyor;
-import frc.robot.commands.TestVerticalConveyor;
+import frc.robot.commands.TestIntake;
 import frc.robot.commands.ToggleCompressor;
-import frc.robot.commands.ToggleIntakeDeployed;
-import frc.robot.commands.ToggleIntakeMotor;
+import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.auto.SingleBallAuto;
 import frc.robot.commands.auto.DoubleBallAuto;
 import frc.robot.subsystems.DriveSubsystem;
@@ -78,9 +76,9 @@ public class RobotContainer {
     m_turret.register();
 
     //m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
-    m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
-    m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
-    //m_shooter.setDefaultCommand(new MaintainShooterSpeed(m_shooter));
+    //m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
+    //_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
+    m_shooter.setDefaultCommand(new MaintainShooterSpeed(m_shooter));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -100,14 +98,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    /*a.whenPressed(new ToggleIntakeDeployed(m_intake));
-    b.whenPressed(new ToggleCompressor(m_intake));
-    x.whenPressed(new ToggleIntakeMotor(m_intake));
-    y.whenHeld(new ReverseIntakeMotor(m_intake));
-    rightBumper.whenHeld(new Shoot(m_verticalConveyor, m_limelight, m_shooter)); */
-
-    a.whenHeld(new TestHorizontalConveyor(m_horizontalConveyor));
-    b.whenHeld(new TestVerticalConveyor(m_verticalConveyor));
+    //a.whenPressed(new ToggleIntake(m_intake));
+    //b.whenPressed(new ToggleCompressor(m_intake));
+    //y.whenHeld(new ReverseIntakeMotor(m_intake));
+    //rightBumper.whenHeld(new Shoot(m_verticalConveyor, m_limelight, m_shooter));
+    a.whenHeld(new TestIntake(m_intake));
   }
 
   /**
