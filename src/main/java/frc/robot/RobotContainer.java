@@ -23,7 +23,6 @@ import frc.robot.subsystems.HorizontalConveyorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VerticalConveyorSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -56,8 +55,6 @@ public class RobotContainer {
   private final Command m_singleAuto = new SingleBallAuto(m_shooter, m_drivetrain, m_verticalConveyor);
   // private final Command m_doubleAuto = new DoubleBallAuto(m_limelight, m_shooter, m_turret, m_verticalConveyor, m_drivetrain, m_intake);
 
-  SendableChooser<Command> m_autoChooser = new SendableChooser<>();
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -76,10 +73,6 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
-
-    m_autoChooser.setDefaultOption("Single Ball Auto", m_singleAuto);
-
-    SmartDashboard.putData(m_autoChooser);
   }
 
   /**
@@ -106,6 +99,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoChooser.getSelected();
+    return m_singleAuto;
   }
 }
