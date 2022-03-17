@@ -81,5 +81,7 @@ public final class Constants {
         public static final int RIGHT_PNEUMATIC_REVERSE = 3;
 
         public static final double INTAKE_RUN_SPEED = 0.5;
+    public static final class ClimberConstants {
+        public static final int CLIMBER_SPARK = -1;
     }
 }

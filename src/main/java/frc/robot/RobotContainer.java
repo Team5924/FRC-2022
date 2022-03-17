@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.TankDrive;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.MaintainShooterSpeed;
 import frc.robot.commands.RunHorizontalConveyor;
@@ -41,6 +42,7 @@ public class RobotContainer {
   public static final HorizontalConveyorSubsystem m_horizontalConveyor = new HorizontalConveyorSubsystem();
   public static final VerticalConveyorSubsystem m_verticalConveyor = new VerticalConveyorSubsystem();
   public static final ShooterSubsystem m_shooter = new ShooterSubsystem();
+  public static final ClimberSubsystem m_climber = new ClimberSubsystem();
 
   XboxController m_driverController = new XboxController(OIConstants.DRIVER_CONTROLLER);
 
@@ -65,6 +67,7 @@ public class RobotContainer {
     m_verticalConveyor.register();
     m_shooter.register();
     m_drivetrain.register();
+    m_climber.register();
 
     //m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
     //m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_intake));
