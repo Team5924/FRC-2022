@@ -10,10 +10,13 @@ import frc.robot.subsystems.VerticalConveyorSubsystem;
 
 public class AutoShoot extends CommandBase {
   private final VerticalConveyorSubsystem m_verticalConveyor;
-  private final ShooterSubsystem m_shooter; 
+  private final ShooterSubsystem m_shooter;
 
-  long startTime;
-  long currTime;
+  long startRevTimer;
+  long currRevTimer;
+
+  long startShootTimer;
+  long currShootTimer;
 
   /** Creates a new Shoot. */
   public AutoShoot(VerticalConveyorSubsystem verticalConveyorSubsystem, ShooterSubsystem shooterSubsystem) {
@@ -26,13 +29,22 @@ public class AutoShoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startTime = System.currentTimeMillis();
+    startRevTimer = System.currentTimeMillis();
+    startShootTimer = System.currentTimeMillis();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_verticalConveyor.feedBallToShooter();
+    // Revving the shooter
+    m_shooter.runMotor();
+
+    currRevTimer = System.currentTimeMillis();
+    if (Math.abs(currRevTimer - startRevTimer) >= 3000) {
+      // After 3 seconds, the vertical conveyor will feed the ball into the shooter. TLDR; Shoots the ball after 3 seconds
+      m_verticalConveyor.enableConveyor();
+    }
+
     // Runs the shooter at specific speed based on the distance from the target
     //m_shooter.setSpeed(m_shooter.shotVelocityToShooterRPM(m_shooter.getShotVelocity(m_limelight.getDistance())));
     //if (isAtSpeed) {
@@ -52,7 +64,7 @@ public class AutoShoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    currTime = System.currentTimeMillis();
-    return (currTime - startTime) > 3000;
+    currShootTimer = System.currentTimeMillis();
+    return (Math.abs(currShootTimer - startShootTimer) >= 6000);
   }
 }
