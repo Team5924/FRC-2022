@@ -35,7 +35,7 @@ public class RunVerticalConveyor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //if (m_intake.isIntakeMotorRunning() && m_intake.isIntakeDeployed()) {
+    if (m_intake.isIntakeDeployed()) {
       if (conveyorEnabled) {
         m_verticalConveyor.enableConveyor();
         if (isDisablingConveyor) {
@@ -57,9 +57,9 @@ public class RunVerticalConveyor extends CommandBase {
           m_verticalConveyor.disableConveyor();
         }
       }
-    //} else {
-    //  m_verticalConveyor.disableConveyor();
-    //}
+    } else {
+      m_verticalConveyor.disableConveyor();
+    }
   }
 
   // Called once the command ends or is interrupted.

@@ -10,10 +10,8 @@ import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.Taxi;
 import frc.robot.commands.MaintainShooterSpeed;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.VerticalConveyorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.LimelightSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

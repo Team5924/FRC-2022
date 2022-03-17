@@ -9,18 +9,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.CenterTurret;
 import frc.robot.commands.TankDrive;
-import frc.robot.commands.TargetHub;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.commands.MaintainShooterSpeed;
-import frc.robot.commands.ReverseIntakeMotor;
 import frc.robot.commands.RunHorizontalConveyor;
 import frc.robot.commands.RunVerticalConveyor;
 import frc.robot.commands.Shoot;
-import frc.robot.commands.TestIntake;
 import frc.robot.commands.ToggleCompressor;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.auto.SingleBallAuto;
@@ -43,12 +37,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final DriveSubsystem m_drivetrain = new DriveSubsystem();
-  public static final LimelightSubsystem m_limelight = new LimelightSubsystem();
   public static final IntakeSubsystem m_intake = new IntakeSubsystem();
   public static final HorizontalConveyorSubsystem m_horizontalConveyor = new HorizontalConveyorSubsystem();
   public static final VerticalConveyorSubsystem m_verticalConveyor = new VerticalConveyorSubsystem();
   public static final ShooterSubsystem m_shooter = new ShooterSubsystem();
-  public static final TurretSubsystem m_turret = new TurretSubsystem();
 
   XboxController m_driverController = new XboxController(OIConstants.DRIVER_CONTROLLER);
 
@@ -72,20 +64,14 @@ public class RobotContainer {
     m_horizontalConveyor.register();
     m_verticalConveyor.register();
     m_shooter.register();
-    m_turret.register();
+    m_drivetrain.register();
 
     //m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
-    m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
-    m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
+    //m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_intake));
+    //m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
     //m_shooter.setDefaultCommand(new MaintainShooterSpeed(m_shooter));
 
     // Configure the button bindings
-    m_drivetrain.register();
-    m_limelight.register();
-    m_turret.register();
-
-    m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
-
     configureButtonBindings();
 
     m_autoChooser.setDefaultOption("Single Ball Auto", m_singleAuto);
@@ -102,12 +88,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //a.whenPressed(new ToggleIntake(m_intake));
-    //b.whenPressed(new ToggleCompressor(m_intake));
+    a.whenPressed(new ToggleIntake(m_intake));
+    b.whenPressed(new ToggleCompressor(m_intake));
     //y.whenHeld(new ReverseIntakeMotor(m_intake));
-    a.whenHeld(new TestIntake(m_intake));
-    // Remember to change back to rightBumper
-    b.whenHeld(new Shoot(m_verticalConveyor, m_shooter));
+    //rightBumper.whenHeld(new Shoot(m_verticalConveyor, m_limelight, m_shooter));
+    //a.whenHeld(new TestIntake(m_intake));
+    //sb.whenHeld(new Shoot(m_verticalConveyor, m_shooter));
   }
 
   /**

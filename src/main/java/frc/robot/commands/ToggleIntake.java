@@ -22,10 +22,10 @@ public class ToggleIntake extends InstantCommand {
   @Override
   public void initialize() {
     if (m_intake.isIntakeDeployed()) {
-      m_intake.stopIntakeMotor();
+      //m_intake.stopIntakeMotor();
       m_intake.retractIntake();
     } else {
-      m_intake.setIntakeMotorForward();
+      //m_intake.setIntakeMotorForward();
       m_intake.deployIntake();
     }
   }

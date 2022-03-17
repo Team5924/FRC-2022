@@ -5,8 +5,6 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.Constants.ShooterConstants;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class MaintainShooterSpeed extends CommandBase {
@@ -21,10 +19,7 @@ public class MaintainShooterSpeed extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    /*// The minimum speed to score a ball at 6 ft
-    m_shooter.setSpeed(0.1);*/
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

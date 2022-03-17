@@ -35,8 +35,8 @@ public class IntakeSubsystem extends SubsystemBase {
         SmartDashboard.putString("Left Pneumatic State", solenoidStatusAsString(m_leftDoubleSolenoid));
         SmartDashboard.putString("Right Pneumatic State", solenoidStatusAsString(m_rightDoubleSolenoid));
         SmartDashboard.putBoolean("Compressor Status", m_compressor.enabled());
-        SmartDashboard.putBoolean("Enough Pressure", m_compressor.getPressureSwitchValue());
         SmartDashboard.putBoolean("Intake Deployed", isIntakeDeployed());
+        SmartDashboard.putBoolean("Compressor Pressurized", m_compressor.getPressureSwitchValue());
     }
 
     private String solenoidStatusAsString(DoubleSolenoid solenoid) {

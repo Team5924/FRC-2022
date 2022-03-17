@@ -9,8 +9,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
 
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.commands.Shoot;
-
 public class ShooterSubsystem extends SubsystemBase {
 
     /**
@@ -56,48 +54,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
     // Checks to see if shooter is ready to fire
     public boolean isShooterAtSpeed() {
-        return Math.abs(m_encoder.getVelocity() - 5500) <= ShooterConstants.ACCEPTABLE_RPM_ERROR;
+        return Math.abs(m_encoder.getVelocity() - ShooterConstants.SHOOTER_SPEED) <= ShooterConstants.ACCEPTABLE_RPM_ERROR;
     }
 
     public void runMotor() {
-        // "speed" should be in RPM
-        m_PIDController.setReference(5000, CANSparkMax.ControlType.kVelocity);
+        // speed is in RPM
+        m_PIDController.setReference(ShooterConstants.SHOOTER_SPEED, CANSparkMax.ControlType.kVelocity);
     }
-
-    /**
-     * ========== FREEDOM UNITS ==========
-     */
-
-    /*public void setSpeed(double speed) {
-        setFeedForwardForSpeed(speed);
-        shooterSetpoint = speed;
-    }
-
-    public void runMotor() {
-        // "speed" should be in RPM
-        m_PIDController.setReference(shooterSetpoint, CANSparkMax.ControlType.kVelocity);
-    }
-
-    // Calculates how fast (in ft/s) the ball must be shot from a certain distance
-    public double getShotVelocity(double distance) {
-       // Velocity for Distance Away: y = 0.7125x + 17.725
-       return (0.7125 * distance) + 17.725;
-    }
-
-    // Calculates RPM for shooter to shoot ball at a certain velocity (in ft/s)
-    public double shotVelocityToShooterRPM(double velocity) {
-        // Velocity to RPM: y = (25137/157.89)x
-        return (25137/157.89) * velocity;
-    }*/
-
-    /*
-    /**
-     * Feed forward changes based on the shooterSetpoint
-     */
-    /*private void setFeedForwardForSpeed(double speed) {
-        // Reference: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#calculating-velocity-feed-forward-gain-kf
-        // FF = (1 X 1 RPM) / Target RPM
-        m_PIDController.setFF(1/speed);
-        SmartDashboard.putNumber("FF", 1/speed);
-    }*/
 }

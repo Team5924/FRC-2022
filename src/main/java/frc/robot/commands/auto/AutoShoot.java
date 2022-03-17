@@ -18,7 +18,7 @@ public class AutoShoot extends CommandBase {
   long startShootTimer;
   long currShootTimer;
 
-  /** Creates a new Shoot. */
+  /** Creates a new AutoShoot. */
   public AutoShoot(VerticalConveyorSubsystem verticalConveyorSubsystem, ShooterSubsystem shooterSubsystem) {
     m_verticalConveyor = verticalConveyorSubsystem;
     m_shooter = shooterSubsystem;
