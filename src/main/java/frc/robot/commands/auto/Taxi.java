@@ -4,20 +4,20 @@
 
 package frc.robot.commands.auto;
 
-import frc.robot.subsystems.DriveSubsystem;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class AutoRotate extends CommandBase {
+import frc.robot.subsystems.DriveSubsystem;
+
+public class Taxi extends CommandBase {
   private DriveSubsystem m_drivetrain;
 
   private double startPos;
   private double currPos;
 
-  /** Creates a new AutoRotate. */
-  public AutoRotate(DriveSubsystem system) {
-    m_drivetrain = system;
+  /** Creates a new AutoMove. */
+  public Taxi(DriveSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_drivetrain = subsystem;
     addRequirements(m_drivetrain);
   }
 
@@ -30,8 +30,8 @@ public class AutoRotate extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Robot rotates at half the max speed
-    m_drivetrain.tankSquaredDrive(0.4, -0.4);
+    // Auto-driving at half the max speed
+    m_drivetrain.tankSquaredDrive(0.4, 0.4);
   }
 
   // Called once the command ends or is interrupted.
@@ -41,13 +41,14 @@ public class AutoRotate extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    /** AutoRotate should end once the robot has done a ~180 degree turn
-     * 14pi arc in. = 180 degrees
+    currPos = m_drivetrain.getLeftVelocity();
+    /** 
+     * Goal: Move 8ft. (96in.) back
      * 1 rotation = 4in. traveled
-     * 1 = rotation = 4096 sensor units/100ms
-     * 14pi/4 rotations
-     * 14pi/4 * 4096 = 7168 sensor units/100ms = ~180 degrees 
-    */ 
-    return Math.abs(currPos - startPos) >= 14 * (Math.PI)/4 * 4096;
+     * 1 rotation = 4096 sensor units/100ms
+     * 96/4 = 24 rotations = 8 ft. 
+     * 24 * 4096 = 8192 sensor units/100ms = 8ft.
+     */
+    return Math.abs(currPos - startPos) >= 24 * 4096;
   }
 }

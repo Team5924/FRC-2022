@@ -54,6 +54,16 @@ public class ShooterSubsystem extends SubsystemBase {
         SmartDashboard.putBoolean("Shooter At Speed", isShooterAtSpeed());
     }
 
+    // Checks to see if shooter is ready to fire
+    public boolean isShooterAtSpeed() {
+        return Math.abs(m_encoder.getVelocity() - 5500) <= ShooterConstants.ACCEPTABLE_RPM_ERROR;
+    }
+
+    public void runMotor() {
+        // "speed" should be in RPM
+        m_PIDController.setReference(5000, CANSparkMax.ControlType.kVelocity);
+    }
+
     /**
      * ========== FREEDOM UNITS ==========
      */
@@ -80,11 +90,6 @@ public class ShooterSubsystem extends SubsystemBase {
         return (25137/157.89) * velocity;
     }*/
 
-    // Checks to see if shooter is ready to fire
-    public boolean isShooterAtSpeed() {
-        return Math.abs(m_encoder.getVelocity() - 5500) <= ShooterConstants.ACCEPTABLE_RPM_ERROR;
-    }
-
     /*
     /**
      * Feed forward changes based on the shooterSetpoint
@@ -95,9 +100,4 @@ public class ShooterSubsystem extends SubsystemBase {
         m_PIDController.setFF(1/speed);
         SmartDashboard.putNumber("FF", 1/speed);
     }*/
-
-    public void runMotor() {
-        // "speed" should be in RPM
-        m_PIDController.setReference(5000, CANSparkMax.ControlType.kVelocity);
-    }
 }

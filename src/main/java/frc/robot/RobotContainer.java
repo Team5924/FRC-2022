@@ -24,7 +24,6 @@ import frc.robot.commands.TestIntake;
 import frc.robot.commands.ToggleCompressor;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.auto.SingleBallAuto;
-import frc.robot.commands.auto.DoubleBallAuto;
 import frc.robot.subsystems.HorizontalConveyorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -60,10 +59,8 @@ public class RobotContainer {
   JoystickButton rightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
 
   // Declaring sendableObject for Autonomous here
-  private final Command m_singleAuto = new SingleBallAuto(m_limelight, m_shooter, m_turret, m_verticalConveyor,
-      m_drivetrain);
-  private final Command m_doubleAuto = new DoubleBallAuto(m_limelight, m_shooter, m_turret, m_verticalConveyor,
-      m_drivetrain, m_intake);
+  private final Command m_singleAuto = new SingleBallAuto(m_shooter, m_drivetrain, m_verticalConveyor);
+  // private final Command m_doubleAuto = new DoubleBallAuto(m_limelight, m_shooter, m_turret, m_verticalConveyor, m_drivetrain, m_intake);
 
   SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
@@ -92,7 +89,6 @@ public class RobotContainer {
     configureButtonBindings();
 
     m_autoChooser.setDefaultOption("Single Ball Auto", m_singleAuto);
-    m_autoChooser.addOption("Double Ball Auto", m_doubleAuto);
 
     SmartDashboard.putData(m_autoChooser);
   }
@@ -109,8 +105,8 @@ public class RobotContainer {
     //a.whenPressed(new ToggleIntake(m_intake));
     //b.whenPressed(new ToggleCompressor(m_intake));
     //y.whenHeld(new ReverseIntakeMotor(m_intake));
-    //rightBumper.whenHeld(new Shoot(m_verticalConveyor, m_limelight, m_shooter));
     a.whenHeld(new TestIntake(m_intake));
+    // Remember to change back to rightBumper
     b.whenHeld(new Shoot(m_verticalConveyor, m_shooter));
   }
 
