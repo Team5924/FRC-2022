@@ -14,6 +14,7 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.ExtendClimber;
 import frc.robot.commands.RetractClimber;
+import frc.robot.commands.ToggleShooter;
 import frc.robot.commands.RunHorizontalConveyor;
 import frc.robot.commands.RunVerticalConveyor;
 import frc.robot.commands.Shoot;
@@ -56,7 +57,6 @@ public class RobotContainer {
 
   // Declaring sendableObject for Autonomous here
   private final Command m_singleAuto = new SingleBallAuto(m_shooter, m_drivetrain, m_verticalConveyor);
-  // private final Command m_doubleAuto = new DoubleBallAuto(m_limelight, m_shooter, m_turret, m_verticalConveyor, m_drivetrain, m_intake);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.

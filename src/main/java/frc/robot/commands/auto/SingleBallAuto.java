@@ -6,6 +6,8 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
+import frc.robot.commands.auto.AutoShoot;
+import frc.robot.commands.auto.Taxi;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VerticalConveyorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;

@@ -80,7 +80,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public boolean isIntakeDeployed() {
         // returns the status of the intake, used to determine whether to retract or deploy intake
-        return m_leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward) && m_rightDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward); 
+        return m_leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward) && m_rightDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward);
     }
 
     public void setIntakeMotorForward() {

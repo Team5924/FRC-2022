@@ -50,6 +50,7 @@ public class ShooterSubsystem extends SubsystemBase {
         //SmartDashboard.putNumber("Shooter Setpoint", shooterSetpoint);
         SmartDashboard.putNumber("Shooter Speed", m_encoder.getVelocity());
         SmartDashboard.putBoolean("Shooter At Speed", isAtSpeed());
+        SmartDashboard.putBoolean("Shooter Running", isRunning());
     }
 
     // Checks to see if shooter is ready to fire
