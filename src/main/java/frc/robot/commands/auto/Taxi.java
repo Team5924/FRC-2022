@@ -31,7 +31,7 @@ public class Taxi extends CommandBase {
   @Override
   public void execute() {
     // Auto-driving at half the max speed
-    m_drivetrain.tankSquaredDrive(0.4, 0.4);
+    m_drivetrain.tankSquaredDrive(-0.4, -0.4);
   }
 
   // Called once the command ends or is interrupted.

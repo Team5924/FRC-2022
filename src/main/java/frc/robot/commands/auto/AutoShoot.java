@@ -42,7 +42,7 @@ public class AutoShoot extends CommandBase {
     currRevTimer = System.currentTimeMillis();
     if (Math.abs(currRevTimer - startRevTimer) >= 3000) {
       // After 3 seconds, the vertical conveyor will feed the ball into the shooter. TLDR; Shoots the ball after 3 seconds
-      m_verticalConveyor.enableConveyor();
+      m_verticalConveyor.feedBallToShooter();
     }
 
     // Runs the shooter at specific speed based on the distance from the target

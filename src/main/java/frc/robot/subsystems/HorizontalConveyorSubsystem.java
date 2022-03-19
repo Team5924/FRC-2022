@@ -79,7 +79,7 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
   }
 
   private static boolean isRedAlliance() {
-    return NetworkTableInstance.getDefault().getTable("FMSInfo").getEntry("IsRedAlliance").getBoolean(false);
+    return false;
   }
 
   private String getColorFromSensor() {
