@@ -92,7 +92,7 @@ public class RobotContainer {
     driverX.whenPressed(new ToggleIntake(m_intake));
 
     operatorA.whenHeld(new Eject(m_verticalConveyor, m_shooter));
-    operatorB.whenHeld(new Shoot(m_verticalConveyor, m_shooter));
+    operatorB.whenPressed(new Shoot(m_verticalConveyor, m_shooter));
     operatorY.whenPressed(new ToggleShooter(m_shooter));
     operatorLeftBumper.whenHeld(new RetractClimber(m_climber));
     operatorRightBumper.whenHeld(new ExtendClimber(m_climber));
