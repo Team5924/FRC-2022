@@ -67,6 +67,11 @@ public class ShooterSubsystem extends SubsystemBase {
         m_PIDController.setReference(ShooterConstants.SHOOTER_SPEED, CANSparkMax.ControlType.kVelocity);
     }
 
+    public void eject() {
+        // speed is in RPM
+        m_PIDController.setReference(ShooterConstants.EJECT_SPEED, CANSparkMax.ControlType.kVelocity);
+    }
+
     public void stopShooter() {
         m_PIDController.setReference(0, CANSparkMax.ControlType.kVelocity);
     }

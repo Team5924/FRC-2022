@@ -51,7 +51,7 @@ public class RunVerticalConveyor extends CommandBase {
           }
         }
       } else {
-        if (m_horizontalConveyor.isBeamBroken() && !m_horizontalConveyor.isConveyorRunning() && m_horizontalConveyor.isLastBallSameColor() && !m_verticalConveyor.isBeamBroken()) {
+        if (m_horizontalConveyor.isBeamBroken() && !m_horizontalConveyor.isConveyorRunning() && !m_verticalConveyor.isBeamBroken()) {
           conveyorEnabled = true;
         } else {
           m_verticalConveyor.disableConveyor();

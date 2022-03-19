@@ -13,6 +13,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.commands.Eject;
 import frc.robot.commands.ExtendClimber;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.ToggleShooter;
@@ -51,6 +52,7 @@ public class RobotContainer {
 
   JoystickButton driverX = new JoystickButton(m_driverController, XboxController.Button.kX.value);
 
+  JoystickButton operatorA = new JoystickButton(m_operatorController, XboxController.Button.kA.value);
   JoystickButton operatorB = new JoystickButton(m_operatorController, XboxController.Button.kB.value);
   JoystickButton operatorY = new JoystickButton(m_operatorController, XboxController.Button.kY.value);
   JoystickButton operatorLeftBumper = new JoystickButton(m_operatorController, XboxController.Button.kLeftBumper.value);
@@ -89,6 +91,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     driverX.whenPressed(new ToggleIntake(m_intake));
 
+    operatorA.whenHeld(new Eject(m_verticalConveyor, m_shooter));
     operatorB.whenHeld(new Shoot(m_verticalConveyor, m_shooter));
     operatorY.whenPressed(new ToggleShooter(m_shooter));
     operatorLeftBumper.whenHeld(new RetractClimber(m_climber));
