@@ -9,9 +9,9 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,29 +28,40 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
 
   private boolean lastBallSameColor = true;
 
+  SendableChooser<Boolean> m_teamColorChooser = new SendableChooser<>();
+
   /** Creates a new ConveyorSubsystem. */
   public HorizontalConveyorSubsystem() {
     m_encoder = m_conveyorSpark.getEncoder();
 
     m_colorMatcher.addColorMatch(blueBallTarget);
     m_colorMatcher.addColorMatch(redBallTarget);
+
+    m_teamColorChooser.setDefaultOption("Red", true);
+    m_teamColorChooser.addOption("Blue", false);
+
+    SmartDashboard.putData(m_teamColorChooser);
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putString("Color Detected", getColorFromSensor());
     SmartDashboard.putBoolean("Horizontal Beam", isBeamBroken());
-    SmartDashboard.putBoolean("Is Red Alliance", isRedAlliance());
+    SmartDashboard.putBoolean("Is Red Alliance", m_teamColorChooser.getSelected());
     SmartDashboard.putBoolean("Last Ball Same Color", isLastBallSameColor());
 
+    checkLastBallSameColor();
+  }
+
+  public void checkLastBallSameColor() {
     if (getColorFromSensor().equals("red")) {
-      if (isRedAlliance()) {
+      if (m_teamColorChooser.getSelected()) {
         lastBallSameColor = true;
       } else {
         lastBallSameColor = false;
       }
     } else if (getColorFromSensor().equals("blue")) {
-      if (isRedAlliance()) {
+      if (m_teamColorChooser.getSelected()) {
         lastBallSameColor = false;
       } else {
         lastBallSameColor = true;
@@ -76,10 +87,6 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
 
   public boolean isBeamBroken() {
     return !m_beamBreak.get();
-  }
-
-  private static boolean isRedAlliance() {
-    return false;
   }
 
   private String getColorFromSensor() {
