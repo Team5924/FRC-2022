@@ -65,6 +65,6 @@ public class AutoShoot extends CommandBase {
   @Override
   public boolean isFinished() {
     currShootTimer = System.currentTimeMillis();
-    return (Math.abs(currShootTimer - startShootTimer) >= 6000);
+    return (Math.abs(currShootTimer - startShootTimer) >= 5000);
   }
 }
