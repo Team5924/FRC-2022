@@ -5,27 +5,27 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ToggleCompressor extends InstantCommand {
+public class ToggleShooter extends InstantCommand {
+  private final ShooterSubsystem m_shooter;
 
-  private final IntakeSubsystem m_intake;
-
-  public ToggleCompressor(IntakeSubsystem subsystem) {
-    m_intake = subsystem;
-    addRequirements(m_intake);
+  public ToggleShooter(ShooterSubsystem shooterSubsystem) {
+    m_shooter = shooterSubsystem;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_intake.isCompressorOn()) {
-      m_intake.disableCompressor();
+    if (m_shooter.isRunning()) {
+      m_shooter.stopShooter();
     } else {
-      m_intake.enableCompressor();
+      m_shooter.runShooter();
     }
   }
 }

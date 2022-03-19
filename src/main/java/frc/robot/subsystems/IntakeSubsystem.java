@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid; // https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj/DoubleSolenoid.html
@@ -19,15 +20,18 @@ public class IntakeSubsystem extends SubsystemBase {
     private final DoubleSolenoid m_rightDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.RIGHT_PNEUMATIC_FORWARD, IntakeConstants.RIGHT_PNEUMATIC_REVERSE);
 
     private final CANSparkMax m_intakeSpark = new CANSparkMax(IntakeConstants.INTAKE_SPARK, MotorType.kBrushless);
+    private final RelativeEncoder m_encoder;
 
     public IntakeSubsystem() {
-        m_compressor.disable();
+        //m_compressor.disable();
 
         m_leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
         m_rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
 
         m_intakeSpark.restoreFactoryDefaults();
         m_intakeSpark.setInverted(true);
+
+        m_encoder = m_intakeSpark.getEncoder();
     }
 
     @Override
@@ -89,5 +93,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void setIntakeMotorReverse() {
         m_intakeSpark.set(-IntakeConstants.INTAKE_RUN_SPEED);
+    }
+
+    public boolean isIntakeRunning() {
+        return Math.abs(m_encoder.getVelocity()) > 1;
     }
 }

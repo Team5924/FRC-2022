@@ -37,7 +37,7 @@ public class AutoShoot extends CommandBase {
   @Override
   public void execute() {
     // Revving the shooter
-    m_shooter.runMotor();
+    m_shooter.runShooter();
 
     currRevTimer = System.currentTimeMillis();
     if (Math.abs(currRevTimer - startRevTimer) >= 3000) {

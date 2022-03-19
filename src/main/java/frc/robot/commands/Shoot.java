@@ -38,13 +38,13 @@ public class Shoot extends CommandBase {
   public void execute() {
     if (isAtSpeed) {
       m_verticalConveyor.feedBallToShooter();
-      if (!m_shooter.isShooterAtSpeed()) {
+      if (!m_shooter.isAtSpeed()) {
         isPreparingToDisable = true;
         isAtSpeed = false;
         disableVerticalConveyorAt = System.currentTimeMillis() + disableDelayTime;
       }
     } else if (isPreparingToDisable) {
-      if (m_shooter.isShooterAtSpeed()) {
+      if (m_shooter.isAtSpeed()) {
         isPreparingToDisable = false;
         isAtSpeed = true;
       } else if (System.currentTimeMillis() >= disableVerticalConveyorAt) {
@@ -52,7 +52,7 @@ public class Shoot extends CommandBase {
         isPreparingToDisable = false;
       }
     } else {
-      if (m_shooter.isShooterAtSpeed()) {
+      if (m_shooter.isAtSpeed()) {
         isAtSpeed = true;
       }
     }

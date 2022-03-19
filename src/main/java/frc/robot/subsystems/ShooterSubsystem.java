@@ -49,16 +49,24 @@ public class ShooterSubsystem extends SubsystemBase {
         // This method will be called once per scheduler run
         //SmartDashboard.putNumber("Shooter Setpoint", shooterSetpoint);
         SmartDashboard.putNumber("Shooter Speed", m_encoder.getVelocity());
-        SmartDashboard.putBoolean("Shooter At Speed", isShooterAtSpeed());
+        SmartDashboard.putBoolean("Shooter At Speed", isAtSpeed());
     }
 
     // Checks to see if shooter is ready to fire
-    public boolean isShooterAtSpeed() {
+    public boolean isAtSpeed() {
         return Math.abs(m_encoder.getVelocity() - ShooterConstants.SHOOTER_SPEED) <= ShooterConstants.ACCEPTABLE_RPM_ERROR;
     }
 
-    public void runMotor() {
+    public boolean isRunning() {
+        return Math.abs(m_encoder.getVelocity()) > 1;
+    }
+
+    public void runShooter() {
         // speed is in RPM
         m_PIDController.setReference(ShooterConstants.SHOOTER_SPEED, CANSparkMax.ControlType.kVelocity);
+    }
+
+    public void stopShooter() {
+        m_PIDController.setReference(0, CANSparkMax.ControlType.kVelocity);
     }
 }

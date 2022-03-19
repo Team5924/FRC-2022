@@ -15,7 +15,7 @@ public class RunHorizontalConveyor extends CommandBase {
   private boolean isDisablingConveyor = false;
   private boolean isPooping = false;
 
-  private int conveyorDisableDelay = 165;
+  private int conveyorDisableDelay = 450;
   private int poopTime = 750;
 
   private long disableConveyorAt = 0;
@@ -36,7 +36,7 @@ public class RunHorizontalConveyor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_intake.isIntakeDeployed()) {
+    //if (m_intake.isIntakeDeployed()) {
       if (isDisablingConveyor) {
         if (System.currentTimeMillis() >= disableConveyorAt) {
           m_horizontalConveyor.disableConveyor();
@@ -61,9 +61,9 @@ public class RunHorizontalConveyor extends CommandBase {
           }
         }
       }
-    } else {
-      m_horizontalConveyor.disableConveyor();
-    }
+    //} else {
+    //  m_horizontalConveyor.disableConveyor();
+    //}
   }
 
   // Called once the command ends or is interrupted.

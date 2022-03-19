@@ -59,7 +59,7 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
   }
 
   public void enableConveyor() {
-    m_conveyorSpark.set(0.15);
+    m_conveyorSpark.set(0.25);
   }
 
   public void disableConveyor() {

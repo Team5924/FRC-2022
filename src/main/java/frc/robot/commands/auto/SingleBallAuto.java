@@ -6,9 +6,6 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-import frc.robot.commands.auto.AutoShoot;
-import frc.robot.commands.auto.Taxi;
-import frc.robot.commands.MaintainShooterSpeed;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VerticalConveyorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -28,7 +25,6 @@ public class SingleBallAuto extends SequentialCommandGroup {
     m_verticalConveyor = verticalConveyorSubsystem;
     m_drivetrain = driveSubsystem;
 
-    // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new AutoShoot(m_verticalConveyor, m_shooter),
       new Taxi(m_drivetrain)

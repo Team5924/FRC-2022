@@ -7,23 +7,24 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.commands.MaintainShooterSpeed;
+import frc.robot.commands.ExtendClimber;
+import frc.robot.commands.RetractClimber;
 import frc.robot.commands.RunHorizontalConveyor;
 import frc.robot.commands.RunVerticalConveyor;
 import frc.robot.commands.Shoot;
-import frc.robot.commands.ToggleCompressor;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.ToggleShooter;
 import frc.robot.commands.auto.SingleBallAuto;
 import frc.robot.subsystems.HorizontalConveyorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VerticalConveyorSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -67,8 +68,8 @@ public class RobotContainer {
     m_climber.register();
 
     //m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
-    //m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_intake));
-    //m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
+    m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_intake));
+    m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
     //m_shooter.setDefaultCommand(new MaintainShooterSpeed(m_shooter));
 
     // Configure the button bindings
@@ -84,12 +85,17 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    a.whenPressed(new ToggleIntake(m_intake));
-    b.whenPressed(new ToggleCompressor(m_intake));
+    x.whenPressed(new ToggleIntake(m_intake));
+    y.whenPressed(new ToggleShooter(m_shooter));
+    //b.whenPressed(new ToggleCompressor(m_intake));
     //y.whenHeld(new ReverseIntakeMotor(m_intake));
     //rightBumper.whenHeld(new Shoot(m_verticalConveyor, m_limelight, m_shooter));
     //a.whenHeld(new TestIntake(m_intake));
     //sb.whenHeld(new Shoot(m_verticalConveyor, m_shooter));
+    //a.whenHeld(new ExtendClimber(m_climber));
+    //b.whenHeld(new RetractClimber(m_climber));
+    //a.whenPressed(new InstantCommand(() -> m_horizontalConveyor.enableConveyor()));
+    //b.whenPressed(new InstantCommand(() -> m_horizontalConveyor.disableConveyor()));
   }
 
   /**

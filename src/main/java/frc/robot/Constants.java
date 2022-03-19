@@ -83,6 +83,7 @@ public final class Constants {
         public static final double INTAKE_RUN_SPEED = 0.5;
     }
     public static final class ClimberConstants {
-        public static final int CLIMBER_SPARK = 11;
+        public static final int LEADER_CLIMBER_SPARK = 11;
+        public static final int FOLLOWER_CLIMBER_SPARK = 12;
     }
 }
