@@ -16,6 +16,7 @@ public final class Constants {
 
     public static final class OIConstants {
         public static final int DRIVER_CONTROLLER = 0;
+        public static final int OPERATOR_CONTROLLER = 1;
         public static final double DRIVER_CONTROLLER_DEADBAND = 0.08;
     }
     public static final class DriveConstants {
@@ -56,13 +57,12 @@ public final class Constants {
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;
         public static final double SHOOTER_SPEED = 5000;
-        //public static final double FF = 0.000177;
-        public static final double FF = 0.00018;
-        public static final double P = 0/*.0001*/;
+        public static final double FF = 1/*0.000188*/;
+        public static final double P = 0.0001;
         public static final double I = 0;
         public static final double D = 0;
 
-        public static final double ACCEPTABLE_RPM_ERROR = 45;
+        public static final double ACCEPTABLE_RPM_ERROR = 200;
     }
 
     public static final class ConveyorConstants {

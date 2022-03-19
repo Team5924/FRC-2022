@@ -46,11 +46,14 @@ public class RobotContainer {
 
   XboxController m_driverController = new XboxController(OIConstants.DRIVER_CONTROLLER);
 
-  JoystickButton a = new JoystickButton(m_driverController, XboxController.Button.kA.value);
-  JoystickButton b = new JoystickButton(m_driverController, XboxController.Button.kB.value);
-  JoystickButton x = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-  JoystickButton y = new JoystickButton(m_driverController, XboxController.Button.kY.value);
-  JoystickButton rightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+  XboxController m_operatorController = new XboxController(OIConstants.OPERATOR_CONTROLLER);
+
+  JoystickButton driverX = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+
+  JoystickButton operatorB = new JoystickButton(m_operatorController, XboxController.Button.kB.value);
+  JoystickButton operatorY = new JoystickButton(m_operatorController, XboxController.Button.kY.value);
+  JoystickButton operatorLeftBumper = new JoystickButton(m_operatorController, XboxController.Button.kLeftBumper.value);
+  JoystickButton operatorRightBumper = new JoystickButton(m_operatorController, XboxController.Button.kRightBumper.value);
 
   // Declaring sendableObject for Autonomous here
   private final Command m_singleAuto = new SingleBallAuto(m_shooter, m_drivetrain, m_verticalConveyor);
@@ -67,10 +70,9 @@ public class RobotContainer {
     m_drivetrain.register();
     m_climber.register();
 
-    //m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
+    m_drivetrain.setDefaultCommand(new TankDrive(m_drivetrain, m_driverController::getLeftY, m_driverController::getRightY));
     m_horizontalConveyor.setDefaultCommand(new RunHorizontalConveyor(m_horizontalConveyor, m_intake));
     m_verticalConveyor.setDefaultCommand(new RunVerticalConveyor(m_horizontalConveyor, m_verticalConveyor, m_intake));
-    //m_shooter.setDefaultCommand(new MaintainShooterSpeed(m_shooter));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -85,17 +87,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    x.whenPressed(new ToggleIntake(m_intake));
-    y.whenPressed(new ToggleShooter(m_shooter));
-    //b.whenPressed(new ToggleCompressor(m_intake));
-    //y.whenHeld(new ReverseIntakeMotor(m_intake));
-    //rightBumper.whenHeld(new Shoot(m_verticalConveyor, m_limelight, m_shooter));
-    //a.whenHeld(new TestIntake(m_intake));
-    //sb.whenHeld(new Shoot(m_verticalConveyor, m_shooter));
-    //a.whenHeld(new ExtendClimber(m_climber));
-    //b.whenHeld(new RetractClimber(m_climber));
-    //a.whenPressed(new InstantCommand(() -> m_horizontalConveyor.enableConveyor()));
-    //b.whenPressed(new InstantCommand(() -> m_horizontalConveyor.disableConveyor()));
+    driverX.whenPressed(new ToggleIntake(m_intake));
+
+    operatorB.whenHeld(new Shoot(m_verticalConveyor, m_shooter));
+    operatorY.whenPressed(new ToggleShooter(m_shooter));
+    operatorLeftBumper.whenHeld(new RetractClimber(m_climber));
+    operatorRightBumper.whenHeld(new ExtendClimber(m_climber));
   }
 
   /**

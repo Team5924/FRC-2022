@@ -26,7 +26,7 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
   private final Color redBallTarget = new Color(0.564, 0.327, 0.112);
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
-  private boolean lastBallSameColor = false;
+  private boolean lastBallSameColor = true;
 
   /** Creates a new ConveyorSubsystem. */
   public HorizontalConveyorSubsystem() {
@@ -59,7 +59,7 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
   }
 
   public void enableConveyor() {
-    m_conveyorSpark.set(0.25);
+    m_conveyorSpark.set(0.3);
   }
 
   public void disableConveyor() {

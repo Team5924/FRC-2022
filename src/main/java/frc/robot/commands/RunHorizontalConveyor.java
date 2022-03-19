@@ -15,7 +15,7 @@ public class RunHorizontalConveyor extends CommandBase {
   private boolean isDisablingConveyor = false;
   private boolean isPooping = false;
 
-  private int conveyorDisableDelay = 450;
+  private int conveyorDisableDelay = 550;
   private int poopTime = 750;
 
   private long disableConveyorAt = 0;
