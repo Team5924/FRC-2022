@@ -21,6 +21,17 @@ public class Taxi extends CommandBase {
     addRequirements(m_drivetrain);
   }
 
+  // Accepts inches
+  public int taxiDistance(int distance) {
+    /**
+     * 1 rotation = 4 in. traveled
+     * 1 rotation = 4096 sensor units/100ms
+     * Distance/4 = x rotations.
+     * x * 4096 = y sensor units/100ms = taxiDistance
+     */
+    return (distance / 4) * 4096;
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -36,19 +47,19 @@ public class Taxi extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     currPos = m_drivetrain.getLeftVelocity();
-    /** 
-     * Goal: Move 8ft. (96in.) back
-     * 1 rotation = 4in. traveled
-     * 1 rotation = 4096 sensor units/100ms
-     * 96/4 = 24 rotations = 8 ft. 
-     * 24 * 4096 = 8192 sensor units/100ms = 8ft.
+    /**
+     * Distance Tables
+     * 7 ft. (84 in.)
+     * 7.5 ft (90 in.)
+     * 8 ft. (96 in.)
      */
-    return Math.abs(currPos - startPos) >= 24 * 4096;
+    return Math.abs(currPos - startPos) >= taxiDistance(90);
   }
 }
