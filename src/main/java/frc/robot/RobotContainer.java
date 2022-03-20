@@ -51,6 +51,7 @@ public class RobotContainer {
   XboxController m_operatorController = new XboxController(OIConstants.OPERATOR_CONTROLLER);
 
   JoystickButton driverX = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+  JoystickButton driverRightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
 
   JoystickButton operatorA = new JoystickButton(m_operatorController, XboxController.Button.kA.value);
   JoystickButton operatorB = new JoystickButton(m_operatorController, XboxController.Button.kB.value);
@@ -89,7 +90,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    driverX.whenPressed(new ToggleIntake(m_intake));
+    driverRightBumper.whenPressed(new ToggleIntake(m_intake));
 
     operatorA.whenHeld(new Eject(m_verticalConveyor, m_shooter));
     operatorB.whenPressed(new Shoot(m_verticalConveyor, m_shooter));
