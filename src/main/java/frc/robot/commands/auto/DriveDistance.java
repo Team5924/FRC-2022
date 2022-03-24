@@ -36,14 +36,14 @@ public class DriveDistance extends CommandBase {
   @Override
   public void execute() {
     /*
-    Divide by 10 to change to per 1s from per 100ms (sensor u)
-    Multiply by 2048 to get sensor units from rotations
+    Divide by 10 to change to per 1s from per 100ms (feet per 100ms)
+    Multiply by 12 to get inches from feet (inches per 100ms)
     Divide by 4π to get rotations from inches
-    Multiply by 12 to get feet from inches
+    Multiply by 2048 to get sensor units from rotations
     Multiply by 9 to account for gearbox
     */
-    m_drive.setLeftVelocity(feetPerSecond / 10 * 2048 / (4 * Math.PI) * 12 * 9);
-    m_drive.setRightVelocity(feetPerSecond / 10 * 2048 / (4 * Math.PI) * 12 * 9);
+    m_drive.setLeftVelocity(feetPerSecond / 10 * 12 / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9);
+    m_drive.setRightVelocity(feetPerSecond / 10 * 12 / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9);
   }
 
   // Called once the command ends or is interrupted.
