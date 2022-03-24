@@ -88,6 +88,14 @@ public class DriveSubsystem extends SubsystemBase {
     return m_rightDTLeader.getSelectedSensorVelocity();
   }
 
+  public double getLeftPosition() {
+    return m_leftDTFollower.getSelectedSensorPosition();
+  }
+
+  public double getRightPosition() {
+    return m_rightDTFollower.getSelectedSensorPosition();
+  }
+
   public void tankSquaredDrive(double leftJoystick, double rightJoystick) {
     double leftJoystickWithDeadband = MathUtil.applyDeadband(leftJoystick, OIConstants.DRIVER_CONTROLLER_DEADBAND);
     double rightJoystickWithDeadband = MathUtil.applyDeadband(rightJoystick, OIConstants.DRIVER_CONTROLLER_DEADBAND);
@@ -108,6 +116,22 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightDTLeader.set(ControlMode.Velocity, speed);
     SmartDashboard.putNumber("Right Velocity Intended", speed);
     SmartDashboard.putNumber("Right Difference", speed - getRightVelocity());
+  }
+
+  public void setLeftVelocity(double velocity) {
+    m_leftDTLeader.set(ControlMode.Velocity, velocity);
+  }
+
+  public void setRightVelocity(double velocity) {
+    m_leftDTLeader.set(ControlMode.Velocity, -velocity);
+  }
+
+  public void stopLeft() {
+    m_leftDTLeader.stopMotor();
+  }
+
+  public void stopRight() {
+    m_rightDTLeader.stopMotor();
   }
 
   private double squareKeepSign(double num) {

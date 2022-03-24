@@ -45,6 +45,8 @@ public final class Constants {
         public static final double TRIGGER_THRESHOLD_CURRENT = 45;
         // Trigger threshold must be attained for this amount of time to trigger current limit
         public static final double TRIGGER_THRESHOLD_TIME = 1;
+
+        public static final double WHEEL_CIRCUMFERENCE = 4 * Math.PI;
     }
 
     public static final class ShooterConstants {
