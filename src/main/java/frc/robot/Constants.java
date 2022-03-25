@@ -58,9 +58,9 @@ public final class Constants {
 
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;
-        public static final double SHOOTER_SPEED = 2550;
-        public static final double EJECT_SPEED = 1750;
-        public static final double FF = 0.000188;
+        public static final double SHOOTER_SPEED = 4400;
+        public static final double EJECT_SPEED = 1250;
+        public static final double FF = 0.000174;
         public static final double P = 0.0001;
         public static final double I = 0;
         public static final double D = 0;

@@ -13,30 +13,30 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 
 public class ClimberSubsystem extends SubsystemBase {
-  CANSparkMax m_leaderClimberSpark = new CANSparkMax(ClimberConstants.LEADER_CLIMBER_SPARK, MotorType.kBrushless);
-  CANSparkMax m_followerClimberSpark = new CANSparkMax(ClimberConstants.FOLLOWER_CLIMBER_SPARK, MotorType.kBrushless);
-  RelativeEncoder m_leaderClimberEncoder = m_leaderClimberSpark.getEncoder();
+  //CANSparkMax m_leaderClimberSpark = new CANSparkMax(ClimberConstants.LEADER_CLIMBER_SPARK, MotorType.kBrushless);
+  //CANSparkMax m_followerClimberSpark = new CANSparkMax(ClimberConstants.FOLLOWER_CLIMBER_SPARK, MotorType.kBrushless);
+  //RelativeEncoder m_leaderClimberEncoder = m_leaderClimberSpark.getEncoder();
 
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
-    m_followerClimberSpark.follow(m_leaderClimberSpark);
+    //m_followerClimberSpark.follow(m_leaderClimberSpark);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Climber Position", m_leaderClimberEncoder.getPosition());
+    //SmartDashboard.putNumber("Climber Position", m_leaderClimberEncoder.getPosition());
   }
 
   public void extendClimber() {
-    m_leaderClimberSpark.set(0.5);
+    //m_leaderClimberSpark.set(0.5);
   }
 
   public void retractClimber() {
-    m_leaderClimberSpark.set(-0.5);
+    //m_leaderClimberSpark.set(-0.5);
   }
 
   public void stopClimber() {
-    m_leaderClimberSpark.stopMotor();
+    //m_leaderClimberSpark.stopMotor();
   }
 }

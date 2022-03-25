@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ConveyorConstants;
 
 public class HorizontalConveyorSubsystem extends SubsystemBase {
-  private CANSparkMax m_conveyorSpark = new CANSparkMax(ConveyorConstants.HORIZONTAL_CONVEYOR_SPARK, MotorType.kBrushless);
-  private RelativeEncoder m_encoder;
+  //private CANSparkMax m_conveyorSpark = new CANSparkMax(ConveyorConstants.HORIZONTAL_CONVEYOR_SPARK, MotorType.kBrushless);
+  //private RelativeEncoder m_encoder;
   private DigitalInput m_beamBreak = new DigitalInput(ConveyorConstants.HORIZONTAL_BEAM_BREAK);
 
   private final Color blueBallTarget = new Color(0.152, 0.421, 0.426);
@@ -32,7 +32,7 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
 
   /** Creates a new ConveyorSubsystem. */
   public HorizontalConveyorSubsystem() {
-    m_encoder = m_conveyorSpark.getEncoder();
+    //m_encoder = m_conveyorSpark.getEncoder();
 
     m_colorMatcher.addColorMatch(blueBallTarget);
     m_colorMatcher.addColorMatch(redBallTarget);
@@ -70,19 +70,20 @@ public class HorizontalConveyorSubsystem extends SubsystemBase {
   }
 
   public void enableConveyor() {
-    m_conveyorSpark.set(0.3);
+    //m_conveyorSpark.set(0.3);
   }
 
   public void disableConveyor() {
-    m_conveyorSpark.stopMotor();
+    //m_conveyorSpark.stopMotor();
   }
 
   public void poopBall() {
-    m_conveyorSpark.set(0.6);
+    //m_conveyorSpark.set(0.6);
   }
 
   public boolean isConveyorRunning() {
-    return Math.abs(m_encoder.getVelocity()) > 1;
+    //return Math.abs(m_encoder.getVelocity()) > 1;
+    return false;
   }
 
   public boolean isBeamBroken() {

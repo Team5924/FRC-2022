@@ -14,13 +14,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ConveyorConstants;
 
 public class VerticalConveyorSubsystem extends SubsystemBase {
-  private CANSparkMax m_conveyorSpark = new CANSparkMax(ConveyorConstants.VERTICAL_CONVEYOR_SPARK, MotorType.kBrushless);
-  private RelativeEncoder m_encoder;
+  //private CANSparkMax m_conveyorSpark = new CANSparkMax(ConveyorConstants.VERTICAL_CONVEYOR_SPARK, MotorType.kBrushless);
+  //private RelativeEncoder m_encoder;
   private DigitalInput m_beamBreak = new DigitalInput(ConveyorConstants.VERTICAL_BEAM_BREAK);
 
   /** Creates a new VerticalConveyorSubsystem. */
   public VerticalConveyorSubsystem() {
-    m_encoder = m_conveyorSpark.getEncoder();
+    //m_encoder = m_conveyorSpark.getEncoder();
   }
 
   @Override
@@ -30,19 +30,20 @@ public class VerticalConveyorSubsystem extends SubsystemBase {
   }
 
   public void enableConveyor() {
-    m_conveyorSpark.set(0.2);
+    //m_conveyorSpark.set(0.2);
   }
 
   public void disableConveyor() {
-    m_conveyorSpark.stopMotor();
+    //m_conveyorSpark.stopMotor();
   }
 
   public void feedBallToShooter() {
-    m_conveyorSpark.set(0.5);
+    //m_conveyorSpark.set(0.95);
   }
 
   public boolean isConveyorRunning() {
-    return Math.abs(m_encoder.getVelocity()) > 1;
+    //return Math.abs(m_encoder.getVelocity()) > 1;
+    return false;
   }
 
   public boolean isBeamBroken() {

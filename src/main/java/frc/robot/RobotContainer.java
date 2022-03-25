@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OIConstants;
@@ -56,6 +57,7 @@ public class RobotContainer {
   JoystickButton operatorA = new JoystickButton(m_operatorController, XboxController.Button.kA.value);
   JoystickButton operatorB = new JoystickButton(m_operatorController, XboxController.Button.kB.value);
   JoystickButton operatorY = new JoystickButton(m_operatorController, XboxController.Button.kY.value);
+  JoystickButton operatorX = new JoystickButton(m_operatorController, XboxController.Button.kX.value);
   JoystickButton operatorLeftBumper = new JoystickButton(m_operatorController, XboxController.Button.kLeftBumper.value);
   JoystickButton operatorRightBumper = new JoystickButton(m_operatorController, XboxController.Button.kRightBumper.value);
 
@@ -95,6 +97,7 @@ public class RobotContainer {
     operatorA.whenHeld(new Eject(m_verticalConveyor, m_shooter));
     operatorB.whenPressed(new Shoot(m_verticalConveyor, m_shooter));
     operatorY.whenPressed(new ToggleShooter(m_shooter));
+    operatorX.whenPressed(new InstantCommand(() -> m_verticalConveyor.enableConveyor()));
     operatorLeftBumper.whenHeld(new RetractClimber(m_climber));
     operatorRightBumper.whenHeld(new ExtendClimber(m_climber));
   }

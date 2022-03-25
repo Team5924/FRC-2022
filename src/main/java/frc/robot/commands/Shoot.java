@@ -19,7 +19,7 @@ public class Shoot extends CommandBase {
 
   private long disableVerticalConveyorAt = 0;
 
-  private int commandLength = 150;
+  private int commandLength = 500;
 
   private long endCommandAt;
 

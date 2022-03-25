@@ -19,8 +19,8 @@ public class IntakeSubsystem extends SubsystemBase {
     private final DoubleSolenoid m_leftDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.LEFT_PNEUMATIC_FORWARD, IntakeConstants.LEFT_PNEUMATIC_REVERSE);
     private final DoubleSolenoid m_rightDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.RIGHT_PNEUMATIC_FORWARD, IntakeConstants.RIGHT_PNEUMATIC_REVERSE);
 
-    private final CANSparkMax m_intakeSpark = new CANSparkMax(IntakeConstants.INTAKE_SPARK, MotorType.kBrushless);
-    private final RelativeEncoder m_encoder;
+    //private final CANSparkMax m_intakeSpark = new CANSparkMax(IntakeConstants.INTAKE_SPARK, MotorType.kBrushless);
+    //private final RelativeEncoder m_encoder;
 
     public IntakeSubsystem() {
         //m_compressor.disable();
@@ -28,10 +28,10 @@ public class IntakeSubsystem extends SubsystemBase {
         m_leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
         m_rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
 
-        m_intakeSpark.restoreFactoryDefaults();
-        m_intakeSpark.setInverted(true);
+        //m_intakeSpark.restoreFactoryDefaults();
+        //m_intakeSpark.setInverted(true);
 
-        m_encoder = m_intakeSpark.getEncoder();
+        //m_encoder = m_intakeSpark.getEncoder();
     }
 
     @Override
@@ -84,18 +84,15 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void setIntakeMotorForward() {
-        m_intakeSpark.set(IntakeConstants.INTAKE_RUN_SPEED);
+        //m_intakeSpark.set(IntakeConstants.INTAKE_RUN_SPEED);
     }
 
     public void stopIntakeMotor() {
-        m_intakeSpark.stopMotor();
-    }
-
-    public void setIntakeMotorReverse() {
-        m_intakeSpark.set(-IntakeConstants.INTAKE_RUN_SPEED);
+        //m_intakeSpark.stopMotor();
     }
 
     public boolean isIntakeRunning() {
-        return Math.abs(m_encoder.getVelocity()) > 1;
+        //return Math.abs(m_encoder.getVelocity()) > 1;
+        return false;
     }
 }
