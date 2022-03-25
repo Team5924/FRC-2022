@@ -38,10 +38,15 @@ public class ShooterSubsystem extends SubsystemBase {
 
         m_encoder = m_leaderShooterSpark.getEncoder();
 
-        m_PIDController.setFF(ShooterConstants.FF);
-        m_PIDController.setP(ShooterConstants.P);
-        m_PIDController.setI(ShooterConstants.I);
-        m_PIDController.setD(ShooterConstants.D);
+        m_PIDController.setFF(ShooterConstants.FF, 0);
+        m_PIDController.setP(ShooterConstants.P, 0);
+        m_PIDController.setI(ShooterConstants.I, 0);
+        m_PIDController.setD(ShooterConstants.D, 0);
+
+        m_PIDController.setFF(ShooterConstants.EJECT_FF, 1);
+        m_PIDController.setP(ShooterConstants.EJECT_P, 1);
+        m_PIDController.setI(ShooterConstants.EJECT_I, 1);
+        m_PIDController.setD(ShooterConstants.EJECT_D, 1);
     }
 
     @Override
@@ -64,12 +69,12 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public void runShooter() {
         // speed is in RPM
-        m_PIDController.setReference(ShooterConstants.SHOOTER_SPEED, CANSparkMax.ControlType.kVelocity);
+        m_PIDController.setReference(ShooterConstants.SHOOTER_SPEED, CANSparkMax.ControlType.kVelocity, 0);
     }
 
     public void eject() {
         // speed is in RPM
-        m_PIDController.setReference(ShooterConstants.EJECT_SPEED, CANSparkMax.ControlType.kVelocity);
+        m_PIDController.setReference(ShooterConstants.EJECT_SPEED, CANSparkMax.ControlType.kVelocity, 1);
     }
 
     public void stopShooter() {
