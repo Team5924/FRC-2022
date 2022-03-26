@@ -4,6 +4,7 @@
 
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ShooterConstants;
@@ -13,14 +14,14 @@ public class DriveDistance extends CommandBase {
   private final DriveSubsystem m_drive;
 
   private double startingPosition;
-  private double inches;
-  private double feetPerSecond;
+  private double sensorUnits;
+  private double speed;
 
   /** Creates a new DriveDistance. */
   public DriveDistance(DriveSubsystem driveSubsystem, double inches, double feetPerSecond) {
     m_drive = driveSubsystem;
-    this.inches = inches;
-    this.feetPerSecond = feetPerSecond;
+    this.sensorUnits = inches / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
+    this.speed = feetPerSecond / 10 * 12 / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drive);
   }
@@ -30,6 +31,9 @@ public class DriveDistance extends CommandBase {
   public void initialize() {
     // Command drives straight, so only one side needs to be monitored for starting distance
     startingPosition = m_drive.getLeftPosition();
+    SmartDashboard.putNumber("Starting Position", startingPosition);
+    SmartDashboard.putNumber("Speed", speed);
+    SmartDashboard.putNumber("Sensor Units", sensorUnits);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,8 +46,8 @@ public class DriveDistance extends CommandBase {
     Multiply by 2048 to get sensor units from rotations
     Multiply by 9 to account for gearbox
     */
-    //m_drive.setLeftVelocity(feetPerSecond / 10 * 12 / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9);
-    //m_drive.setRightVelocity(feetPerSecond / 10 * 12 / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9);
+    m_drive.setLeftVelocity(speed);
+    m_drive.setRightVelocity(speed);
   }
 
   // Called once the command ends or is interrupted.
@@ -56,10 +60,10 @@ public class DriveDistance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (inches >= 0) {
-      return m_drive.getLeftPosition() >= startingPosition + inches / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
+    if (sensorUnits >= 0) {
+      return m_drive.getLeftPosition() >= startingPosition + sensorUnits / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
     } else {
-      return m_drive.getLeftPosition() < startingPosition + inches / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
+      return m_drive.getLeftPosition() < startingPosition + sensorUnits / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
     }
   }
 }

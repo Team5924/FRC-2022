@@ -23,6 +23,7 @@ import frc.robot.commands.RunVerticalConveyor;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.ToggleShooter;
+import frc.robot.commands.auto.DriveDistance;
 import frc.robot.commands.auto.SingleBallAuto;
 import frc.robot.subsystems.HorizontalConveyorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -95,7 +96,7 @@ public class RobotContainer {
     driverRightBumper.whenPressed(new ToggleIntake(m_intake));
 
     operatorA.whenHeld(new Eject(m_verticalConveyor, m_shooter));
-    operatorB.whenPressed(new Shoot(m_verticalConveyor, m_shooter));
+    operatorB.whenPressed(new DriveDistance(m_drivetrain, 12, 1));
     operatorY.whenPressed(new ToggleShooter(m_shooter));
     operatorX.whenPressed(new InstantCommand(() -> m_verticalConveyor.enableConveyor()));
     operatorLeftBumper.whenHeld(new RetractClimber(m_climber));
