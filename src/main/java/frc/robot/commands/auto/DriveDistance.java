@@ -21,13 +21,8 @@ public class DriveDistance extends CommandBase {
   public DriveDistance(DriveSubsystem driveSubsystem, double inches, double speed) {
     m_drive = driveSubsystem;
     this.sensorUnits = inches / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
-    if (speed < -0.65) {
-      this.speed = -0.65;
-    } else if (speed > 0.65) {
-      this.speed = 0.65;
-    } else {
-      this.speed = speed;
-    }
+    this.speed = speed;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drive);
   }

@@ -105,8 +105,20 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void tankDrive(double leftPercent, double rightPercent) {
-    m_leftDTLeader.set(ControlMode.Velocity, leftPercent);
-    m_rightDTLeader.set(ControlMode.Velocity, rightPercent);
+    if (leftPercent < -DriveConstants.PERCENT_MAX_VELOCITY_LIMIT) {
+      m_leftDTLeader.set(ControlMode.Velocity, -DriveConstants.PERCENT_MAX_VELOCITY_LIMIT);
+    } else if (leftPercent > DriveConstants.PERCENT_MAX_VELOCITY_LIMIT) {
+      m_leftDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT);
+    } else {
+      m_leftDTLeader.set(ControlMode.Velocity, leftPercent);
+    }
+    if (rightPercent < -DriveConstants.PERCENT_MAX_VELOCITY_LIMIT) {
+      m_rightDTLeader.set(ControlMode.Velocity, -DriveConstants.PERCENT_MAX_VELOCITY_LIMIT);
+    } else if (rightPercent > DriveConstants.PERCENT_MAX_VELOCITY_LIMIT) {
+      m_rightDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT);
+    } else {
+      m_rightDTLeader.set(ControlMode.Velocity, rightPercent);
+    }
   }
 
   public void tankSquaredDrive(double leftJoystick, double rightJoystick) {
