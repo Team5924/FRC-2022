@@ -125,20 +125,26 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void tankSquaredDrive(double leftJoystick, double rightJoystick) {
+    double leftOutputPercent;
+    double rightOutputPercent;
     if (leftJoystick < -0.08) {
-      m_leftDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(leftJoystick + 0.08, 2));
+      leftOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * -Math.pow(leftJoystick + 0.08, 2);
     } else if (leftJoystick <= 0.08) {
-      m_leftDTLeader.set(ControlMode.Velocity, 0);
+      leftOutputPercent = 0;
     } else {
-      m_leftDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(leftJoystick - 0.08, 2));
+      leftOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(leftJoystick - 0.08, 2);
     }
     if (rightJoystick < -0.08) {
-      m_rightDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(leftJoystick + 0.08, 2));
+      rightOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * -Math.pow(rightJoystick + 0.08, 2);
     } else if (rightJoystick <= 0.08) {
-      m_rightDTLeader.set(ControlMode.Velocity, 0);
+      rightOutputPercent = 0;
     } else {
-      m_rightDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(leftJoystick - 0.08, 2));
+      rightOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(rightJoystick - 0.08, 2);
     }
+    SmartDashboard.putNumber("Left Output", leftOutputPercent);
+    SmartDashboard.putNumber("Right Output", rightOutputPercent);
+    m_leftDTLeader.set(ControlMode.Velocity, leftOutputPercent * DriveConstants.MAX_VELOCITY);
+    m_rightDTLeader.set(ControlMode.Velocity, rightOutputPercent * DriveConstants.MAX_VELOCITY);
   }
 
   public void stopLeft() {

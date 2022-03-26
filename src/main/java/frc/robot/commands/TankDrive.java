@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -33,6 +34,8 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     // Negative signs to flip from negative for forward and positive for backward to positive for forward and negative for backward
+    SmartDashboard.putNumber("Left Joy", -m_leftJoystickY.getAsDouble());
+    SmartDashboard.putNumber("Right Joy", -m_rightJoystickY.getAsDouble());
     m_drive.tankSquaredDrive(-m_leftJoystickY.getAsDouble(), -m_rightJoystickY.getAsDouble());
   }
 

@@ -52,6 +52,7 @@ public class RobotContainer {
 
   XboxController m_operatorController = new XboxController(OIConstants.OPERATOR_CONTROLLER);
 
+  JoystickButton driverA = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   JoystickButton driverX = new JoystickButton(m_driverController, XboxController.Button.kX.value);
   JoystickButton driverRightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
 
@@ -96,7 +97,7 @@ public class RobotContainer {
     driverRightBumper.whenPressed(new ToggleIntake(m_intake));
 
     operatorA.whenHeld(new Eject(m_verticalConveyor, m_shooter));
-    operatorB.whenPressed(new DriveDistance(m_drivetrain, 12, 1));
+    operatorB.whenPressed(new DriveDistance(m_drivetrain, 12, 0.1));
     operatorY.whenPressed(new ToggleShooter(m_shooter));
     operatorX.whenPressed(new InstantCommand(() -> m_verticalConveyor.enableConveyor()));
     operatorLeftBumper.whenHeld(new RetractClimber(m_climber));
