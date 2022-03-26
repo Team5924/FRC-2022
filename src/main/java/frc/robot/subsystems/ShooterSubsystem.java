@@ -30,11 +30,6 @@ public class ShooterSubsystem extends SubsystemBase {
     // Subject to change
     private RelativeEncoder m_encoder;
 
-    // Code use for tuning FF values, temp use only
-    private NetworkTableInstance m_inst = NetworkTableInstance.getDefault();
-    private NetworkTable m_table = m_inst.getTable("SmartDashboard");
-    private NetworkTableEntry ffEntry = m_table.getEntry("FF");
-
     //private double shooterSetpoint;
 
     // Constructor for ShooterSubsystem class
@@ -48,7 +43,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
         m_encoder = m_leaderShooterSpark.getEncoder();
 
-        // m_PIDController.setFF(ShooterConstants.FF, 0);
+        m_PIDController.setFF(ShooterConstants.FF, 0);
         m_PIDController.setP(ShooterConstants.P, 0);
         m_PIDController.setI(ShooterConstants.I, 0);
         m_PIDController.setD(ShooterConstants.D, 0);
@@ -57,8 +52,6 @@ public class ShooterSubsystem extends SubsystemBase {
         m_PIDController.setP(ShooterConstants.EJECT_P, 1);
         m_PIDController.setI(ShooterConstants.EJECT_I, 1);
         m_PIDController.setD(ShooterConstants.EJECT_D, 1);
-
-        SmartDashboard.putNumber("FF", ShooterConstants.FF);
     }
 
     @Override
@@ -68,9 +61,6 @@ public class ShooterSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Shooter Speed", m_encoder.getVelocity());
         SmartDashboard.putBoolean("Shooter At Speed", isAtSpeed());
         SmartDashboard.putBoolean("Shooter Running", isRunning());
-        
-        // TEMP ONLY, TEST USE ONLY, REMOVE AFTER FINDING ACCURATE FF VALUE
-        m_PIDController.setFF(ffEntry.getValue().getDouble(), 0);
     }
 
     // Checks to see if shooter is ready to fire

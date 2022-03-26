@@ -64,8 +64,8 @@ public final class Constants {
         public static final double I = 0;
         public static final double D = 0;
 
-        public static final double EJECT_SPEED = 750;
-        public static final double EJECT_FF = 0.000128;
+        public static final double EJECT_SPEED = 1200;
+        public static final double EJECT_FF = 0.000186;
         public static final double EJECT_P = 0.0001;
         public static final double EJECT_I = 0;
         public static final double EJECT_D = 0;
