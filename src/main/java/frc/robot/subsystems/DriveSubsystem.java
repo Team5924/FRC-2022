@@ -103,7 +103,7 @@ public class DriveSubsystem extends SubsystemBase {
   public double getRightPosition() {
     return m_rightDTFollower.getSelectedSensorPosition();
   }
-
+  // Percent is a decimal, 0 <= percent <= 1
   public void tankDrive(double leftPercent, double rightPercent) {
     if (leftPercent < -DriveConstants.PERCENT_MAX_VELOCITY_LIMIT) {
       m_leftDTLeader.set(ControlMode.Velocity, -DriveConstants.PERCENT_MAX_VELOCITY_LIMIT);

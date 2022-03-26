@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Rotate extends CommandBase {
   private final DriveSubsystem m_drive;
   private double degrees;
+  // 0 <= speed <= 1
+  private double speed;
 
   private double arcLength;
   private double rotations;
@@ -22,13 +24,14 @@ public class Rotate extends CommandBase {
   private boolean isClockwise;
 
   /** Creates a new Rotate. */
-  public Rotate(DriveSubsystem driveSubsystem, double degrees) {
+  public Rotate(DriveSubsystem driveSubsystem, double degrees, double speed) {
     m_drive = driveSubsystem;
     /**
      * Degrees will be converted into radians
      * input as degrees for human convienience
      */
     this.degrees = degrees;
+    this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drive);
   }
@@ -65,9 +68,9 @@ public class Rotate extends CommandBase {
     rotationsInSensorUnits = rotations * 4096;
 
     if (isClockwise) {
-      // m_drive.Drivecommand(speed, -speed);
+      m_drive.tankDrive(speed, -speed);
     } else {
-      // m_drive.Drivecommand(-speed, speed);
+      m_drive.tankDrive(-speed, speed);
     }
   }
 
@@ -78,6 +81,9 @@ public class Rotate extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    /** command will finish after the robot has rotated to the specific angle, or
+     * explained differently, after the robot has traveled the arc length
+     */
     currPos = m_drive.getLeftVelocity();
     return (Math.abs(currPos - startPos) >= rotationsInSensorUnits - 15);
   }
