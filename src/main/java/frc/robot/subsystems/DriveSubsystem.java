@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
@@ -34,6 +35,8 @@ public class DriveSubsystem extends SubsystemBase {
     // Sychronizes motors with other motors on the same side of the robot
     m_leftDTFollower.follow(m_leftDTLeader);
     m_rightDTFollower.follow(m_rightDTLeader);
+    m_rightDTLeader.setInverted(true);
+    m_rightDTFollower.setInverted(InvertType.FollowMaster);
     // Configure talon settings
     configTalon(m_leftDTLeader);
     configTalon(m_rightDTLeader);
