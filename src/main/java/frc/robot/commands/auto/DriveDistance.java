@@ -42,8 +42,8 @@ public class DriveDistance extends CommandBase {
     Multiply by 2048 to get sensor units from rotations
     Multiply by 9 to account for gearbox
     */
-    m_drive.setLeftVelocity(feetPerSecond / 10 * 12 / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9);
-    m_drive.setRightVelocity(feetPerSecond / 10 * 12 / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9);
+    //m_drive.setLeftVelocity(feetPerSecond / 10 * 12 / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9);
+    //m_drive.setRightVelocity(feetPerSecond / 10 * 12 / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9);
   }
 
   // Called once the command ends or is interrupted.

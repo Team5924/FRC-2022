@@ -103,34 +103,26 @@ public class DriveSubsystem extends SubsystemBase {
     return m_rightDTFollower.getSelectedSensorPosition();
   }
 
+  public void tankDrive(double leftPercent, double rightPercent) {
+    m_leftDTLeader.set(ControlMode.Velocity, leftPercent);
+    m_rightDTLeader.set(ControlMode.Velocity, rightPercent);
+  }
+
   public void tankSquaredDrive(double leftJoystick, double rightJoystick) {
-    double leftJoystickWithDeadband = MathUtil.applyDeadband(leftJoystick, OIConstants.DRIVER_CONTROLLER_DEADBAND);
-    double rightJoystickWithDeadband = MathUtil.applyDeadband(rightJoystick, OIConstants.DRIVER_CONTROLLER_DEADBAND);
-    setLeftVelocityFromJoystick(leftJoystickWithDeadband);
-    setRightVelocityFromJoystick(rightJoystickWithDeadband);
-  }
-
-  private void setLeftVelocityFromJoystick(double input) {
-    double speed = squareKeepSign(input) * DriveConstants.PERCENT_MAX_VELOCITY_LIMIT * DriveConstants.MAX_VELOCITY;
-    m_leftDTLeader.set(ControlMode.Velocity, speed);
-    SmartDashboard.putNumber("Left Velocity Intended", speed);
-    SmartDashboard.putNumber("Left Difference", speed - getLeftVelocity());
-  }
-
-  private void setRightVelocityFromJoystick(double input) {
-    // Multiply by -1 to invert that side. Technically .setInverted(true) should be called on the master motor for this side but that didn't work for me
-    double speed = squareKeepSign(input) * DriveConstants.PERCENT_MAX_VELOCITY_LIMIT * DriveConstants.MAX_VELOCITY * -1;
-    m_rightDTLeader.set(ControlMode.Velocity, speed);
-    SmartDashboard.putNumber("Right Velocity Intended", speed);
-    SmartDashboard.putNumber("Right Difference", speed - getRightVelocity());
-  }
-
-  public void setLeftVelocity(double velocity) {
-    m_leftDTLeader.set(ControlMode.Velocity, velocity);
-  }
-
-  public void setRightVelocity(double velocity) {
-    m_leftDTLeader.set(ControlMode.Velocity, -velocity);
+    if (leftJoystick < -0.08) {
+      m_leftDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(leftJoystick + 0.08, 2));
+    } else if (leftJoystick <= 0.08) {
+      m_leftDTLeader.set(ControlMode.Velocity, 0);
+    } else {
+      m_leftDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(leftJoystick - 0.08, 2));
+    }
+    if (rightJoystick < -0.08) {
+      m_rightDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(leftJoystick + 0.08, 2));
+    } else if (rightJoystick <= 0.08) {
+      m_rightDTLeader.set(ControlMode.Velocity, 0);
+    } else {
+      m_rightDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(leftJoystick - 0.08, 2));
+    }
   }
 
   public void stopLeft() {
@@ -139,14 +131,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void stopRight() {
     m_rightDTLeader.stopMotor();
-  }
-
-  private double squareKeepSign(double num) {
-    if (num < 0) {
-      return num * num * -1;
-    } else {
-      return num * num;
-    }
   }
 
   private double sensorToFeetPerSecond(double sensor) {
