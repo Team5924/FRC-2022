@@ -12,16 +12,22 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveDistance extends CommandBase {
   private final DriveSubsystem m_drive;
+  private final double sensorUnits;
+  private final double speed;
 
-  private double startingPosition;
-  private double sensorUnits;
-  private double speed;
+  private double endingPosition;
 
   /** Creates a new DriveDistance. */
-  public DriveDistance(DriveSubsystem driveSubsystem, double inches, double feetPerSecond) {
+  public DriveDistance(DriveSubsystem driveSubsystem, double inches, double speed) {
     m_drive = driveSubsystem;
     this.sensorUnits = inches / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
-    this.speed = feetPerSecond / 10 * 12 / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
+    if (speed < -0.65) {
+      this.speed = -0.65;
+    } else if (speed > 0.65) {
+      this.speed = 0.65;
+    } else {
+      this.speed = speed;
+    }
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drive);
   }
@@ -29,9 +35,9 @@ public class DriveDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Command drives straight, so only one side needs to be monitored for starting distance
-    startingPosition = m_drive.getLeftPosition();
-    SmartDashboard.putNumber("Starting Position", startingPosition);
+    endingPosition = m_drive.getLeftPosition() + sensorUnits;
+
+    SmartDashboard.putNumber("Ending Position", endingPosition);
     SmartDashboard.putNumber("Speed", speed);
     SmartDashboard.putNumber("Sensor Units", sensorUnits);
   }
@@ -39,15 +45,7 @@ public class DriveDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /*
-    Divide by 10 to change to per 1s from per 100ms (feet per 100ms)
-    Multiply by 12 to get inches from feet (inches per 100ms)
-    Divide by 4π to get rotations from inches
-    Multiply by 2048 to get sensor units from rotations
-    Multiply by 9 to account for gearbox
-    */
-    m_drive.setLeftVelocity(speed);
-    m_drive.setRightVelocity(speed);
+    m_drive.tankDrive(speed, speed);
   }
 
   // Called once the command ends or is interrupted.
@@ -60,10 +58,11 @@ public class DriveDistance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // Command drives straight, so only one side needs to be monitored for ending distance
     if (sensorUnits >= 0) {
-      return m_drive.getLeftPosition() >= startingPosition + sensorUnits / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
+      return m_drive.getLeftPosition() >= endingPosition;
     } else {
-      return m_drive.getLeftPosition() < startingPosition + sensorUnits / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
+      return m_drive.getLeftPosition() <= endingPosition;
     }
   }
 }
