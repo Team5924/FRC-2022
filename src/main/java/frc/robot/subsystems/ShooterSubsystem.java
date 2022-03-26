@@ -1,6 +1,11 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.CANSparkMax;
@@ -25,6 +30,11 @@ public class ShooterSubsystem extends SubsystemBase {
     // Subject to change
     private RelativeEncoder m_encoder;
 
+    // Code use for tuning FF values, temp use only
+    private NetworkTableInstance m_inst = NetworkTableInstance.getDefault();
+    private NetworkTable m_table = m_inst.getTable("SmartDashboard");
+    private NetworkTableEntry ffEntry = m_table.getEntry("FF");
+
     //private double shooterSetpoint;
 
     // Constructor for ShooterSubsystem class
@@ -38,7 +48,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
         m_encoder = m_leaderShooterSpark.getEncoder();
 
-        m_PIDController.setFF(ShooterConstants.FF, 0);
+        // m_PIDController.setFF(ShooterConstants.FF, 0);
         m_PIDController.setP(ShooterConstants.P, 0);
         m_PIDController.setI(ShooterConstants.I, 0);
         m_PIDController.setD(ShooterConstants.D, 0);
@@ -47,6 +57,8 @@ public class ShooterSubsystem extends SubsystemBase {
         m_PIDController.setP(ShooterConstants.EJECT_P, 1);
         m_PIDController.setI(ShooterConstants.EJECT_I, 1);
         m_PIDController.setD(ShooterConstants.EJECT_D, 1);
+
+        SmartDashboard.putNumber("FF", ShooterConstants.FF);
     }
 
     @Override
@@ -56,6 +68,9 @@ public class ShooterSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Shooter Speed", m_encoder.getVelocity());
         SmartDashboard.putBoolean("Shooter At Speed", isAtSpeed());
         SmartDashboard.putBoolean("Shooter Running", isRunning());
+        
+        // TEMP ONLY, TEST USE ONLY, REMOVE AFTER FINDING ACCURATE FF VALUE
+        m_PIDController.setFF(ffEntry.getValue().getDouble(), 0);
     }
 
     // Checks to see if shooter is ready to fire
@@ -69,12 +84,12 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public void runShooter() {
         // speed is in RPM
-        m_PIDController.setReference(ShooterConstants.SHOOTER_SPEED, CANSparkMax.ControlType.kVelocity, 0);
+        m_PIDController.setReference(-ShooterConstants.SHOOTER_SPEED, CANSparkMax.ControlType.kVelocity, 0);
     }
 
     public void eject() {
         // speed is in RPM
-        m_PIDController.setReference(ShooterConstants.EJECT_SPEED, CANSparkMax.ControlType.kVelocity, 1);
+        m_PIDController.setReference(-ShooterConstants.EJECT_SPEED, CANSparkMax.ControlType.kVelocity, 1);
     }
 
     public void stopShooter() {

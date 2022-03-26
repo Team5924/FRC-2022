@@ -113,14 +113,14 @@ public class DriveSubsystem extends SubsystemBase {
     } else if (leftPercent > DriveConstants.PERCENT_MAX_VELOCITY_LIMIT) {
       m_leftDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT);
     } else {
-      m_leftDTLeader.set(ControlMode.Velocity, leftPercent);
+      m_leftDTLeader.set(ControlMode.Velocity, leftPercent * DriveConstants.MAX_VELOCITY);
     }
     if (rightPercent < -DriveConstants.PERCENT_MAX_VELOCITY_LIMIT) {
       m_rightDTLeader.set(ControlMode.Velocity, -DriveConstants.PERCENT_MAX_VELOCITY_LIMIT);
     } else if (rightPercent > DriveConstants.PERCENT_MAX_VELOCITY_LIMIT) {
       m_rightDTLeader.set(ControlMode.Velocity, DriveConstants.PERCENT_MAX_VELOCITY_LIMIT);
     } else {
-      m_rightDTLeader.set(ControlMode.Velocity, rightPercent);
+      m_rightDTLeader.set(ControlMode.Velocity, rightPercent * DriveConstants.MAX_VELOCITY);
     }
   }
 
@@ -141,8 +141,6 @@ public class DriveSubsystem extends SubsystemBase {
     } else {
       rightOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(rightJoystick - 0.08, 2);
     }
-    SmartDashboard.putNumber("Left Output", leftOutputPercent);
-    SmartDashboard.putNumber("Right Output", rightOutputPercent);
     m_leftDTLeader.set(ControlMode.Velocity, leftOutputPercent * DriveConstants.MAX_VELOCITY);
     m_rightDTLeader.set(ControlMode.Velocity, rightOutputPercent * DriveConstants.MAX_VELOCITY);
   }

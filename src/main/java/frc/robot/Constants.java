@@ -29,7 +29,7 @@ public final class Constants {
         // Max velocity that the drivetrain can do in sensor units per 100ms
         public static final double MAX_VELOCITY = 21776.25;
         // Percentage to limit drivetrain to (of above number)
-        public static final double PERCENT_MAX_VELOCITY_LIMIT = 0.65;
+        public static final double PERCENT_MAX_VELOCITY_LIMIT = 0.8;
 
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;
@@ -58,8 +58,8 @@ public final class Constants {
 
         public static final int TIMEOUT_MS = 30;
         public static final int PID_LOOP_IDX = 0;
-        public static final double SHOOTER_SPEED = 4400;
-        public static final double FF = 0.000174;
+        public static final double SHOOTER_SPEED = 3500;
+        public static final double FF = 0.000186;
         public static final double P = 0.0001;
         public static final double I = 0;
         public static final double D = 0;
