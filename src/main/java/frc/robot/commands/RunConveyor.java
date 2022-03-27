@@ -5,16 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class ExtendClimber extends CommandBase {
-  private final ClimberSubsystem m_climber;
+public class RunConveyor extends CommandBase {
+  private final ConveyorSubsystem m_conveyor;
+  private final IntakeSubsystem m_intake;
 
-  /** Creates a new ExtendClimber. */
-  public ExtendClimber(ClimberSubsystem subsystem) {
-    m_climber = subsystem;
+  /** Creates a new RunConveyor. */
+  public RunConveyor(ConveyorSubsystem conveyorSubsystem, IntakeSubsystem intakeSubsystem) {
+    m_conveyor = conveyorSubsystem;
+    m_intake = intakeSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_climber);
+    addRequirements(m_conveyor);
   }
 
   // Called when the command is initially scheduled.
@@ -24,14 +27,16 @@ public class ExtendClimber extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_climber.extend();
+    if (m_intake.isDeployed() && !m_conveyor.isUpperBeamBroken()) {
+      m_conveyor.run();
+    } else {
+      m_conveyor.stop();
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_climber.stop();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

@@ -2,14 +2,13 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.auto;
+package frc.robot.commands.auto.routines;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
-import frc.robot.commands.auto.AutoShoot;
-import frc.robot.commands.auto.Taxi;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.auto.DriveDistance;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.VerticalConveyorSubsystem;
+import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -18,18 +17,18 @@ import frc.robot.subsystems.DriveSubsystem;
 public class SingleBallAuto extends SequentialCommandGroup {
   private ShooterSubsystem m_shooter;
   private DriveSubsystem m_drivetrain;
-  private VerticalConveyorSubsystem m_verticalConveyor;
+  private ConveyorSubsystem m_conveyor;
 
   /** Creates a new AutoAimAndShoot. */
-  public SingleBallAuto(ShooterSubsystem shooterSubsystem, DriveSubsystem driveSubsystem, VerticalConveyorSubsystem verticalConveyorSubsystem) {
-    // Add your commands in the addCommands() call, e.g.
+  public SingleBallAuto(ShooterSubsystem shooterSubsystem, DriveSubsystem driveSubsystem, ConveyorSubsystem conveyorSubsystem) {
     m_shooter = shooterSubsystem;
-    m_verticalConveyor = verticalConveyorSubsystem;
+    m_conveyor = conveyorSubsystem;
     m_drivetrain = driveSubsystem;
 
+    // Add your commands in the addCommands() call, e.g.
     addCommands(
-      new AutoShoot(m_verticalConveyor, m_shooter),
-      new Taxi(m_drivetrain)
+      new Shoot(m_conveyor, m_shooter),
+      new DriveDistance(m_drivetrain, 90, 0.3)
     );
   }
 }

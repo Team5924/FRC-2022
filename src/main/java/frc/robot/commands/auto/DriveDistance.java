@@ -13,15 +13,21 @@ import frc.robot.subsystems.DriveSubsystem;
 public class DriveDistance extends CommandBase {
   private final DriveSubsystem m_drive;
   private final double sensorUnits;
-  private final double speed;
+  // Contains both magnitude and direction
+  private final double velocity;
 
   private double endingPosition;
 
   /** Creates a new DriveDistance. */
-  public DriveDistance(DriveSubsystem driveSubsystem, double inches, double speed) {
+  public DriveDistance(DriveSubsystem driveSubsystem, double inches, double velocity) {
     m_drive = driveSubsystem;
+    /**
+     * Given inches, convert into rotations, then sensor units
+     * rotations = inches / circumference
+     * sensor units = rotations * 2048 * 9
+     */
     this.sensorUnits = inches / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
-    this.speed = speed;
+    this.velocity = velocity;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drive);
@@ -33,14 +39,14 @@ public class DriveDistance extends CommandBase {
     endingPosition = m_drive.getLeftPosition() + sensorUnits;
 
     SmartDashboard.putNumber("Ending Position", endingPosition);
-    SmartDashboard.putNumber("Speed", speed);
+    SmartDashboard.putNumber("Speed", velocity);
     SmartDashboard.putNumber("Sensor Units", sensorUnits);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.tankDrive(speed, speed);
+    m_drive.tankDrive(velocity, velocity);
   }
 
   // Called once the command ends or is interrupted.

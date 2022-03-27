@@ -75,14 +75,14 @@ public final class Constants {
     }
 
     public static final class ConveyorConstants {
-        public static final int HORIZONTAL_CONVEYOR_SPARK = 7;
-        public static final int VERTICAL_CONVEYOR_SPARK = 8;
-        public static final int HORIZONTAL_BEAM_BREAK = 0;
-        public static final int VERTICAL_BEAM_BREAK = 2;
+        public static final int CONVEYOR_SPARK = 8;
+        public static final int UPPER_BEAM_BREAK = 0;
+        public static final int LOWER_BEAM_BREAK = 2;
     }
 
     public static final class IntakeConstants {
         public static final int INTAKE_SPARK = 6;
+        public static final int ROLLER_SPARK = 7;
         public static final int CTRE_PCM = 5;
         public static final int LEFT_PNEUMATIC_FORWARD = 5;
         public static final int LEFT_PNEUMATIC_REVERSE = 2;

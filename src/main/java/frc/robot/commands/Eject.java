@@ -4,22 +4,22 @@
 
 package frc.robot.commands;
 
+import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.VerticalConveyorSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Eject extends CommandBase {
-  private VerticalConveyorSubsystem m_verticalConveyor;
+  private ConveyorSubsystem m_conveyor;
   private ShooterSubsystem m_shooter;
 
   private boolean wasShooterRunning;
 
   /** Creates a new Eject. */
-  public Eject(VerticalConveyorSubsystem verticalConveyorSubsystem, ShooterSubsystem shooterSubsystem) {
-    m_verticalConveyor = verticalConveyorSubsystem;
+  public Eject(ConveyorSubsystem conveyorSubsystem, ShooterSubsystem shooterSubsystem) {
+    m_conveyor = conveyorSubsystem;
     m_shooter = shooterSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_shooter, m_verticalConveyor);
+    addRequirements(m_shooter, m_conveyor);
   }
 
   // Called when the command is initially scheduled.
@@ -32,16 +32,16 @@ public class Eject extends CommandBase {
   @Override
   public void execute() {
     m_shooter.eject();
-    m_verticalConveyor.feedBallToShooter();
+    m_conveyor.feedBallToShooter();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     if (wasShooterRunning) {
-      m_shooter.runShooter();
+      m_shooter.run();
     } else {
-      m_shooter.stopShooter();
+      m_shooter.stop();
     }
   }
 

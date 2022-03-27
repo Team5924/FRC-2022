@@ -23,9 +23,9 @@ public class ToggleShooter extends InstantCommand {
   @Override
   public void initialize() {
     if (m_shooter.isRunning()) {
-      m_shooter.stopShooter();
+      m_shooter.stop();
     } else {
-      m_shooter.runShooter();
+      m_shooter.run();
     }
   }
 }

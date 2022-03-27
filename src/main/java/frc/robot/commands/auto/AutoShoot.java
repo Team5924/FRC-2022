@@ -6,10 +6,10 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.VerticalConveyorSubsystem;
+import frc.robot.subsystems.ConveyorSubsystem;
 
 public class AutoShoot extends CommandBase {
-  private final VerticalConveyorSubsystem m_verticalConveyor;
+  private final ConveyorSubsystem m_conveyor;
   private final ShooterSubsystem m_shooter;
 
   long startRevTimer;
@@ -19,11 +19,11 @@ public class AutoShoot extends CommandBase {
   long currShootTimer;
 
   /** Creates a new AutoShoot. */
-  public AutoShoot(VerticalConveyorSubsystem verticalConveyorSubsystem, ShooterSubsystem shooterSubsystem) {
-    m_verticalConveyor = verticalConveyorSubsystem;
+  public AutoShoot(ConveyorSubsystem conveyorSubsystem, ShooterSubsystem shooterSubsystem) {
+    m_conveyor = conveyorSubsystem;
     m_shooter = shooterSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(verticalConveyorSubsystem, shooterSubsystem);
+    addRequirements(conveyorSubsystem, shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -37,34 +37,25 @@ public class AutoShoot extends CommandBase {
   @Override
   public void execute() {
     // Revving the shooter
-    m_shooter.runShooter();
+    m_shooter.run();
 
     currRevTimer = System.currentTimeMillis();
-    if (Math.abs(currRevTimer - startRevTimer) >= 3000) {
+    if (Math.abs(currRevTimer - startRevTimer) >= 1500) {
       // After 3 seconds, the vertical conveyor will feed the ball into the shooter. TLDR; Shoots the ball after 3 seconds
-      m_verticalConveyor.feedBallToShooter();
+      m_conveyor.feedBallToShooter();
     }
-
-    // Runs the shooter at specific speed based on the distance from the target
-    //m_shooter.setSpeed(m_shooter.shotVelocityToShooterRPM(m_shooter.getShotVelocity(m_limelight.getDistance())));
-    //if (isAtSpeed) {
-      // The vertical conveyor feeds a ball into the shooter, when shooter is ready to fire
-      //m_verticalConveyor.enableConveyor();
-    /*} else if (m_shooter.isShooterAtSpeed()) {
-      isAtSpeed = true;
-    }*/
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_verticalConveyor.disableConveyor();
+    m_conveyor.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     currShootTimer = System.currentTimeMillis();
-    return (Math.abs(currShootTimer - startShootTimer) >= 5000);
+    return (Math.abs(currShootTimer - startShootTimer) >= 1500);
   }
 }

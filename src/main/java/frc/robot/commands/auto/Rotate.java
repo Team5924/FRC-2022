@@ -6,10 +6,11 @@ package frc.robot.commands.auto;
 
 import frc.robot.subsystems.DriveSubsystem;
 
+import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Rotate extends CommandBase {
-  private final DriveSubsystem m_drive;
+  private final DriveSubsystem m_drivetrain;
   private double degrees;
   // 0 <= speed <= 1
   private double speed;
@@ -24,22 +25,23 @@ public class Rotate extends CommandBase {
   private boolean isClockwise;
 
   /** Creates a new Rotate. */
-  public Rotate(DriveSubsystem driveSubsystem, double degrees, double speed) {
-    m_drive = driveSubsystem;
+  public Rotate(DriveSubsystem driveSubsystem, double degrees, double speed, boolean direction) {
+    m_drivetrain= driveSubsystem;
     /**
      * Degrees will be converted into radians
      * input as degrees for human convienience
      */
     this.degrees = degrees;
     this.speed = speed;
+    isClockwise = direction;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_drive);
+    addRequirements(m_drivetrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startPos = m_drive.getLeftVelocity();
+    startPos = m_drivetrain.getLeftVelocity();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,28 +51,18 @@ public class Rotate extends CommandBase {
      * Given degrees, rotate the robot to the specified angle.
      * Arc length = Degree * 28 in. (radius)
      * Rotations = Arc Length / 4pi (circumference)
-     * Rotations in sensor units = Rotations * 4096
+     * Rotations in sensor units = Rotations * 2048
      */
-
-    /**
-     * This checks if the arcLength is greater than the circumference,
-     * if so, it will turn the other way to reduce distance and time
-     */
+    
     degrees = degrees * (Math.PI / 180);
     arcLength = degrees * 14;
-    if (arcLength <= (14 * Math.PI)) {
-      isClockwise = true;
-    } else if (arcLength > (14 * Math.PI)) {
-      isClockwise = false;
-    }
-
-    rotations = arcLength / (4 * Math.PI);
-    rotationsInSensorUnits = rotations * 4096;
+    rotations = arcLength / (DriveConstants.WHEEL_CIRCUMFERENCE * Math.PI);
+    rotationsInSensorUnits = rotations * 2048;
 
     if (isClockwise) {
-      m_drive.tankDrive(speed, -speed);
+      m_drivetrain.tankDrive(speed, -speed);
     } else {
-      m_drive.tankDrive(-speed, speed);
+      m_drivetrain.tankDrive(-speed, speed);
     }
   }
 
@@ -81,10 +73,11 @@ public class Rotate extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    /** command will finish after the robot has rotated to the specific angle, or
+    /** 
+     * command will finish after the robot has rotated to the specific angle, or
      * explained differently, after the robot has traveled the arc length
      */
-    currPos = m_drive.getLeftVelocity();
+    currPos = m_drivetrain.getLeftVelocity();
     return (Math.abs(currPos - startPos) >= rotationsInSensorUnits - 15);
   }
 }

@@ -161,6 +161,6 @@ public class DriveSubsystem extends SubsystemBase {
     Divide by 12 to get feet from inches
     Divide by 9 to account for gearbox
     */
-    return sensor * 10 / 2048 * 4 * Math.PI / 12 / 9;
+    return Math.round(sensor * 10 / 2048 * 4 * Math.PI / 12 / 9);
   }
 }

@@ -21,12 +21,14 @@ public class ToggleIntake extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_intake.isIntakeDeployed()) {
+    if (m_intake.isDeployed()) {
       m_intake.stopIntakeMotor();
-      m_intake.retractIntake();
+      m_intake.retract();
+      m_intake.stopRollers();
     } else {
       m_intake.setIntakeMotorForward();
-      m_intake.deployIntake();
+      m_intake.deploy();
+      m_intake.enableRollers();
     }
   }
 }
