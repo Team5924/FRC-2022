@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Rotate extends CommandBase {
   private final DriveSubsystem m_drivetrain;
-  private double degrees;
+  private double radians;
   private double speed;
 
   private double arcLength;
@@ -19,7 +19,6 @@ public class Rotate extends CommandBase {
   private double rotationsInSensorUnits;
 
   private double startPos;
-  private double currPos;
 
   /** Creates a new Rotate. */
   public Rotate(DriveSubsystem driveSubsystem, double degrees, double speed) {
@@ -28,7 +27,7 @@ public class Rotate extends CommandBase {
      * Degrees will be converted into radians
      * input as degrees for human convienience
      */
-    this.degrees = degrees;
+    this.radians = degrees * (Math.PI / 180);
     this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drivetrain);
@@ -50,12 +49,11 @@ public class Rotate extends CommandBase {
      * Rotations in sensor units = Rotations * 2048
      */
 
-    degrees = degrees * (Math.PI / 180);
-    arcLength = degrees * 14;
+    arcLength = radians * 14;
     rotations = arcLength / (DriveConstants.WHEEL_CIRCUMFERENCE * Math.PI);
     rotationsInSensorUnits = rotations * 2048;
 
-    if (degrees >= 0) {
+    if (radians >= 0) {
       m_drivetrain.tankDrive(speed, -speed);
     } else {
       m_drivetrain.tankDrive(-speed, speed);
@@ -73,7 +71,6 @@ public class Rotate extends CommandBase {
      * command will finish after the robot has rotated to the specific angle, or
      * explained differently, after the robot has traveled the arc length
      */
-    currPos = m_drivetrain.getLeftVelocity();
-    return (Math.abs(currPos - startPos) >= rotationsInSensorUnits - 15);
+    return (Math.abs(m_drivetrain.getLeftPosition() - startPos) >= rotationsInSensorUnits);
   }
 }
