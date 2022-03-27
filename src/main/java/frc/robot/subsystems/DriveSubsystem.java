@@ -124,22 +124,24 @@ public class DriveSubsystem extends SubsystemBase {
     }
   }
 
+  // The math for this method is here
+  // https://www.desmos.com/calculator/waxy7hdapv
   public void tankSquaredDrive(double leftJoystick, double rightJoystick) {
     double leftOutputPercent;
     double rightOutputPercent;
-    if (leftJoystick < -0.08) {
-      leftOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * -Math.pow(leftJoystick + 0.08, 2);
-    } else if (leftJoystick <= 0.08) {
+    if (leftJoystick < -OIConstants.DRIVER_CONTROLLER_DEADBAND) {
+      leftOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / Math.pow(1 - OIConstants.DRIVER_CONTROLLER_DEADBAND, 2) * -Math.pow(leftJoystick + OIConstants.DRIVER_CONTROLLER_DEADBAND, 2);
+    } else if (leftJoystick <= OIConstants.DRIVER_CONTROLLER_DEADBAND) {
       leftOutputPercent = 0;
     } else {
-      leftOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(leftJoystick - 0.08, 2);
+      leftOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / Math.pow(1 - OIConstants.DRIVER_CONTROLLER_DEADBAND, 2) * Math.pow(leftJoystick - OIConstants.DRIVER_CONTROLLER_DEADBAND, 2);
     }
-    if (rightJoystick < -0.08) {
-      rightOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * -Math.pow(rightJoystick + 0.08, 2);
-    } else if (rightJoystick <= 0.08) {
+    if (rightJoystick < -OIConstants.DRIVER_CONTROLLER_DEADBAND) {
+      rightOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / Math.pow(1 - OIConstants.DRIVER_CONTROLLER_DEADBAND, 2) * -Math.pow(rightJoystick + OIConstants.DRIVER_CONTROLLER_DEADBAND, 2);
+    } else if (rightJoystick <= OIConstants.DRIVER_CONTROLLER_DEADBAND) {
       rightOutputPercent = 0;
     } else {
-      rightOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / 0.8464 * Math.pow(rightJoystick - 0.08, 2);
+      rightOutputPercent = DriveConstants.PERCENT_MAX_VELOCITY_LIMIT / Math.pow(1 - OIConstants.DRIVER_CONTROLLER_DEADBAND, 2) * Math.pow(rightJoystick - OIConstants.DRIVER_CONTROLLER_DEADBAND, 2);
     }
     m_leftDTLeader.set(ControlMode.Velocity, leftOutputPercent * DriveConstants.MAX_VELOCITY);
     m_rightDTLeader.set(ControlMode.Velocity, rightOutputPercent * DriveConstants.MAX_VELOCITY);

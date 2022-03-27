@@ -17,6 +17,7 @@ public final class Constants {
     public static final class OIConstants {
         public static final int DRIVER_CONTROLLER = 0;
         public static final int OPERATOR_CONTROLLER = 1;
+        // Percentage in every direction that you can push joystick with no response on drivetrain
         public static final double DRIVER_CONTROLLER_DEADBAND = 0.08;
     }
     public static final class DriveConstants {
