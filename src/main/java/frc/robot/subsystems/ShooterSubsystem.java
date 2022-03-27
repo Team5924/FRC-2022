@@ -2,13 +2,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.ctre.phoenix.motorcontrol.InvertType;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -34,7 +31,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // Shuffleboard NeteworkTable
     private NetworkTableInstance m_inst = NetworkTableInstance.getDefault();
     private NetworkTable m_table = m_inst.getTable("SmartDashboard");
-    
+
     // TEMP USE - MARKED FOR DELETION
     private double shooterSetpoint = ShooterConstants.SHOOTER_SPEED;
     private double shooterFF = ShooterConstants.FF;
@@ -51,7 +48,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
         m_encoder = m_leaderShooterSpark.getEncoder();
 
-        // TEMP REMOVAL 
+        // TEMP REMOVAL
         // m_PIDController.setFF(ShooterConstants.FF, 0);
         m_PIDController.setP(ShooterConstants.P, 0);
         m_PIDController.setI(ShooterConstants.I, 0);
@@ -99,9 +96,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public void run() {
         // speed is in RPM
-
         m_PIDController.setReference(shooterSetpoint, CANSparkMax.ControlType.kVelocity, 0);
-        // m_PIDController.setReference(ShooterConstants.SHOOTER_SPEED, CANSparkMax.ControlType.kVelocity, 0);
     }
 
 
