@@ -5,18 +5,20 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class AutoShoot extends CommandBase {
   private final ConveyorSubsystem m_conveyor;
   private final ShooterSubsystem m_shooter;
 
-  long startRevTimer;
-  long currRevTimer;
+  // In ms, how long the conveyor should wait to feed after the shooter reaches speed
+  private long shootDelayAfterAtSpeed = 100;
+  // In ms, How long the command should last
+  private long shootTime = 200;
 
-  long startShootTimer;
-  long currShootTimer;
+  private long feedBallAt = -1;
+  private long stopShootingAt;
 
   /** Creates a new AutoShoot. */
   public AutoShoot(ConveyorSubsystem conveyorSubsystem, ShooterSubsystem shooterSubsystem) {
@@ -28,21 +30,25 @@ public class AutoShoot extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    startRevTimer = System.currentTimeMillis();
-    startShootTimer = System.currentTimeMillis();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Revving the shooter
-    m_shooter.run();
-
-    currRevTimer = System.currentTimeMillis();
-    if (Math.abs(currRevTimer - startRevTimer) >= 1500) {
-      // After 3 seconds, the vertical conveyor will feed the ball into the shooter. TLDR; Shoots the ball after 3 seconds
+    if (System.currentTimeMillis() >= feedBallAt) {
+      // After 3 seconds, the vertical conveyor will feed the ball into the shooter
       m_conveyor.feedBallToShooter();
+    }
+    // If the time to feed the ball has not been set yet
+    if (feedBallAt == -1) {
+      if (m_shooter.isAtSpeed()) {
+        feedBallAt = System.currentTimeMillis() + shootDelayAfterAtSpeed;
+        stopShootingAt = feedBallAt + shootTime;
+      }
+    } else {
+      if (System.currentTimeMillis() >= feedBallAt) {
+        m_conveyor.feedBallToShooter();
+      }
     }
   }
 
@@ -55,7 +61,6 @@ public class AutoShoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    currShootTimer = System.currentTimeMillis();
-    return (Math.abs(currShootTimer - startShootTimer) >= 1500);
+    return System.currentTimeMillis() >= stopShootingAt;
   }
 }

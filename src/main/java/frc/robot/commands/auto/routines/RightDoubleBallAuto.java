@@ -10,7 +10,9 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 import frc.robot.commands.auto.AutoShoot;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.ToggleShooter;
 import frc.robot.commands.auto.DriveDistance;
 import frc.robot.commands.auto.Rotate;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -34,14 +36,15 @@ public class RightDoubleBallAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoShoot(m_conveyor, m_shooter),
-      new DriveDistance(m_drivetrain, 84.75, 0.4),
-      new Rotate(m_drivetrain, 24, 0.4, false),
+      new ToggleShooter(m_shooter),
       new ToggleIntake(m_intake),
-      new DriveDistance(m_drivetrain, 40.44, 0.4),
-      new DriveDistance(m_drivetrain, 40.44, -0.4),
-      new Rotate(m_drivetrain, 24, 0.4, true),
-      new DriveDistance(m_drivetrain, 84.75, -0.4),
+      new AutoShoot(m_conveyor, m_shooter),
+      new DriveDistance(m_drivetrain, 84.75, DriveConstants.AUTO_DRIVE_SPEED),
+      new Rotate(m_drivetrain, -24, DriveConstants.AUTO_ROTATE_SPEED),
+      new DriveDistance(m_drivetrain, 40.44, DriveConstants.AUTO_DRIVE_SPEED),
+      new DriveDistance(m_drivetrain, -40.44, DriveConstants.AUTO_DRIVE_SPEED),
+      new Rotate(m_drivetrain, 24, DriveConstants.AUTO_ROTATE_SPEED),
+      new DriveDistance(m_drivetrain, -84.75, DriveConstants.AUTO_DRIVE_SPEED),
       new AutoShoot(m_conveyor, m_shooter)
     );
   }

@@ -7,6 +7,8 @@ package frc.robot.commands.auto.routines;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.commands.ToggleShooter;
+import frc.robot.commands.auto.AutoShoot;
 import frc.robot.subsystems.ConveyorSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -25,6 +27,9 @@ public class TripleBallAuto extends SequentialCommandGroup {
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+    addCommands(
+      new ToggleShooter(m_shooter),
+      new AutoShoot(m_conveyor, m_shooter)
+    );
   }
 }
