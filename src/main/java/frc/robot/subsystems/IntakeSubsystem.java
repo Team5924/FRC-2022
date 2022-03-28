@@ -19,7 +19,6 @@ public class IntakeSubsystem extends SubsystemBase {
     private final DoubleSolenoid m_rightDoubleSolenoid = new DoubleSolenoid(IntakeConstants.CTRE_PCM, PneumaticsModuleType.CTREPCM, IntakeConstants.RIGHT_PNEUMATIC_FORWARD, IntakeConstants.RIGHT_PNEUMATIC_REVERSE);
 
     private final CANSparkMax m_intakeSpark = new CANSparkMax(IntakeConstants.INTAKE_SPARK, MotorType.kBrushless);
-    private CANSparkMax m_rollerSpark = new CANSparkMax(IntakeConstants.ROLLER_SPARK, MotorType.kBrushless);
 
     public IntakeSubsystem() {
         //m_compressor.disable();
@@ -86,13 +85,5 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void stopIntakeMotor() {
         m_intakeSpark.stopMotor();
-    }
-
-    public void enableRollers() {
-        m_rollerSpark.set(0.3);
-    }
-
-    public void stopRollers() {
-        m_rollerSpark.stopMotor();
     }
 }

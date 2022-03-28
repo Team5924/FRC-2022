@@ -27,10 +27,20 @@ public class RunConveyor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_intake.isDeployed() && !m_conveyor.isUpperBeamBroken()) {
-      m_conveyor.run();
+    if (m_intake.isDeployed()) {
+      if (!m_conveyor.isUpperBeamBroken()) {
+        m_conveyor.run();
+      } else {
+        m_conveyor.stop();
+      }
+      if (!m_conveyor.isLowerBeamBroken()) {
+        m_conveyor.runRollers();
+      } else {
+        m_conveyor.stopRollers();
+      }
     } else {
       m_conveyor.stop();
+      m_conveyor.stopRollers();
     }
   }
 

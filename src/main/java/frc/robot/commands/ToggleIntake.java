@@ -24,11 +24,9 @@ public class ToggleIntake extends InstantCommand {
     if (m_intake.isDeployed()) {
       m_intake.stopIntakeMotor();
       m_intake.retract();
-      m_intake.stopRollers();
     } else {
       m_intake.setIntakeMotorForward();
       m_intake.deploy();
-      m_intake.enableRollers();
     }
   }
 }

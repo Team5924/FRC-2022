@@ -14,6 +14,7 @@ import frc.robot.Constants.ConveyorConstants;
 
 public class ConveyorSubsystem extends SubsystemBase {
   private CANSparkMax m_conveyorSpark = new CANSparkMax(ConveyorConstants.CONVEYOR_SPARK, MotorType.kBrushless);
+  private CANSparkMax m_rollerSpark = new CANSparkMax(ConveyorConstants.ROLLER_SPARK, MotorType.kBrushless);
 
   private DigitalInput m_upperBeamBreak = new DigitalInput(ConveyorConstants.UPPER_BEAM_BREAK);
   private DigitalInput m_lowerBeamBreak = new DigitalInput(ConveyorConstants.LOWER_BEAM_BREAK);
@@ -26,6 +27,14 @@ public class ConveyorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Upper Beam Break", isUpperBeamBroken());
     SmartDashboard.putBoolean("Lower Beam Break", isLowerBeamBroken());
+  }
+
+  public void runRollers() {
+    m_rollerSpark.set(0.3);
+  }
+
+  public void stopRollers() {
+    m_rollerSpark.stopMotor();
   }
 
   public void run() {
