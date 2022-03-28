@@ -66,7 +66,7 @@ public class RobotContainer {
   private final Command m_singleBallAuto = new SingleBallAuto(m_shooter, m_drivetrain, m_conveyor);
   private final Command m_leftDoubleBallAuto = new LeftDoubleBallAuto(m_shooter, m_conveyor, m_drivetrain, m_intake);
   private final Command m_rightDoubleBallAuto = new RightDoubleBallAuto(m_shooter, m_conveyor, m_drivetrain, m_intake);
-  private final Command m_tripleBallAuto = new TripleBallAuto(m_shooter, m_conveyor, m_drivetrain);
+  private final Command m_tripleBallAuto = new TripleBallAuto(m_shooter, m_conveyor, m_drivetrain, m_intake);
 
   SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
@@ -89,7 +89,7 @@ public class RobotContainer {
     m_autoChooser.setDefaultOption("Single Ball Auto", m_singleBallAuto);
     m_autoChooser.addOption("Left Double Ball Auto", m_leftDoubleBallAuto);
     m_autoChooser.addOption("Right Double Ball Auto", m_rightDoubleBallAuto);
-    //m_autoChooser.addOption("Triple Ball Auto", m_tripleBallAuto);
+    m_autoChooser.addOption("Triple Ball Auto", m_tripleBallAuto);
 
     SmartDashboard.putData(m_autoChooser);
   }
