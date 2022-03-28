@@ -89,7 +89,7 @@ public class RobotContainer {
     m_autoChooser.setDefaultOption("Single Ball Auto", m_singleBallAuto);
     m_autoChooser.addOption("Left Double Ball Auto", m_leftDoubleBallAuto);
     m_autoChooser.addOption("Right Double Ball Auto", m_rightDoubleBallAuto);
-    m_autoChooser.addOption("Triple Ball Auto", m_tripleBallAuto);
+    //m_autoChooser.addOption("Triple Ball Auto", m_tripleBallAuto);
 
     SmartDashboard.putData(m_autoChooser);
   }
