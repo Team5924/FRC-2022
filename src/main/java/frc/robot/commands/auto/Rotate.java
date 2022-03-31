@@ -51,7 +51,7 @@ public class Rotate extends CommandBase {
 
     arcLength = radians * 14;
     rotations = arcLength / (DriveConstants.WHEEL_CIRCUMFERENCE * Math.PI);
-    rotationsInSensorUnits = rotations * 2048;
+    rotationsInSensorUnits = rotations * 2048 * 9.04;
 
     if (radians >= 0) {
       m_drivetrain.tankDrive(speed, -speed);
