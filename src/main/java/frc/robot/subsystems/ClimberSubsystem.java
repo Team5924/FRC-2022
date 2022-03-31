@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 
 public class ClimberSubsystem extends SubsystemBase {
-  CANSparkMax m_leaderClimberSpark = new CANSparkMax(ClimberConstants.LEADER_CLIMBER_SPARK, MotorType.kBrushless);
-  CANSparkMax m_followerClimberSpark = new CANSparkMax(ClimberConstants.FOLLOWER_CLIMBER_SPARK, MotorType.kBrushless);
+  CANSparkMax m_leaderClimberSpark = new CANSparkMax(ClimberConstants.LEADER_CLIMBER_SPARK, MotorType.kBrushed);
+  CANSparkMax m_followerClimberSpark = new CANSparkMax(ClimberConstants.FOLLOWER_CLIMBER_SPARK, MotorType.kBrushed);
   RelativeEncoder m_leaderClimberEncoder = m_leaderClimberSpark.getEncoder();
 
   /** Creates a new ClimberSubsystem. */
