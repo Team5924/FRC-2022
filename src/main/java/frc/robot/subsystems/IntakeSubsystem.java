@@ -23,8 +23,8 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem() {
         //m_compressor.disable();
 
-        m_leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
-        m_rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+        m_leftDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
+        m_rightDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
 
         m_intakeSpark.restoreFactoryDefaults();
         m_intakeSpark.setInverted(true);

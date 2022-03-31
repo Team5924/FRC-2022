@@ -19,6 +19,7 @@ import frc.robot.commands.Eject;
 import frc.robot.commands.ExtendClimber;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.RunConveyor;
+import frc.robot.commands.Shoot;
 import frc.robot.commands.ToggleShooter;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.auto.DriveDistance;
@@ -106,8 +107,9 @@ public class RobotContainer {
     driverRightBumper.whenPressed(new ToggleIntake(m_intake));
 
     operatorA.whenHeld(new Eject(m_conveyor, m_shooter));
-    operatorB.whenPressed(new DriveDistance(m_drivetrain, 12, 0.1));
-    //operatorB.whenPressed(new Rotate(m_drivetrain, 90, 0.1, true));
+    //operatorB.whenPressed(new DriveDistance(m_drivetrain, 12, 0.1));
+    //operatorB.whenPressed(new Rotate(m_drivetrain, 90, 0.1));
+    operatorB.whenPressed(new Shoot(m_conveyor, m_shooter));
     operatorY.whenPressed(new ToggleShooter(m_shooter));
     operatorLeftBumper.whenHeld(new RetractClimber(m_climber));
     operatorRightBumper.whenHeld(new ExtendClimber(m_climber));
