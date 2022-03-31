@@ -21,10 +21,10 @@ import frc.robot.subsystems.ConveyorSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TripleBallAuto extends SequentialCommandGroup {
-  private ShooterSubsystem m_shooter;
-  private DriveSubsystem m_drivetrain;
-  private ConveyorSubsystem m_conveyor;
-  private IntakeSubsystem m_intake;
+  private final ShooterSubsystem m_shooter;
+  private final DriveSubsystem m_drivetrain;
+  private final ConveyorSubsystem m_conveyor;
+  private final IntakeSubsystem m_intake;
 
   /** Creates a new TripleBallAuto. */
   public TripleBallAuto(ShooterSubsystem shooterSubsystem, ConveyorSubsystem conveyorSubsystem, DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem) {

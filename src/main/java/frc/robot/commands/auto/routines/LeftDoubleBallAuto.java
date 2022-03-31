@@ -22,10 +22,10 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LeftDoubleBallAuto extends SequentialCommandGroup {
-  private ShooterSubsystem m_shooter;
-  private ConveyorSubsystem m_conveyor;
-  private DriveSubsystem m_drivetrain;
-  private IntakeSubsystem m_intake;
+  private final ShooterSubsystem m_shooter;
+  private final ConveyorSubsystem m_conveyor;
+  private final DriveSubsystem m_drivetrain;
+  private final IntakeSubsystem m_intake;
 
   /** Creates a new DoubleBallAuto. */
   public LeftDoubleBallAuto(ShooterSubsystem shooterSubsystem, ConveyorSubsystem conveyorSubsystem, DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem) {
