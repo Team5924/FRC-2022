@@ -25,7 +25,7 @@ public class DriveDistance extends CommandBase {
      * rotations = inches / circumference
      * sensor units = rotations * 2048 * 9
      */
-    this.sensorUnits = inches / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9;
+    this.sensorUnits = inches / DriveConstants.WHEEL_CIRCUMFERENCE * 2048 * 9.04;
     this.velocity = velocity;
 
     // Use addRequirements() here to declare subsystem dependencies.
