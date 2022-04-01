@@ -30,14 +30,16 @@ public class RunConveyor extends CommandBase {
     if (m_intake.isDeployed()) {
       if (!m_conveyor.isUpperBeamBroken()) {
         m_conveyor.run();
-      } else {
-        m_conveyor.stop();
-      }
-      if (!m_conveyor.isLowerBeamBroken()) {
         m_conveyor.runRollers();
       } else {
+        m_conveyor.stop();
         m_conveyor.stopRollers();
       }
+      //if (!m_conveyor.isLowerBeamBroken()) {
+        //m_conveyor.runRollers();
+      //} else {
+      //  m_conveyor.stopRollers();
+      //}
     } else {
       m_conveyor.stop();
       m_conveyor.stopRollers();

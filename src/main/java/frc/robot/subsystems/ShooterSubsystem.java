@@ -41,7 +41,7 @@ public class ShooterSubsystem extends SubsystemBase {
         m_leaderShooterSpark.restoreFactoryDefaults();
         m_followerShooterSpark.restoreFactoryDefaults();
 
-        m_leaderShooterSpark.setInverted(true);
+        m_leaderShooterSpark.setInverted(false);
         m_followerShooterSpark.follow(m_leaderShooterSpark, true);
 
         m_PIDController = m_leaderShooterSpark.getPIDController();
@@ -92,6 +92,10 @@ public class ShooterSubsystem extends SubsystemBase {
     public void eject() {
         // speed is in RPM
         m_PIDController.setReference(ShooterConstants.EJECT_SPEED, CANSparkMax.ControlType.kVelocity, 1);
+    }
+
+    public boolean isAtEjectSpeed() {
+        return Math.abs(m_encoder.getVelocity() - ShooterConstants.EJECT_SPEED) <= ShooterConstants.ACCEPTABLE_RPM_ERROR;
     }
 
     public void run() {

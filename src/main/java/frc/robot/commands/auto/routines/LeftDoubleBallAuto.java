@@ -39,9 +39,10 @@ public class LeftDoubleBallAuto extends SequentialCommandGroup {
     addCommands(
       new ToggleShooter(m_shooter),
       new ToggleIntake(m_intake),
+      new DriveDistance(m_drivetrain, 9.5, DriveConstants.AUTO_DRIVE_SPEED),
       new AutoShoot(m_conveyor, m_shooter),
       new WaitTime(m_drivetrain, 100),
-      new DriveDistance(m_drivetrain, 26.34, DriveConstants.AUTO_DRIVE_SPEED),
+      new DriveDistance(m_drivetrain, 16.84, DriveConstants.AUTO_DRIVE_SPEED),
       new WaitTime(m_drivetrain, 100),
       new Rotate(m_drivetrain, 22.5, DriveConstants.AUTO_ROTATE_SPEED),
       new WaitTime(m_drivetrain, 100),

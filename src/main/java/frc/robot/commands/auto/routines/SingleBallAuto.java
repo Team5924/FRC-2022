@@ -30,8 +30,9 @@ public class SingleBallAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     addCommands(
       new ToggleShooter(m_shooter),
+      new DriveDistance(m_drivetrain, 9.5, DriveConstants.AUTO_DRIVE_SPEED),
       new AutoShoot(m_conveyor, m_shooter),
-      new DriveDistance(m_drivetrain, 90, DriveConstants.AUTO_DRIVE_SPEED)
+      new DriveDistance(m_drivetrain, 80.5, DriveConstants.AUTO_DRIVE_SPEED)
     );
   }
 }

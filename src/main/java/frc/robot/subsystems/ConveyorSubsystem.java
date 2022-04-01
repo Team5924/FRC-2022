@@ -20,25 +20,33 @@ public class ConveyorSubsystem extends SubsystemBase {
   private DigitalInput m_lowerBeamBreak = new DigitalInput(ConveyorConstants.LOWER_BEAM_BREAK);
 
   /** Creates a new ConveyorSubsystem. */
-  public ConveyorSubsystem() {}
+  public ConveyorSubsystem() {
+    m_conveyorSpark.setInverted(false);
+    m_rollerSpark.setInverted(true);
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Upper Beam Break", isUpperBeamBroken());
     SmartDashboard.putBoolean("Lower Beam Break", isLowerBeamBroken());
+    SmartDashboard.putBoolean("Are Rollers Running", areRollersRunning());
   }
 
   public void runRollers() {
-    m_rollerSpark.set(0.3);
+    m_rollerSpark.set(0.4);
   }
 
   public void stopRollers() {
     m_rollerSpark.stopMotor();
   }
 
+  public boolean areRollersRunning() {
+    return Math.abs(m_rollerSpark.get()) > 0;
+  }
+
   public void run() {
-    m_conveyorSpark.set(0.2);
+    m_conveyorSpark.set(0.4);
   }
 
   public void stop() {

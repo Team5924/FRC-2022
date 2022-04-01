@@ -88,12 +88,8 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int INTAKE_SPARK = 6;
         public static final int CTRE_PCM = 5;
-        public static final int LEFT_PNEUMATIC_FORWARD = 5;
-        public static final int LEFT_PNEUMATIC_REVERSE = 2;
-        public static final int RIGHT_PNEUMATIC_FORWARD = 4;
-        public static final int RIGHT_PNEUMATIC_REVERSE = 3;
-
-        public static final double INTAKE_RUN_SPEED = 0.5;
+        public static final int INTAKE_PNEUMATICS = 4;
+        public static final double INTAKE_RUN_SPEED = 1;
     }
     public static final class ClimberConstants {
         public static final int LEADER_CLIMBER_SPARK = 11;

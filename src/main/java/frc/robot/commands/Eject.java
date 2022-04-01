@@ -32,7 +32,12 @@ public class Eject extends CommandBase {
   @Override
   public void execute() {
     m_shooter.eject();
-    m_conveyor.feedBallToShooter();
+    if (m_shooter.isAtEjectSpeed()) {
+      m_conveyor.feedBallToShooter();
+    }
+    else {
+      m_conveyor.stop();
+    }
   }
 
   // Called once the command ends or is interrupted.

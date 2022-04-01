@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,6 +25,7 @@ import frc.robot.commands.ToggleShooter;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.auto.DriveDistance;
 import frc.robot.commands.auto.Rotate;
+import frc.robot.commands.auto.routines.ExitAuto;
 import frc.robot.commands.auto.routines.LeftDoubleBallAuto;
 import frc.robot.commands.auto.routines.RightDoubleBallAuto;
 import frc.robot.commands.auto.routines.SingleBallAuto;
@@ -64,6 +66,7 @@ public class RobotContainer {
   JoystickButton operatorRightBumper = new JoystickButton(m_operatorController, XboxController.Button.kRightBumper.value);
 
   // Declaring sendableObject for Autonomous here
+  private final Command m_exitAuto = new ExitAuto(m_shooter, m_drivetrain);
   private final Command m_singleBallAuto = new SingleBallAuto(m_shooter, m_drivetrain, m_conveyor);
   private final Command m_leftDoubleBallAuto = new LeftDoubleBallAuto(m_shooter, m_conveyor, m_drivetrain, m_intake);
   private final Command m_rightDoubleBallAuto = new RightDoubleBallAuto(m_shooter, m_conveyor, m_drivetrain, m_intake);
@@ -88,6 +91,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     m_autoChooser.setDefaultOption("Single Ball Auto", m_singleBallAuto);
+    m_autoChooser.addOption("Exit Auto", m_exitAuto);
     m_autoChooser.addOption("Left Double Ball Auto", m_leftDoubleBallAuto);
     m_autoChooser.addOption("Right Double Ball Auto", m_rightDoubleBallAuto);
     m_autoChooser.addOption("Triple Ball Auto", m_tripleBallAuto);
@@ -105,6 +109,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     driverRightBumper.whenPressed(new ToggleIntake(m_intake));
+    //driverA.whenPressed(new InstantCommand(() -> m_conveyor.runRollers()));
 
     operatorA.whenHeld(new Eject(m_conveyor, m_shooter));
     //operatorB.whenPressed(new DriveDistance(m_drivetrain, 12, 0.1));
