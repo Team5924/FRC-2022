@@ -12,12 +12,9 @@ public class AutoShoot extends CommandBase {
   private final ConveyorSubsystem m_conveyor;
   private final ShooterSubsystem m_shooter;
 
-  // In ms, how long the conveyor should wait to feed after the shooter reaches speed
-  private long shootDelayAfterAtSpeed = 100;
   // In ms, How long the command should last
-  private long shootTime = 200;
+  private long shootTime = 2000;
 
-  private long feedBallAt = -1;
   private long stopShootingAt;
 
   /** Creates a new AutoShoot. */
@@ -30,26 +27,14 @@ public class AutoShoot extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    stopShootingAt = System.currentTimeMillis() + shootTime;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (System.currentTimeMillis() >= feedBallAt) {
-      // After 3 seconds, the vertical conveyor will feed the ball into the shooter
-      m_conveyor.feedBallToShooter();
-    }
-    // If the time to feed the ball has not been set yet
-    if (feedBallAt == -1) {
-      if (m_shooter.isAtSpeed()) {
-        feedBallAt = System.currentTimeMillis() + shootDelayAfterAtSpeed;
-        stopShootingAt = feedBallAt + shootTime;
-      }
-    } else {
-      if (System.currentTimeMillis() >= feedBallAt) {
-        m_conveyor.feedBallToShooter();
-      }
-    }
+    m_conveyor.feedBallToShooter();
   }
 
   // Called once the command ends or is interrupted.

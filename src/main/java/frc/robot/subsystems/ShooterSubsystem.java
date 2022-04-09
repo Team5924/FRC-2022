@@ -21,7 +21,7 @@ public class ShooterSubsystem extends SubsystemBase {
      */
 
     private CANSparkMax m_leaderShooterSpark = new CANSparkMax(ShooterConstants.LEADER_SHOOTER_SPARK, MotorType.kBrushless);
-    private CANSparkMax m_followerShooterSpark = new CANSparkMax(ShooterConstants.FOLLOWER_SHOOTER_SPARK, MotorType.kBrushless);
+    //private CANSparkMax m_followerShooterSpark = new CANSparkMax(ShooterConstants.FOLLOWER_SHOOTER_SPARK, MotorType.kBrushless);
 
     private SparkMaxPIDController m_PIDController;
 
@@ -39,10 +39,10 @@ public class ShooterSubsystem extends SubsystemBase {
     // Constructor for ShooterSubsystem class
     public ShooterSubsystem() {
         m_leaderShooterSpark.restoreFactoryDefaults();
-        m_followerShooterSpark.restoreFactoryDefaults();
+        //m_followerShooterSpark.restoreFactoryDefaults();
 
         m_leaderShooterSpark.setInverted(false);
-        m_followerShooterSpark.follow(m_leaderShooterSpark, true);
+        //m_followerShooterSpark.follow(m_leaderShooterSpark, true);
 
         m_PIDController = m_leaderShooterSpark.getPIDController();
 
@@ -69,7 +69,6 @@ public class ShooterSubsystem extends SubsystemBase {
         //SmartDashboard.putNumber("Shooter Setpoint", shooterSetpoint);
         SmartDashboard.putNumber("Shooter Speed", m_encoder.getVelocity());
         SmartDashboard.putBoolean("Shooter At Speed", isAtSpeed());
-        SmartDashboard.putBoolean("Shooter Running", isRunning());
 
         // Retreiving data from Shuffleboard live
         shooterSetpoint = m_table.getEntry("Shooter Setpoint").getValue().getDouble();

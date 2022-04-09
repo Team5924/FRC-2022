@@ -80,8 +80,6 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Left Velocity Feet", sensorToFeetPerSecond(getLeftVelocity()));
     SmartDashboard.putNumber("Right Velocity Feet", sensorToFeetPerSecond(getRightVelocity()));
-
-    SmartDashboard.putNumber("Left Velocity",getLeftVelocity());
   }
 
   public double getLeftVelocity() {

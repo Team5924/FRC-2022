@@ -12,13 +12,6 @@ public class Shoot extends CommandBase {
   private final ConveyorSubsystem m_conveyor;
   private final ShooterSubsystem m_shooter;
 
-  private boolean isAtSpeed = false;
-  private boolean isPreparingToDisable = false;
-
-  private int disableDelayTime = 500;
-
-  private long disableVerticalConveyorAt = 0;
-
   private int commandLength = 500;
 
   private long endCommandAt;
@@ -40,26 +33,7 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (isAtSpeed) {
-      m_conveyor.feedBallToShooter();
-      if (!m_shooter.isAtSpeed()) {
-        isPreparingToDisable = true;
-        isAtSpeed = false;
-        disableVerticalConveyorAt = System.currentTimeMillis() + disableDelayTime;
-      }
-    } else if (isPreparingToDisable) {
-      if (m_shooter.isAtSpeed()) {
-        isPreparingToDisable = false;
-        isAtSpeed = true;
-      } else if (System.currentTimeMillis() >= disableVerticalConveyorAt) {
-        m_conveyor.stop();
-        isPreparingToDisable = false;
-      }
-    } else {
-      if (m_shooter.isAtSpeed()) {
-        isAtSpeed = true;
-      }
-    }
+    m_conveyor.feedBallToShooter();
   }
 
   // Called once the command ends or is interrupted.

@@ -9,6 +9,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.ToggleShooter;
 import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.DriveDistance;
+import frc.robot.commands.auto.WaitTime;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -30,7 +31,7 @@ public class SingleBallAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     addCommands(
       new ToggleShooter(m_shooter),
-      new DriveDistance(m_drivetrain, 9.5, DriveConstants.AUTO_DRIVE_SPEED),
+      new WaitTime(m_drivetrain, 2500),
       new AutoShoot(m_conveyor, m_shooter),
       new DriveDistance(m_drivetrain, 80.5, DriveConstants.AUTO_DRIVE_SPEED)
     );

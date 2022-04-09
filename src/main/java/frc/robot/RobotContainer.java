@@ -108,8 +108,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    driverRightBumper.whenPressed(new ToggleIntake(m_intake));
-    //driverA.whenPressed(new InstantCommand(() -> m_conveyor.runRollers()));
+    //driverRightBumper.whenPressed(new ToggleIntake(m_intake));
 
     operatorA.whenHeld(new Eject(m_conveyor, m_shooter));
     //operatorB.whenPressed(new DriveDistance(m_drivetrain, 12, 0.1));

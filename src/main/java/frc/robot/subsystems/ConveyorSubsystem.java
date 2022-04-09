@@ -30,11 +30,10 @@ public class ConveyorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Upper Beam Break", isUpperBeamBroken());
     SmartDashboard.putBoolean("Lower Beam Break", isLowerBeamBroken());
-    SmartDashboard.putBoolean("Are Rollers Running", areRollersRunning());
   }
 
   public void runRollers() {
-    m_rollerSpark.set(0.4);
+    m_rollerSpark.set(0.275);
   }
 
   public void stopRollers() {

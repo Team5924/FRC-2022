@@ -20,7 +20,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private final CANSparkMax m_intakeSpark = new CANSparkMax(IntakeConstants.INTAKE_SPARK, MotorType.kBrushless);
 
     public IntakeSubsystem() {
-        //m_compressor.disable();
+        m_compressor.disable();
 
         m_intakeSolenoid.set(false);
 
@@ -30,7 +30,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Pneumatic Extended?", m_intakeSolenoid.get());
         SmartDashboard.putBoolean("Compressor Status", m_compressor.enabled());
         SmartDashboard.putBoolean("Intake Deployed", isDeployed());
         SmartDashboard.putBoolean("Compressor Pressurized", m_compressor.getPressureSwitchValue());
